@@ -34,9 +34,5 @@ sysinfo.txt
 *.apk
 *.unitypackage
 
-# Folder
-
-Pinball/Library/*
-
 # Crashlytics generated file
 crashlytics-build.properties
