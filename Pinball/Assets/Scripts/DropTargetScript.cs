@@ -4,110 +4,51 @@ using UnityEngine;
 
 public class DropTargetScript : MonoBehaviour
 {
-    private float dropSpeed = 3;
+        
+    List<SingleDropTargetScript> scripts;
     
-    private float collisionForce = 7;
-
-    private Rigidbody rb;
-
+    // Start is called before the first frame update
     void Start()
     {
-        rb = GetComponent<Rigidbody>();
+        scripts = new List<SingleDropTargetScript>();
+        
+        foreach(Transform child in transform)
+        {
+            scripts.Add(child.gameObject.GetComponent<SingleDropTargetScript>());
+        }
     }
 
+    // Update is called once per frame
     void Update()
     {
-        if(IsBelowTheTable())
+        if(AreAllSingleDropTargetsDown())
         {
-            StopDrop();
+            foreach(SingleDropTargetScript script in scripts)
+            {
+                script.startTime = Time.time;
+                script.status = SingleDropTargetScript.Status.RISING;
+            }
         }
-    }
-
-    private void OnCollisionEnter(Collision collision)
-    {
-        if(CollidedWithTable(collision))
-        {
-            IgnoreTable(collision);
-        }
-
-        if(CollidedWithSphere(collision))
-        {
-            PushBack(collision);
-            Drop();
-        }
-    }
-
-    private void PushBack(Collision collision)
-    {
-        Debug.Log($"collision.contacts[0].point = {collision.contacts[0].point}");
-        Debug.Log($"transform.position = {transform.position}");
-
-        // Get collision normal vector
-        Vector3 newDirection = collision.contacts[0].normal;
-        Debug.Log($"newDirection = {newDirection}");
-
-        // Change direction
-        newDirection = -newDirection.normalized;
-
-        // Disable any vertical movement
-        newDirection.y = 0;
-
-        // Apply impulse
-        collision.rigidbody.AddRelativeForce(collisionForce * newDirection, ForceMode.Impulse);
-    }
-
-    private bool IsBelowTheTable()
-    {
-        if(transform.position.y < -0.25)
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
-    }
-
-    private void StopDrop()
-    {
-        rb.velocity = Vector3.zero;
-        transform.position = new Vector3(0, -0.25f, 0);
         
-        Debug.Log($"Stand Up Position: {transform.position.y}");
     }
 
-    private bool CollidedWithTable(Collision collider)
+    bool AreAllSingleDropTargetsDown()
     {
-        if(collider.gameObject.tag == "Table")
+        foreach(SingleDropTargetScript script in scripts)
         {
-            return true;
+            switch(script.status)
+            {
+                case SingleDropTargetScript.Status.ABOVE_TABLE:
+                    return false;
+                case SingleDropTargetScript.Status.DROPPING: 
+                    return false;
+                case SingleDropTargetScript.Status.RISING:
+                    return false;
+                default:
+                    break;
+            }
         }
-        else
-        {
-            return false;
-        }
-    }
 
-    private void IgnoreTable(Collision collision)
-    {
-        Physics.IgnoreCollision(GetComponent<Collider>(), collision.collider);
-    }
-
-    private bool CollidedWithSphere(Collision collider)
-    {
-        if(collider.gameObject.tag == "Sphere")
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
-    }
-
-    private void Drop()
-    {
-        // For some reason AddForce doesn't work here.
-        rb.velocity = new Vector3(0, -dropSpeed, 0);
+        return true;
     }
 }
