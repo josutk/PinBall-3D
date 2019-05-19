@@ -36,7 +36,7 @@ sysinfo.txt
 
 # Folder
 
-Pinball/Library/*
+*/Library/
 
 # Crashlytics generated file
 crashlytics-build.properties
