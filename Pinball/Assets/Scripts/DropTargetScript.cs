@@ -5,8 +5,11 @@ using UnityEngine;
 public class DropTargetScript : MonoBehaviour
 {
         
-    List<SingleDropTargetScript> scripts;
+    private List<SingleDropTargetScript> scripts;
     
+    public AudioClip musicClip;
+    public AudioSource musicSource;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -16,6 +19,8 @@ public class DropTargetScript : MonoBehaviour
         {
             scripts.Add(child.gameObject.GetComponent<SingleDropTargetScript>());
         }
+
+        musicSource.clip = musicClip;
     }  
 
     // Update is called once per frame
@@ -27,6 +32,8 @@ public class DropTargetScript : MonoBehaviour
             {
                 SetupMovementUp(script);
             }
+
+            musicSource.Play();
         }
     }
 

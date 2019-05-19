@@ -24,11 +24,17 @@ public class SingleDropTargetScript : MonoBehaviour
     public float journeyLength;
     public float startTime;
 
+    public AudioClip musicClip;
+
+    public AudioSource musicSource;
+
     void Start()
     {
         rb = GetComponent<Rigidbody>();
         originalPosition = transform.position;
         belowTablePosition = new Vector3(transform.position.x, -0.26f, transform.position.z);
+        
+        musicSource.clip = musicClip;
     }
 
     void Update()
@@ -54,6 +60,7 @@ public class SingleDropTargetScript : MonoBehaviour
         {
             PushBack(collision);
             SetupMovementDown();
+            musicSource.Play();
         }
     }
 
