@@ -121,4 +121,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 026a6c1d63ad31c429355d29efb0986c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dropSpeed: 3
+  collisionForce: 3
+  originalPosition: {x: 0, y: 0, z: 0}
+  belowTablePosition: {x: 0, y: 0, z: 0}
   status: 0
+  journeyLength: 0
+  startTime: 0

@@ -14,14 +14,14 @@ public class SingleDropTargetScript : MonoBehaviour
 
     private Rigidbody rb;
 
-    private float dropSpeed = 3.0F;
-    private float collisionForce = 3;
+    public float dropSpeed = 3.0F;
+    public float collisionForce = 3.0F;
 
-    private Vector3 originalPosition;
-    private Vector3 belowTablePosition;
+    public Vector3 originalPosition;
+    public Vector3 belowTablePosition;
 
     public Status status = Status.ABOVE_TABLE;
-    private float journeyLength;
+    public float journeyLength;
     public float startTime;
 
     void Start()
@@ -31,20 +31,15 @@ public class SingleDropTargetScript : MonoBehaviour
         belowTablePosition = new Vector3(transform.position.x, -0.26f, transform.position.z);
     }
 
-    void FixPosition()
-    {
-        transform.position = belowTablePosition;
-    }
-
     void Update()
     {
         if(status == Status.DROPPING)
         {
-            Dropping();
+            Move(originalPosition, belowTablePosition);
         }
         else if(status == Status.RISING)
         {
-            Rising();
+            Move(belowTablePosition, originalPosition);
         }
     }
 
@@ -58,18 +53,15 @@ public class SingleDropTargetScript : MonoBehaviour
         if(CollidedWithSphere(collision))
         {
             PushBack(collision);
-            startTime = Time.time;
-            journeyLength = Vector3.Distance(originalPosition, belowTablePosition);
-            status = Status.DROPPING;
+            SetupMovementDown();
         }
     }
 
-    private void OnCollisionExit(Collision collision)
+    private void SetupMovementDown()
     {
-        if(CollidedWithSphere(collision))
-        {
-            journeyLength = Vector3.Distance(belowTablePosition, originalPosition);
-        }        
+        startTime = Time.time;   
+        journeyLength = Vector3.Distance(originalPosition, belowTablePosition);
+        status = Status.DROPPING;
     }
 
     private void PushBack(Collision collision)
@@ -120,38 +112,31 @@ public class SingleDropTargetScript : MonoBehaviour
         }
     }
 
-    private void Dropping()
+    private void Move(Vector3 start, Vector3 end)
     {
-        if(transform.position == belowTablePosition)
+        Debug.Log($"status == {status.ToString()}");
+
+        float distCovered = (Time.time - startTime) * dropSpeed;
+
+        // Fraction of journey completed = current distance divided by total distance.
+        float fracJourney = distCovered / journeyLength;
+
+        // Set our position as a fraction of the distance between the markers.
+        transform.position = Vector3.Lerp(start, end, fracJourney);
+
+        Debug.Log($"fracJourney == {fracJourney}");
+
+        if(fracJourney >= 1) // Ended
         {
-            status = Status.BELOW_TABLE;
+            if(transform.position == belowTablePosition)
+            {
+                status = Status.BELOW_TABLE;
+            }
+            else if(transform.position == originalPosition)
+            {
+                status = Status.ABOVE_TABLE;
+            } 
         }
-        else
-        {
-            // Distance moved = time * speed.
-            float distCovered = (Time.time - startTime) * dropSpeed;
-
-            // Fraction of journey completed = current distance divided by total distance.
-            float fracJourney = distCovered / journeyLength;
-
-            // Set our position as a fraction of the distance between the markers.
-            transform.position = Vector3.Lerp(originalPosition, belowTablePosition, fracJourney);
-        }
-    }
-
-    public void Rising()
-    {
-        if(transform.position == originalPosition)
-        {
-            status = Status.ABOVE_TABLE;
-        }
-        else
-        {
-            float distCovered = (Time.time - startTime) * dropSpeed;
-
-            float fracJourney = distCovered / journeyLength;
-
-            transform.position = Vector3.Lerp(belowTablePosition, originalPosition, fracJourney);
-        }
+        
     }
 }

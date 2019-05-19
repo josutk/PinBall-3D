@@ -16,7 +16,7 @@ public class DropTargetScript : MonoBehaviour
         {
             scripts.Add(child.gameObject.GetComponent<SingleDropTargetScript>());
         }
-    }
+    }  
 
     // Update is called once per frame
     void Update()
@@ -25,11 +25,16 @@ public class DropTargetScript : MonoBehaviour
         {
             foreach(SingleDropTargetScript script in scripts)
             {
-                script.startTime = Time.time;
-                script.status = SingleDropTargetScript.Status.RISING;
+                SetupMovementUp(script);
             }
         }
-        
+    }
+
+    private void SetupMovementUp(SingleDropTargetScript script)
+    {
+        script.startTime = Time.time;
+        script.journeyLength = Vector3.Distance(script.belowTablePosition, script.originalPosition);
+        script.status = SingleDropTargetScript.Status.RISING;
     }
 
     bool AreAllSingleDropTargetsDown()
