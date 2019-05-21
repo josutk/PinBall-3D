@@ -8,7 +8,7 @@ public class StandupScript : MonoBehaviour
     Rigidbody rb;
 
     // Amount of units that the object will recoil when hit.
-    public const float RECOIL = 0.25F;
+    public const float RECOIL = 0.03F;
 
     // "Resistance" of the standup when hit. The actual velocity
     // Will Be proportional to the colision speed.
@@ -76,7 +76,8 @@ public class StandupScript : MonoBehaviour
     private void SetupRecoilMovement(Collision collision)
     {
         // Set end position of interpolation based on the RECOIL variable and the hit angle
-        endPosition = startPosition + (collision.contacts[0].normal * RECOIL);
+        Vector3 normal = collision.contacts[0].normal.normalized;
+        endPosition = startPosition + (normal * RECOIL);
         journeyLength = Vector3.Distance(startPosition, endPosition);
         startTime = Time.time;
         recoilSpeed = RECOIL_BACK_SPEED * collision.relativeVelocity.magnitude;
