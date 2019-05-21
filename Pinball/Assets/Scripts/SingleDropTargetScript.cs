@@ -15,10 +15,12 @@ public class SingleDropTargetScript : MonoBehaviour
     private Rigidbody rb;
 
     public float dropSpeed = 3.0F;
-    public float collisionForce = 3.0F;
 
     public Vector3 originalPosition;
     public Vector3 belowTablePosition;
+
+    // Y position where the component will be when it drops.
+    public const float DROPPED_Y_POSITION = -0.22F;
 
     public Status status = Status.ABOVE_TABLE;
     public float journeyLength;
@@ -32,7 +34,7 @@ public class SingleDropTargetScript : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         originalPosition = transform.position;
-        belowTablePosition = new Vector3(transform.position.x, -0.26f, transform.position.z);
+        belowTablePosition = new Vector3(transform.position.x, DROPPED_Y_POSITION, transform.position.z);
         
         musicSource.clip = musicClip;
     }
@@ -56,9 +58,8 @@ public class SingleDropTargetScript : MonoBehaviour
             IgnoreTable(collision);
         }
 
-        if(CollidedWithSphere(collision))
+        if(CollidedWithSphere(collision) && status != Status.BELOW_TABLE)
         {
-            PushBack(collision);
             SetupMovementDown();
             musicSource.Play();
         }
@@ -69,25 +70,6 @@ public class SingleDropTargetScript : MonoBehaviour
         startTime = Time.time;   
         journeyLength = Vector3.Distance(originalPosition, belowTablePosition);
         status = Status.DROPPING;
-    }
-
-    private void PushBack(Collision collision)
-    {
-        //Debug.Log($"collision.contacts[0].point = {collision.contacts[0].point}");
-        //Debug.Log($"transform.position = {transform.position}");
-
-        // Get collision normal vector
-        Vector3 newDirection = collision.contacts[0].normal;
-        //Debug.Log($"newDirection = {newDirection}");
-
-        // Change direction
-        newDirection = -newDirection.normalized;
-
-        // Disable any vertical movement
-        newDirection.y = 0;
-
-        // Apply impulse
-        collision.rigidbody.AddRelativeForce(collisionForce * newDirection, ForceMode.Impulse);
     }
 
     private bool CollidedWithTable(Collision collider)
@@ -144,6 +126,5 @@ public class SingleDropTargetScript : MonoBehaviour
                 status = Status.ABOVE_TABLE;
             } 
         }
-        
     }
 }
