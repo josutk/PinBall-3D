@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class elasticCollison : MonoBehaviour
+public class ElasticCollison : MonoBehaviour
 {
     // Start is called before the first frame update
     private int increaseVelocity = 15;
