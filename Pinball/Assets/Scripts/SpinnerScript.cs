@@ -5,6 +5,12 @@ using UnityEngine;
 public class SpinnerScript : MonoBehaviour
 {
     private Rigidbody rb;
+    private GameScript gameScript;
+
+    private float lastFrameAngle = 180;
+
+    private bool didTurn = false;
+
 
     public int turns
     { get; set; }
@@ -14,20 +20,37 @@ public class SpinnerScript : MonoBehaviour
 
     void Start()
     {
-        Debug.Log("Hello, World!");
         rb = GetComponent<Rigidbody>();
+        
+        GameObject game = GameObject.FindGameObjectWithTag("Game");
+
+        if(game == null)
+        {
+            Debug.Log("Game is null!");
+        }
+
+        gameScript = game.GetComponent<GameScript>();
     }
+
+    // There is a bug with this component. If it is turning with negative velocity, the
+    // score is added when you make a half turn.
 
     void Update()
     {
         if(rb.angularVelocity != Vector3.zero)
         {
-            Debug.Log("Moving!");
-
-            if(transform.rotation.x > 180 || transform.rotation.x < 1)
+            if(rb.angularVelocity.x > 0 && lastFrameAngle == 180 && transform.eulerAngles.y == 0)
             {
-                Debug.Log("Rotated!");
+                gameScript.score += SCORE;
             }
+            else if(rb.angularVelocity.x < 0 && lastFrameAngle == 0 && transform.eulerAngles.y == 180)
+            {
+                gameScript.score += SCORE;
+            }
+
+            lastFrameAngle = transform.eulerAngles.y;
         }
+
+        Debug.Log($"AnglesE = {transform.eulerAngles}");
     }
 }
