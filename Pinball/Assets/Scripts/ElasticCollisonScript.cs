@@ -4,14 +4,12 @@ using UnityEngine;
 
 public class ElasticCollison : MonoBehaviour
 {
-    // Start is called before the first frame update
     private int increaseVelocity = 15;
     void Start()
     {
 
     }
 
-    // Update is called once per frame
     void Update()
     {
        
