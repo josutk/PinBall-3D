@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ElasticCollison : MonoBehaviour
+public class ElasticCollisonScript : MonoBehaviour
 {
     private int increaseVelocity = 15;
     void Start()
