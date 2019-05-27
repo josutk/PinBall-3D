@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class rigidCollison : MonoBehaviour
+public class RigidCollison : MonoBehaviour
 {
     // Start is called before the first frame update
     private float increaseVelocity = 0.5f;
