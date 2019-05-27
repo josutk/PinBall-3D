@@ -8,6 +8,7 @@ TagManager:
   - Table
   - SingleDropTarget
   - Spinner
+  - Game
   layers:
   - Default
   - TransparentFX

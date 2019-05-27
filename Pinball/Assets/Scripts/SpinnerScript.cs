@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,16 +8,12 @@ public class SpinnerScript : MonoBehaviour
     private Rigidbody rb;
     private GameScript gameScript;
 
-    private float lastFrameAngle = 180;
-
-    private bool didTurn = false;
-
-
-    public int turns
-    { get; set; }
+    private int rotationCount = 0;
+    private float rotationAmount = -180;
+    private Quaternion lastFrameAngle;
 
     // Component score
-    private const int SCORE = 100;
+    public const int SCORE = 100;
 
     void Start()
     {
@@ -24,33 +21,46 @@ public class SpinnerScript : MonoBehaviour
         
         GameObject game = GameObject.FindGameObjectWithTag("Game");
 
-        if(game == null)
-        {
-            Debug.Log("Game is null!");
-        }
-
         gameScript = game.GetComponent<GameScript>();
-    }
 
-    // There is a bug with this component. If it is turning with negative velocity, the
-    // score is added when you make a half turn.
+        //rb.angularVelocity = new Vector3(0.4f, 0, 0);
+    }
 
     void Update()
     {
-        if(rb.angularVelocity != Vector3.zero)
+
+        //Debug.Log($"AnglesE = {Quaternion.Angle(transform.rotation, lastFrameAngle)}");
+        
+        if(IsMoving)
         {
-            if(rb.angularVelocity.x > 0 && lastFrameAngle == 180 && transform.eulerAngles.y == 0)
+            // Get how much was rotated from last frame and add it
+            rotationAmount += Quaternion.Angle(transform.rotation, lastFrameAngle);
+
+            // If we finally rotated 360 degrees, this should be 1
+            rotationCount = (int) rotationAmount / 360;
+
+            Debug.Log($"Rotation Count: {rotationCount}");
+            Debug.Log($"Rotation Amount: {rotationAmount}");
+
+            // If it is, change it back to zero and add the score.
+            if(rotationCount == 1)
             {
-                gameScript.score += SCORE;
-            }
-            else if(rb.angularVelocity.x < 0 && lastFrameAngle == 0 && transform.eulerAngles.y == 180)
-            {
+                rotationCount = 0;
+                rotationAmount = 0;
+
                 gameScript.score += SCORE;
             }
 
-            lastFrameAngle = transform.eulerAngles.y;
+            lastFrameAngle = transform.rotation;
         }
+    }
 
-        Debug.Log($"AnglesE = {transform.eulerAngles}");
+    bool IsMoving
+    {
+        get
+        {
+            if (rb.angularVelocity != Vector3.zero) return true;
+            else return false;
+        }
     }
 }
