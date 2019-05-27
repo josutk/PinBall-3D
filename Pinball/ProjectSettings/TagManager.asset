@@ -6,6 +6,9 @@ TagManager:
   tags:
   - Sphere
   - Table
+  - SingleDropTarget
+  - Spinner
+  - Game
   layers:
   - Default
   - TransparentFX
