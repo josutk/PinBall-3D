@@ -39,11 +39,24 @@ public class ScoopScript : MonoBehaviour
                 Physics.IgnoreCollision(other, t.GetComponent<Collider>(), false);
             }
 
-            ShowBall2D();
+            ActivateBonusLevel();
         }
     }
 
-    private void ShowBall2D()
+    private void ActivateBonusLevel()
+    {
+        ActivateSecondScreenElements();
+        ThrowBall();
+    }
+
+    private void ActivateSecondScreenElements()
+    {
+        GameObject secondScreen = GameObject.FindGameObjectWithTag(Constants.SECOND_SCREEN_TAG);
+        SecondScreenScript script = secondScreen.GetComponent<SecondScreenScript>();
+        script.ReactivateChildren();
+    }
+
+    private void ThrowBall()
     {
         Rigidbody2D rb2D = ball2D.GetComponent<Rigidbody2D>(); 
         Rigidbody rb = sphere.GetComponent<Rigidbody>();

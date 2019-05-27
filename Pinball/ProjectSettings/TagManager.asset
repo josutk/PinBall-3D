@@ -10,6 +10,8 @@ TagManager:
   - Spinner
   - Game
   - 2D Ball
+  - Second Screen
+  - 2D Camera
   layers:
   - Default
   - TransparentFX
