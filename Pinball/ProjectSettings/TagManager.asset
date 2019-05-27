@@ -9,6 +9,7 @@ TagManager:
   - SingleDropTarget
   - Spinner
   - Game
+  - 2D Ball
   layers:
   - Default
   - TransparentFX
