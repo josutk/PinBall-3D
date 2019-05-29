@@ -7,6 +7,7 @@ public class ScoopScript : MonoBehaviour
     private GameObject sphere;
     private GameObject[] table;
     private GameObject ball2D;
+    private float previousSpeed = 0;
 
     // Constant related to the impulse given to the 2D ball.
     // This is used because the velocities doesn't translate well two 2D environments.
@@ -26,6 +27,14 @@ public class ScoopScript : MonoBehaviour
             foreach(GameObject t in table)
             {
                 Physics.IgnoreCollision(other, t.GetComponent<Collider>());
+
+                Rigidbody ballRigidBody = other.gameObject.GetComponent<Rigidbody>();
+
+                GameObject bottom = GameObject.FindGameObjectWithTag("Hole");
+
+                previousSpeed = ballRigidBody.velocity.z;
+
+                ballRigidBody.AddForce((bottom.transform.position - ballRigidBody.position) * 10);
             }
         }
     }
@@ -63,7 +72,7 @@ public class ScoopScript : MonoBehaviour
 
         rb2D.constraints = RigidbodyConstraints2D.None;
 
-        rb2D.AddForce(new Vector2(0,  (-rb.velocity.z) * IMPULSE));   
+        rb2D.AddForce(new Vector2(0,  (-previousSpeed) * IMPULSE));   
     }
 
     private bool DidCollideWithSphere(Collider other)

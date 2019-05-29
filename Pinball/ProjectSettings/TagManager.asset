@@ -12,6 +12,7 @@ TagManager:
   - 2D Ball
   - Second Screen
   - 2D Camera
+  - Hole
   layers:
   - Default
   - TransparentFX
