@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Sphere
   - Table
+  - SingleDropTarget
+  - CollisionEnd
   layers:
   - Default
   - TransparentFX
