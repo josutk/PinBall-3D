@@ -6,6 +6,15 @@ TagManager:
   tags:
   - Sphere
   - Table
+  - CollisionEnd
+  - ball
+  - SingleDropTarget
+  - Spinner
+  - Game
+  - 2D Ball
+  - Second Screen
+  - 2D Camera
+  - Hole
   layers:
   - Default
   - TransparentFX
