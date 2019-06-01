@@ -37,6 +37,12 @@ sysinfo.txt
 # Folder
 
 */Library/
+*/Temp/
+*/obj/
+*/Logs/
 
 # Crashlytics generated file
 crashlytics-build.properties
+
+# Visual Studio Code
+*/.vscode/
