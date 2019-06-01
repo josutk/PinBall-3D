@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 3851500590510283081}
   - component: {fileID: 3851500590510283080}
   - component: {fileID: 3851500590510283083}
-  - component: {fileID: 3851500590510283076}
   m_Layer: 0
   m_Name: cylinderSlingshot3
   m_TagString: Untagged
@@ -60,7 +59,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: ce6fd4c2c005f2345a0fe20fcf779469, type: 2}
+  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -110,18 +109,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 126
   m_CollisionDetection: 0
---- !u!114 &3851500590510283076
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3851500590510283082}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 44d5d352c01322c45a4977ece2f54f15, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &3851500590598839029
 GameObject:
   m_ObjectHideFlags: 0
@@ -256,7 +243,6 @@ GameObject:
   - component: {fileID: 3851500591735464594}
   - component: {fileID: 3851500591735464597}
   - component: {fileID: 3851500591735464596}
-  - component: {fileID: 3851500591735464593}
   m_Layer: 0
   m_Name: cylinderSlingshot1
   m_TagString: Untagged
@@ -303,7 +289,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: ce6fd4c2c005f2345a0fe20fcf779469, type: 2}
+  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -353,18 +339,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 126
   m_CollisionDetection: 0
---- !u!114 &3851500591735464593
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3851500591735464599}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 44d5d352c01322c45a4977ece2f54f15, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &3851500591887669445
 GameObject:
   m_ObjectHideFlags: 0
@@ -535,7 +509,6 @@ GameObject:
   - component: {fileID: 3851500592148461165}
   - component: {fileID: 3851500592148461164}
   - component: {fileID: 3851500592148461167}
-  - component: {fileID: 3851500592148461160}
   m_Layer: 0
   m_Name: cylinderSlingshot2
   m_TagString: Untagged
@@ -582,7 +555,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: ce6fd4c2c005f2345a0fe20fcf779469, type: 2}
+  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -632,18 +605,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 126
   m_CollisionDetection: 0
---- !u!114 &3851500592148461160
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3851500592148461166}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 44d5d352c01322c45a4977ece2f54f15, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &3851500592384488966
 GameObject:
   m_ObjectHideFlags: 0
