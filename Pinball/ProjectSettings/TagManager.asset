@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Sphere
   - Table
+  - CollisionEnd
   - ball
   - SingleDropTarget
   - Spinner
