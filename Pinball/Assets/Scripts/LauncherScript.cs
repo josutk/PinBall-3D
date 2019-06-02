@@ -67,7 +67,7 @@ public class LauncherScript: MonoBehaviour
     }
 
     private void OnTriggerEnter(Collider other) {
-        if (other.gameObject.CompareTag("ball")) {
+        if (other.gameObject.CompareTag("Sphere")) {
             ballList.Add(other.gameObject.GetComponent<Rigidbody>());
 
             }
@@ -75,7 +75,7 @@ public class LauncherScript: MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.CompareTag("ball"))
+        if (other.gameObject.CompareTag("Sphere"))
         {
             ballList.Remove(other.gameObject.GetComponent<Rigidbody>());
             power = 0f;
