@@ -4,27 +4,22 @@ using UnityEngine;
 
 public class PopBumperCollision : MonoBehaviour
 {
-    private ElasticCollison elastic = new ElasticCollison();
+    //private ElasticCollison elastic = new ElasticCollison();
     private int increaseVelocity = 15;
-    public Color color = Color.black;
 
     // Start is called before the first frame update
-    void Start()
-    {
-        gameObject.GetComponent<Renderer>().material.color = new Color(color.r, color.g, color.b, color.a);
-
+    void Start(){        
     }
 
     // Update is called once per frame
-    void Update()
-    {
-        
+    void Update(){        
     }
+
     void OnCollisionEnter(Collision collision) {
 
-        if (elastic.sphereColision(collision)) {
+        if (sphereColision(collision)) {
 
-            gameObject.GetComponent<Renderer>().material.color = changeColor();
+            gameObject.GetComponent<Renderer>().material.color = Color.green;
             Vector3 vector = collision.rigidbody.velocity;
             vector.x = (collision.transform.position.x - transform.position.x) * increaseVelocity;
             vector.y = (collision.transform.position.y - transform.position.y) * increaseVelocity;
@@ -35,10 +30,17 @@ public class PopBumperCollision : MonoBehaviour
         }
     }
 
-    private Color changeColor() {
+    void OnCollisionExit(Collision other){
+        if (sphereColision(other)) {
+            gameObject.GetComponent<Renderer>().material.color = Color.gray;
+        }
+    }
 
-        Color newColor = Color.green;
-        return new Color(newColor.r, newColor.g, newColor.b, newColor.a);
+    public bool sphereColision( Collision collision) {
 
+    if (collision.gameObject.tag == "Sphere"){
+        return true;
+    }
+    return false;
     }
 }
