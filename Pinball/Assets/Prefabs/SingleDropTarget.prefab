@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 949854381713807653}
   - component: {fileID: 949854381713807650}
   m_Layer: 0
-  m_Name: DropTarget
+  m_Name: SingleDropTarget
   m_TagString: SingleDropTarget
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -87,7 +87,7 @@ MeshCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 949854381713807648}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 7a5c7e3bfc719b04a9ad90750a6f0ba8, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 3
