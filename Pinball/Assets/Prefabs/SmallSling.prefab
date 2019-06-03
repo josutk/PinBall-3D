@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 2512192278113566854}
   - component: {fileID: 7998205056367313048}
   - component: {fileID: 1918891335051072629}
+  - component: {fileID: 1770148554230302277}
   m_Layer: 0
   m_Name: SmallSling
   m_TagString: Untagged
@@ -91,3 +92,16 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.01, y: 0.023046926, z: 0.012239776}
   m_Center: {x: -2.2448682e-10, y: -0.004600955, z: -0.0011198883}
+--- !u!114 &1770148554230302277
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1918891335051072630}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c8596bd90f8b1494e9121cd672b06de5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  velocityIncrement: 1.1
