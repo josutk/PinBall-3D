@@ -39,8 +39,8 @@ public class SpinnerScript : MonoBehaviour
             // If we finally rotated 360 degrees, this should be 1
             rotationCount = (int) rotationAmount / 360;
 
-            Debug.Log($"Rotation Count: {rotationCount}");
-            Debug.Log($"Rotation Amount: {rotationAmount}");
+           // Debug.Log($"Rotation Count: {rotationCount}");
+           // Debug.Log($"Rotation Amount: {rotationAmount}");
 
             // If it is, change it back to zero and add the score.
             if(rotationCount == 1)
