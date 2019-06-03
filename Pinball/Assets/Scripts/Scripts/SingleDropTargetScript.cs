@@ -26,9 +26,7 @@ public class SingleDropTargetScript : MonoBehaviour
     public float journeyLength;
     public float startTime;
 
-    public AudioClip musicClip;
-
-    public AudioSource musicSource;
+    private AudioSource musicSource;
 
     void Start()
     {
@@ -36,7 +34,7 @@ public class SingleDropTargetScript : MonoBehaviour
         originalPosition = transform.position;
         belowTablePosition = new Vector3(transform.position.x, DROPPED_Y_POSITION, transform.position.z);
         
-        musicSource.clip = musicClip;
+        musicSource = GetComponent<AudioSource>();
     }
 
     void Update()

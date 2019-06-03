@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 5617244157838057677}
   - component: {fileID: 3243033443411177101}
   - component: {fileID: 4669358366535426168}
-  - component: {fileID: 4669358366535426169}
   m_Layer: 0
   m_Name: SmallPopBumper
   m_TagString: Untagged
@@ -93,18 +92,3 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 14
   m_Mesh: {fileID: 8506990728464933407, guid: 2fe3e3098a514b54a9188d0f25457f0c, type: 3}
---- !u!114 &4669358366535426169
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4669358366535426171}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 84716ee70b799d144a937ae62deee0dc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  increaseVelocity: 25
-  startColor: {r: 0.6039216, g: 0.6392157, b: 0.6666667, a: 1}
-  changeColor: {r: 0.8773585, g: 0.07035423, b: 0.07035423, a: 0}
