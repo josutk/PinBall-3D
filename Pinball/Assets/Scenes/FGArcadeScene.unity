@@ -235,6 +235,40 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 29385865}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &65833377 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3315011219326637603, guid: af760175cb2afba42b35fe44fca2a55a,
+    type: 3}
+  m_PrefabInstance: {fileID: 1129855087896502181}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &65833378
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 65833377}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24f1a9461a5187d4fb4d85aac4415c45, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startColor: {r: 0.6039216, g: 0.6392157, b: 0.6666667, a: 0}
+  changeColor: {r: 0.5882353, g: 0.058823533, b: 0.9333334, a: 0}
+  useParent: 0
+--- !u!114 &65833382
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 65833377}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c8596bd90f8b1494e9121cd672b06de5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  velocityIncrement: 1.1
 --- !u!1001 &67979910
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1178,6 +1212,40 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 948334697}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1012628451 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4669358366535426171, guid: 0507a1b439064014dabd395a2162771a,
+    type: 3}
+  m_PrefabInstance: {fileID: 8109365624980982522}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1012628452
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1012628451}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c8596bd90f8b1494e9121cd672b06de5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  velocityIncrement: 1.1
+--- !u!114 &1012628456
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1012628451}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24f1a9461a5187d4fb4d85aac4415c45, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startColor: {r: 0.6039216, g: 0.6392157, b: 0.6666667, a: 0}
+  changeColor: {r: 0.87843144, g: 0.07058824, b: 0.07058824, a: 0}
+  useParent: 0
 --- !u!1 &1145669824
 GameObject:
   m_ObjectHideFlags: 0
@@ -1336,10 +1404,19 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1271238864}
     m_Modifications:
+    - target: {fileID: 0}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8223023346180769259, guid: 2567629da2ee66340b2cdd541873b054,
         type: 3}
       propertyPath: m_Name
-      value: LeftSlingshot (1)
+      value: Slingshot (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8223023346180769259, guid: 2567629da2ee66340b2cdd541873b054,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5172249546870454335, guid: 2567629da2ee66340b2cdd541873b054,
         type: 3}
@@ -1430,16 +1507,10 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Material
       value: 
-      objectReference: {fileID: 13400000, guid: 7a5c7e3bfc719b04a9ad90750a6f0ba8,
-        type: 2}
+      objectReference: {fileID: 0}
     - target: {fileID: 8223023346180769256, guid: 2567629da2ee66340b2cdd541873b054,
         type: 3}
       propertyPath: m_Convex
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8223023346180769257, guid: 2567629da2ee66340b2cdd541873b054,
-        type: 3}
-      propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7822067448904562671, guid: 2567629da2ee66340b2cdd541873b054,
@@ -1453,7 +1524,7 @@ PrefabInstance:
       value: ScrewSlingshot
       objectReference: {fileID: 0}
     m_RemovedComponents:
-    - {fileID: 8223023346180769257, guid: 2567629da2ee66340b2cdd541873b054, type: 3}
+    - {fileID: 0}
   m_SourcePrefab: {fileID: 100100000, guid: 2567629da2ee66340b2cdd541873b054, type: 3}
 --- !u!1001 &1351847916
 PrefabInstance:
@@ -1550,17 +1621,17 @@ PrefabInstance:
     - target: {fileID: 981230162972009550, guid: 42d5f6988ebe0b146b7a512356dafa3e,
         type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 981230162902700865, guid: 42d5f6988ebe0b146b7a512356dafa3e,
         type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 981230162866163642, guid: 42d5f6988ebe0b146b7a512356dafa3e,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 981230161309656123, guid: 42d5f6988ebe0b146b7a512356dafa3e,
         type: 3}
@@ -1938,7 +2009,7 @@ PrefabInstance:
     - target: {fileID: 6159153766117603516, guid: e6694bf315dff6f499c6725f0c002295,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -1.13
+      value: 1.07
       objectReference: {fileID: 0}
     - target: {fileID: 6159153766117603516, guid: e6694bf315dff6f499c6725f0c002295,
         type: 3}
@@ -1948,7 +2019,7 @@ PrefabInstance:
     - target: {fileID: 6159153766117603516, guid: e6694bf315dff6f499c6725f0c002295,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.56
+      value: 0.45
       objectReference: {fileID: 0}
     - target: {fileID: 6159153766117603516, guid: e6694bf315dff6f499c6725f0c002295,
         type: 3}
@@ -2532,7 +2603,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 3315011219326637602, guid: af760175cb2afba42b35fe44fca2a55a, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: af760175cb2afba42b35fe44fca2a55a, type: 3}
 --- !u!1001 &2163228019780503704
 PrefabInstance:
@@ -2601,7 +2673,13 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 6211307330329151331, guid: 148ecd080bb357f41b43155d4943c0a5,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 6211307330329151331, guid: 148ecd080bb357f41b43155d4943c0a5, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 148ecd080bb357f41b43155d4943c0a5, type: 3}
 --- !u!1001 &2414997220744224847
 PrefabInstance:
@@ -3371,7 +3449,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 4669358366535426169, guid: 0507a1b439064014dabd395a2162771a, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 0507a1b439064014dabd395a2162771a, type: 3}
 --- !u!1001 &8704035052632231356
 PrefabInstance:
@@ -3459,10 +3538,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1271238864}
     m_Modifications:
+    - target: {fileID: 0}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8223023346180769259, guid: 2567629da2ee66340b2cdd541873b054,
         type: 3}
       propertyPath: m_Name
-      value: LeftSlingshot
+      value: Slingshot
       objectReference: {fileID: 0}
     - target: {fileID: 5172249546870454335, guid: 2567629da2ee66340b2cdd541873b054,
         type: 3}
@@ -3553,16 +3636,10 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Material
       value: 
-      objectReference: {fileID: 13400000, guid: 7a5c7e3bfc719b04a9ad90750a6f0ba8,
-        type: 2}
+      objectReference: {fileID: 0}
     - target: {fileID: 8223023346180769256, guid: 2567629da2ee66340b2cdd541873b054,
         type: 3}
       propertyPath: m_Convex
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8223023346180769257, guid: 2567629da2ee66340b2cdd541873b054,
-        type: 3}
-      propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7822067448904562671, guid: 2567629da2ee66340b2cdd541873b054,
@@ -3575,8 +3652,7 @@ PrefabInstance:
       propertyPath: m_Name
       value: ScrewSlingshot
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 8223023346180769257, guid: 2567629da2ee66340b2cdd541873b054, type: 3}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2567629da2ee66340b2cdd541873b054, type: 3}
 --- !u!1001 &8890736025275781871
 PrefabInstance:
