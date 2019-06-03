@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481694, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657874, g: 0.49641258, b: 0.574817, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1325,9 +1325,136 @@ Transform:
   m_Children:
   - {fileID: 6026665087202450825}
   - {fileID: 4491420574474006773}
+  - {fileID: 1839614196}
   m_Father: {fileID: 0}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &1284882650
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 1271238864}
+    m_Modifications:
+    - target: {fileID: 8223023346180769259, guid: 2567629da2ee66340b2cdd541873b054,
+        type: 3}
+      propertyPath: m_Name
+      value: LeftSlingshot (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5172249546870454335, guid: 2567629da2ee66340b2cdd541873b054,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.6487149
+      objectReference: {fileID: 0}
+    - target: {fileID: 5172249546870454335, guid: 2567629da2ee66340b2cdd541873b054,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 4.147831
+      objectReference: {fileID: 0}
+    - target: {fileID: 5172249546870454335, guid: 2567629da2ee66340b2cdd541873b054,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -3.991158
+      objectReference: {fileID: 0}
+    - target: {fileID: 5172249546870454335, guid: 2567629da2ee66340b2cdd541873b054,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.35355338
+      objectReference: {fileID: 0}
+    - target: {fileID: 5172249546870454335, guid: 2567629da2ee66340b2cdd541873b054,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0.6123725
+      objectReference: {fileID: 0}
+    - target: {fileID: 5172249546870454335, guid: 2567629da2ee66340b2cdd541873b054,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0.61237246
+      objectReference: {fileID: 0}
+    - target: {fileID: 5172249546870454335, guid: 2567629da2ee66340b2cdd541873b054,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.35355335
+      objectReference: {fileID: 0}
+    - target: {fileID: 5172249546870454335, guid: 2567629da2ee66340b2cdd541873b054,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5172249546870454335, guid: 2567629da2ee66340b2cdd541873b054,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 90.00001
+      objectReference: {fileID: 0}
+    - target: {fileID: 5172249546870454335, guid: 2567629da2ee66340b2cdd541873b054,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5172249546870454335, guid: 2567629da2ee66340b2cdd541873b054,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 120
+      objectReference: {fileID: 0}
+    - target: {fileID: 5172249546870454335, guid: 2567629da2ee66340b2cdd541873b054,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 25.00003
+      objectReference: {fileID: 0}
+    - target: {fileID: 5172249546870454335, guid: 2567629da2ee66340b2cdd541873b054,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: -64.72228
+      objectReference: {fileID: 0}
+    - target: {fileID: 1627056075185891490, guid: 2567629da2ee66340b2cdd541873b054,
+        type: 3}
+      propertyPath: m_Name
+      value: ScrewSlingshot (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2300522911114789979, guid: 2567629da2ee66340b2cdd541873b054,
+        type: 3}
+      propertyPath: m_Name
+      value: ScrewSlingshot (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2264059125525643893, guid: 2567629da2ee66340b2cdd541873b054,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8223023346180769256, guid: 2567629da2ee66340b2cdd541873b054,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8223023346180769256, guid: 2567629da2ee66340b2cdd541873b054,
+        type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 13400000, guid: 7a5c7e3bfc719b04a9ad90750a6f0ba8,
+        type: 2}
+    - target: {fileID: 8223023346180769256, guid: 2567629da2ee66340b2cdd541873b054,
+        type: 3}
+      propertyPath: m_Convex
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8223023346180769257, guid: 2567629da2ee66340b2cdd541873b054,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7822067448904562671, guid: 2567629da2ee66340b2cdd541873b054,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7822067448904562671, guid: 2567629da2ee66340b2cdd541873b054,
+        type: 3}
+      propertyPath: m_Name
+      value: ScrewSlingshot
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 8223023346180769257, guid: 2567629da2ee66340b2cdd541873b054, type: 3}
+  m_SourcePrefab: {fileID: 100100000, guid: 2567629da2ee66340b2cdd541873b054, type: 3}
 --- !u!1001 &1351847916
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1790,6 +1917,12 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &1839614196 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5172249546870454335, guid: 2567629da2ee66340b2cdd541873b054,
+    type: 3}
+  m_PrefabInstance: {fileID: 1284882650}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1948099168
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1805,7 +1938,7 @@ PrefabInstance:
     - target: {fileID: 6159153766117603516, guid: e6694bf315dff6f499c6725f0c002295,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1.04
+      value: -1.13
       objectReference: {fileID: 0}
     - target: {fileID: 6159153766117603516, guid: e6694bf315dff6f499c6725f0c002295,
         type: 3}
@@ -3077,6 +3210,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: RightSlingshot
       objectReference: {fileID: 0}
+    - target: {fileID: 503342164562200083, guid: 406caa6cf8125bf4684a35021b63febc,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3621190552750932704, guid: 406caa6cf8125bf4684a35021b63febc,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -3146,6 +3284,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.z
       value: 64.72228
+      objectReference: {fileID: 0}
+    - target: {fileID: 6511393336508368588, guid: 406caa6cf8125bf4684a35021b63febc,
+        type: 3}
+      propertyPath: m_Name
+      value: ScrewSlingshot (1)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 406caa6cf8125bf4684a35021b63febc, type: 3}
@@ -3386,7 +3529,54 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: -64.72228
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 1627056075185891490, guid: 2567629da2ee66340b2cdd541873b054,
+        type: 3}
+      propertyPath: m_Name
+      value: ScrewSlingshot (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2300522911114789979, guid: 2567629da2ee66340b2cdd541873b054,
+        type: 3}
+      propertyPath: m_Name
+      value: ScrewSlingshot (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2264059125525643893, guid: 2567629da2ee66340b2cdd541873b054,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8223023346180769256, guid: 2567629da2ee66340b2cdd541873b054,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8223023346180769256, guid: 2567629da2ee66340b2cdd541873b054,
+        type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 13400000, guid: 7a5c7e3bfc719b04a9ad90750a6f0ba8,
+        type: 2}
+    - target: {fileID: 8223023346180769256, guid: 2567629da2ee66340b2cdd541873b054,
+        type: 3}
+      propertyPath: m_Convex
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8223023346180769257, guid: 2567629da2ee66340b2cdd541873b054,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7822067448904562671, guid: 2567629da2ee66340b2cdd541873b054,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7822067448904562671, guid: 2567629da2ee66340b2cdd541873b054,
+        type: 3}
+      propertyPath: m_Name
+      value: ScrewSlingshot
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 8223023346180769257, guid: 2567629da2ee66340b2cdd541873b054, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 2567629da2ee66340b2cdd541873b054, type: 3}
 --- !u!1001 &8890736025275781871
 PrefabInstance:
