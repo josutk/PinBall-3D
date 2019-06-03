@@ -19,9 +19,9 @@ public class SpinnerScript : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         
-        GameObject game = GameObject.FindGameObjectWithTag("Game");
+        //GameObject game = GameObject.FindGameObjectWithTag("Game");
 
-        gameScript = game.GetComponent<GameScript>();
+        //gameScript = game.GetComponent<GameScript>();
 
         //rb.angularVelocity = new Vector3(0.4f, 0, 0);
     }
@@ -48,7 +48,7 @@ public class SpinnerScript : MonoBehaviour
                 rotationCount = 0;
                 rotationAmount = 0;
 
-                gameScript.score += SCORE;
+               // gameScript.score += SCORE;
             }
 
             lastFrameAngle = transform.rotation;
