@@ -15,6 +15,7 @@ TagManager:
   - Second Screen
   - 2D Camera
   - Hole
+  - RollOverTrigger
   layers:
   - Default
   - TransparentFX
