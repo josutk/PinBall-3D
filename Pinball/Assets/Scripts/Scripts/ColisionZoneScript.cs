@@ -16,6 +16,8 @@ public class ColisionZoneScript : MonoBehaviour {
         
         if (!GameObject.FindGameObjectWithTag("Sphere") && !gameOver) {            
             lives--;            
+
+            sphere.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePositionY;
             Instantiate(sphere, spawnPosition.position, sphere.transform.rotation);
             if (display) {
                 display.text = "Esferas: " + lives.ToString();
