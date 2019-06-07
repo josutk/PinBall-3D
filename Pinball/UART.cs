@@ -13,7 +13,6 @@ public class PortChat
     static byte[] ok_message = new byte[1]{ 0xFF };
     static byte[] request = new byte[1]{ 0xF0 };
     static byte[] message = new byte[2];
-    static bool b = true;
 
     public static void OpenPort()
     {
@@ -40,8 +39,8 @@ public class PortChat
         port.StopBits = (StopBits.One);
         port.Handshake = (Handshake.RequestToSend);
 
-        port.ReadTimeout = -1;
-        port.WriteTimeout = -1;
+        port.ReadTimeout = 250;
+        port.WriteTimeout = 250;
 
         port.DtrEnable = true;
         port.RtsEnable = true;
@@ -52,14 +51,17 @@ public class PortChat
     }
 
 
-    public static void ChangeSound(int value)
+    public static void ChangeSound(string value)
     {
-        message[0] = BitConverter.GetBytes(value)[0];
+        int hex = Convert.ToInt32(value);
+        message[0] = Convert.ToByte(hex); 
     }
 
-    public static void ChangeLights(int value)
+    public static void ChangeLights(string value)
     {
-        message[1] = BitConverter.GetBytes(value)[0];
+        int hex = Convert.ToInt32(value);
+
+        message[1] = Convert.ToByte(hex);
     }
 
     private static void SendMessage()
@@ -83,17 +85,17 @@ public class PortChat
 
         while(true)
         {
-            string option = Console.ReadLine();
+            string lightsOrSound = Console.ReadLine();
 
-            if(option == "1")
+            if(lightsOrSound == "1")
             {
-                Console.WriteLine("Escolheu a Opção 1");
-                ChangeSound(0x01);
+                string option = Console.ReadLine();
+                ChangeLights(option);
             }
-            else if(option == "2")
+            else if(lightsOrSound == "2")
             {
-                Console.WriteLine("Escolheu a opção 2");
-                ChangeSound(0x02);
+                string option = Console.ReadLine();
+                ChangeSound(option);
             }
 
             SendMessage();
@@ -118,7 +120,6 @@ public class PortChat
                 byteToRead = port.ReadByte();
 
                 Console.WriteLine($"Byte 2 recebido: {byteToRead}") ;
-
             }
             catch(TimeoutException) {
             }
