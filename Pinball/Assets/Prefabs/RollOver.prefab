@@ -145,13 +145,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 6058808103160410750}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 69bfc990f16741b44abfe5763f3683f5, type: 3}
+  m_Script: {fileID: 11500000, guid: 8fd0b2930694803499dd593be5d8af9c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  aboveTablePosition: {x: 0.086, y: -0.153, z: 0.182}
-  upSpeed: 2
-  objectToMove: {fileID: 6058808102590140010}
-  useLocal: 1
+  aboveTablePosition: {x: 0, y: 0, z: 0}
+  upSpeed: 0
+  objectToMove: {fileID: 0}
+  useLocal: 0
 --- !u!1 &8047858285659625979
 GameObject:
   m_ObjectHideFlags: 0

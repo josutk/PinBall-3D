@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class DisableWallTrigger : MonoBehaviour
 {
-    public MoveUpBehaviour wallTrigger;
+    public Collider trigger;
 
     void OnTriggerExit(Collider collider)
     {
-        wallTrigger.enabled = false;
+       trigger.enabled = false; 
     }
 }

@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MoveUpBehaviour : MonoBehaviour
+public class MoveBehaviour : MonoBehaviour
 {
-    private bool move;
+    private bool shouldMove;
     private float journeyLength;
     private float startTime;
     private Vector3 start;
@@ -21,7 +21,7 @@ public class MoveUpBehaviour : MonoBehaviour
 
     void Start()
     {
-        move = false;
+        shouldMove = false;
 
         if(objectToMove == null) objectToMove = transform.gameObject;
 
@@ -31,7 +31,7 @@ public class MoveUpBehaviour : MonoBehaviour
     
     void Update()
     {
-        if(move)
+        if(shouldMove)
         {
             Move(start, aboveTablePosition);
         }
@@ -41,7 +41,7 @@ public class MoveUpBehaviour : MonoBehaviour
     {
         if(CollisionHelper.DidCollideWithSphere(collider.gameObject.tag))
         {
-            move = true;
+            shouldMove = true;
             startTime = Time.time;
             journeyLength = Vector3.Distance(start, aboveTablePosition);
         }
@@ -59,8 +59,7 @@ public class MoveUpBehaviour : MonoBehaviour
 
         if(fracJourney >= 1) // Ended
         {
-            move = false;
-            GetComponent<Collider>().isTrigger = false;
+            shouldMove = false;
         }
     }
 }

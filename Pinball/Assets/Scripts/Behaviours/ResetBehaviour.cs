@@ -4,16 +4,6 @@ using UnityEngine;
 
 public class ResetBehaviour : MonoBehaviour
 {
-    private bool _reset = false;
-
-    public bool shouldReset
-    {
-        set
-        {
-            _reset = value;
-        }
-    }
-
     // Mark if should reset position.
     public bool resetPosition = false;
 
@@ -57,16 +47,7 @@ public class ResetBehaviour : MonoBehaviour
 
     }
 
-    void Update()
-    {
-        if(_reset)
-        {
-            _reset = false;
-            Reset();
-        }
-    }
-
-    private void Reset()
+    public void Reset()
     {
         Debug.Log("Resetting!");
 
@@ -80,7 +61,7 @@ public class ResetBehaviour : MonoBehaviour
         if(resetTrigger)
         {
             Debug.Log("Reset Trigger?");
-            trigger.isTrigger = resetTriggerTo;
+            trigger.enabled = resetTriggerTo;
         }
     }
 

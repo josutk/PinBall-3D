@@ -30,14 +30,9 @@ public class DestroyInvisibleObjectScript : MonoBehaviour {
             {
                 foreach(ResetBehaviour behaviour in behaviours)
                 {
-                    behaviour.shouldReset = true;
+                    behaviour.Reset();
                 }
             }
         }        
     }
-
-    //void OnCollisionEnter(Collision collision) {
-    //    Destroy(collision.gameObject);        
-    //}    
-
 }
