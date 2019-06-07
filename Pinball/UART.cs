@@ -10,9 +10,10 @@ using System.Diagnostics;
 public class PortChat
 {
     static SerialPort port;
-    static string message;
     static byte[] ok_message = new byte[1]{ 0xFF };
     static byte[] request = new byte[1]{ 0xF0 };
+    static byte[] message = new byte[2];
+    static bool b = true;
 
     public static void OpenPort()
     {
@@ -39,14 +40,33 @@ public class PortChat
         port.StopBits = (StopBits.One);
         port.Handshake = (Handshake.RequestToSend);
 
-        port.ReadTimeout = 250;
-        port.WriteTimeout = 250;
+        port.ReadTimeout = -1;
+        port.WriteTimeout = -1;
+
+        port.DtrEnable = true;
+        port.RtsEnable = true;
 
         OpenPort();
 
         Console.WriteLine("A comunicação está aberta!");
     }
 
+
+    public static void ChangeSound(int value)
+    {
+        message[0] = BitConverter.GetBytes(value)[0];
+    }
+
+    public static void ChangeLights(int value)
+    {
+        message[1] = BitConverter.GetBytes(value)[0];
+    }
+
+    private static void SendMessage()
+    {
+        port.Write(request, 0, 1);
+        port.Write(message, 0, 2);
+    }
 
     public static void Main()
     {
@@ -57,12 +77,27 @@ public class PortChat
         Thread thread = new Thread(Read);
         thread.Start();
         
-        
-        Console.WriteLine($"A thread de leitura está viva? {thread.IsAlive}");
-
-        byte[] byteToSend = new byte[1]{0xFF};
+        byte[] byteToSend = new byte[1]{0xDF};
 
         port.Write(byteToSend, 0, 1);
+
+        while(true)
+        {
+            string option = Console.ReadLine();
+
+            if(option == "1")
+            {
+                Console.WriteLine("Escolheu a Opção 1");
+                ChangeSound(0x01);
+            }
+            else if(option == "2")
+            {
+                Console.WriteLine("Escolheu a opção 2");
+                ChangeSound(0x02);
+            }
+
+            SendMessage();
+        }
 
         thread.Join();
         port.Close();
@@ -72,33 +107,17 @@ public class PortChat
     {
         while(true)
         {
+            int byteToRead;
 
-            Console.WriteLine("Reading!");
-            byte[] byteToRead = new byte[2];
-            byte[] generic = new byte[1]{ 0x41 };
-
-            try
+            try 
             {
-                port.Read(byteToRead, 0, 2);
+                byteToRead = port.ReadByte();
 
-                Console.WriteLine($"Tamanho {byteToRead.Length}");
+                Console.WriteLine($"Byte recebido: {byteToRead}") ;
 
-                if(byteToRead.Length == 2)
-                {
-                    port.Write(ok_message, 0, 1);
+                byteToRead = port.ReadByte();
 
-                }
-
-                int b = byteToRead[0];
-
-                if(b == 0x41)
-                {
-                    Console.WriteLine("São Iguais!");
-                }
-                else
-                {
-                    Console.WriteLine($"Valor recebido: {b}");
-                }
+                Console.WriteLine($"Byte 2 recebido: {byteToRead}") ;
 
             }
             catch(TimeoutException) {
