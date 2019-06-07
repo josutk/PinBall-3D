@@ -1,4 +1,5 @@
-﻿// Use this code inside a project created with the Visual C# > Windows Desktop > Console Application template.
+﻿
+// Use this code inside a project created with the Visual C# > Windows Desktop > Console Application template.
 // Replace the code in Program.cs with this code.
 
 using System;
@@ -10,8 +11,25 @@ public class PortChat
 {
     static SerialPort port;
     static string message;
+    static byte[] ok_message = new byte[1]{ 0xFF };
+    static byte[] request = new byte[1]{ 0xF0 };
 
-    public static void Main()
+    public static void OpenPort()
+    {
+        if(port.IsOpen)
+        {
+            port.Close();
+            OpenPort();
+        }
+        else
+        {
+            port.Open();
+            port.DiscardInBuffer();
+            port.DiscardOutBuffer();
+        }
+    }
+
+    public static void Configure()
     {
         port = new SerialPort();
         port.PortName = ("/dev/ttyACM0");
@@ -21,46 +39,30 @@ public class PortChat
         port.StopBits = (StopBits.One);
         port.Handshake = (Handshake.RequestToSend);
 
-        port.ReadTimeout = 500;
-        port.WriteTimeout = 500;
+        port.ReadTimeout = 250;
+        port.WriteTimeout = 250;
 
-        Thread thread = new Thread(Read);
+        OpenPort();
 
-        if(port.IsOpen)
-        {
-            Console.WriteLine("A porta já está aberta!");
-        }
-        else
-        {
-            try
-            {
-                port.Open();
+        Console.WriteLine("A comunicação está aberta!");
+    }
 
-                Console.WriteLine("A comunicação está aberta!");
 
-                port.DiscardInBuffer();
-                port.DiscardOutBuffer();
-            }
-            catch(Exception)
-            {
-                Console.WriteLine("Exceção!");
-            }
-        }
+    public static void Main()
+    {
+        Configure();
 
         bool reading = true;
+
+        Thread thread = new Thread(Read);
         thread.Start();
+        
+        
+        Console.WriteLine($"A thread de leitura está viva? {thread.IsAlive}");
 
-        while(reading)
-        {
-            string m = Console.ReadLine();
+        byte[] byteToSend = new byte[1]{0xFF};
 
-            if(m == "<0")
-            {
-                Console.WriteLine("Enviando <0");
-                port.Write(m);
-            }
-            else if(m == "quit") reading = false;
-        }
+        port.Write(byteToSend, 0, 1);
 
         thread.Join();
         port.Close();
@@ -70,38 +72,36 @@ public class PortChat
     {
         while(true)
         {
-            Console.WriteLine("DataReceivedHandler");
 
-            int indata = -1;
+            Console.WriteLine("Reading!");
+            byte[] byteToRead = new byte[2];
+            byte[] generic = new byte[1]{ 0x41 };
 
             try
             {
-                indata = port.ReadByte();
-                message = message + (char)indata;
+                port.Read(byteToRead, 0, 2);
 
-                Console.WriteLine($"Valor recebido: {indata}");
-                Console.WriteLine($"Valor da mensagem {message}\n");
+                Console.WriteLine($"Tamanho {byteToRead.Length}");
 
-                if(message == "aa")
+                if(byteToRead.Length == 2)
                 {
-                    try
-                    {
-                        port.DiscardOutBuffer();
-                        port.Write("<0");
+                    port.Write(ok_message, 0, 1);
 
-                    }
-                    catch(TimeoutException) {}
-
-                    message = "";
                 }
-                else if(message == "bb")
+
+                int b = byteToRead[0];
+
+                if(b == 0x41)
                 {
-                    message = "";
+                    Console.WriteLine("São Iguais!");
                 }
+                else
+                {
+                    Console.WriteLine($"Valor recebido: {b}");
+                }
+
             }
             catch(TimeoutException) {
-
-                Console.WriteLine($"tamanho do bupffer{port.BytesToRead}");
             }
         }
     }
