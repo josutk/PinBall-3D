@@ -10,8 +10,8 @@ public class SignalHandlerScript : MonoBehaviour
     public struct Buttons 
     {
         public bool select;
-        public bool rFlipper;
-        public bool lFlipper;
+        public bool rightButton;
+        public bool leftButton;
     };
 
     public struct Launcher
@@ -35,9 +35,6 @@ public class SignalHandlerScript : MonoBehaviour
     private int[] previousMessage;
     private int[] message;
 
-    private FlipperScript RFlipper;
-    private FlipperScript LFlipper;
-
     private Rigidbody Ball;
 
     void Start()
@@ -47,10 +44,6 @@ public class SignalHandlerScript : MonoBehaviour
 
     void Update()
     {
-        bool isLevelLoaded = IsLevelLoaded();
-
-        if(isLevelLoaded) FindInteractibles();
-
         message = UART.GetMessage();
 
         // This if was created because of the way that I did the classes.
@@ -61,34 +54,6 @@ public class SignalHandlerScript : MonoBehaviour
             previousMessage = message;
 
             ParseInput();    
-
-            if(isLevelLoaded)
-            {
-                ApplyInteractions();
-            }
-            else
-            {
-                // Move Menu Screen.
-            }
-
-        }
-    }
-
-    private void FindInteractibles()
-    {
-        if(RFlipper == null)
-        {
-            RFlipper = GameObject.FindGameObjectWithTag(Constants.RIGHT_FLIPPER_TAG).GetComponent<FlipperScript>();
-        }
-
-        if(LFlipper == null)
-        {
-            LFlipper = GameObject.FindGameObjectWithTag(Constants.LEFT_FLIPPER_TAG).GetComponent<FlipperScript>();
-        }
-
-        if(Ball == null)
-        {
-            Ball = GameObject.FindGameObjectWithTag(Constants.SPHERE_TAG).GetComponent<Rigidbody>();
         }
     }
 
@@ -112,47 +77,14 @@ public class SignalHandlerScript : MonoBehaviour
     private void ParseInput()
     {
         buttons.select = Convert.ToBoolean(message[0] & 00000001);
-        buttons.lFlipper = Convert.ToBoolean(message[0] & 00000010);
-        buttons.rFlipper = Convert.ToBoolean(message[0] & 00000100);
+        buttons.leftButton = Convert.ToBoolean(message[0] & 00000010);
+        buttons.rightButton = Convert.ToBoolean(message[0] & 00000100);
 
         launcher.force = (message[0] >> 3) & 00000111;
 
         angle.angle = message[1] & 01111111;
     }
 
-    private void ApplyInteractions()
-    {
-        if(buttons.select != previousButtons.select)
-        {
-            previousButtons.select = buttons.select;
-
-        }
-
-        if(buttons.lFlipper != previousButtons.lFlipper)
-        {
-            previousButtons.lFlipper = buttons.lFlipper;
-
-            LFlipper.Move = buttons.lFlipper;
-        }
-
-        if(buttons.rFlipper != previousButtons.rFlipper)
-        {
-            previousButtons.rFlipper = buttons.rFlipper;
-
-            RFlipper.Move = buttons.rFlipper;
-        }
-
-        if(launcher.force != previousLauncher.force)
-        {
-            previousLauncher.force = launcher.force;
-        }
-
-        if(angle.angle != previousAngle.angle)
-        {
-            previousAngle.angle = angle.angle;
-        }
-    }
-    
     public void ChangeSound(Int32 volume)
     {
         UART.ChangeSound(volume);

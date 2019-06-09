@@ -16,4 +16,6 @@ public static class Constants
 
     public const string RIGHT_FLIPPER_TAG = "Right Flipper";
     public const string LEFT_FLIPPER_TAG = "Left Flipper";
+
+    public const string SIGNAL_HANDLER_TAG = "Signal Handler";
 }

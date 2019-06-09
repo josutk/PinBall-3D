@@ -16,6 +16,9 @@ TagManager:
   - 2D Camera
   - Hole
   - RollOverTrigger
+  - Right Flipper
+  - Left Flipper
+  - Signal handler
   layers:
   - Default
   - TransparentFX

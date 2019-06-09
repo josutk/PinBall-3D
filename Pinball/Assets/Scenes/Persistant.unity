@@ -174,11 +174,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1726140593}
   - component: {fileID: 1726140594}
-  - component: {fileID: 1726140596}
-  - component: {fileID: 1726140595}
   m_Layer: 0
   m_Name: SignalHandler
-  m_TagString: Untagged
+  m_TagString: Signal handler
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -207,32 +205,5 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4cb0f6542e91f3248be1135d4a614aad, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Left: {fileID: 1726140596}
-  Right: {fileID: 1726140596}
-  Ball: {fileID: 0}
---- !u!114 &1726140595
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1726140592}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: abc39a4cac10aa747b15180506b6c747, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1726140596
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1726140592}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: abc39a4cac10aa747b15180506b6c747, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
