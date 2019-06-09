@@ -8,7 +8,14 @@ public class FlipperScript : MonoBehaviour{
     public float hitStrenght = 10000f;
     public float flipperDamper = 150f;
     public string inputName;
-    HingeJoint hinge;
+    
+    private HingeJoint hinge;
+
+    private bool _move;
+
+    public bool Move
+    { set { _move = value; } }
+
 
     // Start is called before the first frame update
     void Start() {
@@ -22,7 +29,7 @@ public class FlipperScript : MonoBehaviour{
         spring.spring = hitStrenght;
         spring.damper = flipperDamper;
 
-        if (Input.GetAxis(inputName) == 1) {
+        if (_move) {
             spring.targetPosition = pressedPosition;
         }
         else {

@@ -7,14 +7,16 @@ using System.IO.Ports;
 using System.Threading;
 using System.Diagnostics;
 
-public class PortChat
+public class UART 
 {
     static SerialPort port;
     static byte[] ok_message = new byte[1]{ 0xFF };
     static byte[] request = new byte[1]{ 0xF0 };
     static byte[] message = new byte[2];
 
-    public static void OpenPort()
+    private static int[] receivedMessage = new int[2];
+
+    private static void OpenPort()
     {
         if(port.IsOpen)
         {
@@ -29,7 +31,7 @@ public class PortChat
         }
     }
 
-    public static void Configure()
+    private static void Configure()
     {
         port = new SerialPort();
         port.PortName = ("/dev/ttyACM0");
@@ -46,83 +48,58 @@ public class PortChat
         port.RtsEnable = true;
 
         OpenPort();
-
-        Console.WriteLine("A comunicação está aberta!");
     }
 
-
-    public static void ChangeSound(string value)
+    private static void InitializeCommunication()
     {
-        int hex = Convert.ToInt32(value);
-        message[0] = Convert.ToByte(hex); 
+        byte[] byteToSend = new byte[1]{0xDF};
+
+        port.Write(byteToSend, 0, 1);
     }
 
-    public static void ChangeLights(string value)
+    public static void ChangeSound(Int32 volume)
     {
-        int hex = Convert.ToInt32(value);
-
-        message[1] = Convert.ToByte(hex);
+        message[0] = Convert.ToByte(volume); 
     }
 
-    private static void SendMessage()
+    public static void ChangeLights(Int32 speed)
+    {
+        message[1] = Convert.ToByte(speed);
+    }
+
+    public static void SendMessage()
     {
         port.Write(request, 0, 1);
         port.Write(message, 0, 2);
     }
 
-    public static void Main()
+    public static void Start()
     {
         Configure();
 
-        bool reading = true;
-
         Thread thread = new Thread(Read);
         thread.Start();
-        
-        byte[] byteToSend = new byte[1]{0xDF};
 
-        port.Write(byteToSend, 0, 1);
-
-        while(true)
-        {
-            string lightsOrSound = Console.ReadLine();
-
-            if(lightsOrSound == "1")
-            {
-                string option = Console.ReadLine();
-                ChangeLights(option);
-            }
-            else if(lightsOrSound == "2")
-            {
-                string option = Console.ReadLine();
-                ChangeSound(option);
-            }
-
-            SendMessage();
-        }
-
-        thread.Join();
-        port.Close();
+        InitializeCommunication();
     }
 
     private static void Read()
     {
         while(true)
         {
-            int byteToRead;
-
             try 
             {
-                byteToRead = port.ReadByte();
+                receivedMessage[0] = port.ReadByte();
 
-                Console.WriteLine($"Byte recebido: {byteToRead}") ;
-
-                byteToRead = port.ReadByte();
-
-                Console.WriteLine($"Byte 2 recebido: {byteToRead}") ;
+                receivedMessage[1] = port.ReadByte();
             }
             catch(TimeoutException) {
             }
         }
+    }
+
+    public static int[] GetMessage()
+    {
+        return receivedMessage;
     }
 }

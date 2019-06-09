@@ -11,4 +11,9 @@ public static class Constants
     public const string PERSISTANT_SCENE_NAME = "Persistant";
 
     public const string LEFT_FLIPPER_INPUT = "LFlipper";
+
+    public const string FGA_ARCADE_LEVEL_NAME = "FGArcadeScene";
+
+    public const string RIGHT_FLIPPER_TAG = "Right Flipper";
+    public const string LEFT_FLIPPER_TAG = "Left Flipper";
 }
