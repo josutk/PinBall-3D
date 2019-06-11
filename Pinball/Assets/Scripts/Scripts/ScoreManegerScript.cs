@@ -20,6 +20,6 @@ public class ScoreManegerScript : MonoBehaviour {
 
     void UpdateScore() {
         //scoreText.text = string.Format(scoreTextFormat, this.score);
-        scoreText.text = this.score.ToString().PadLeft(12, '0');
+        scoreText.text = this.score.ToString("N0").PadLeft(11, '0');
     }
 }
