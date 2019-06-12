@@ -35,7 +35,7 @@ public class UART
     private static void Configure()
     {
         port = new SerialPort();
-        port.PortName = ("/dev/ttyACM0");
+        port.PortName = ("/dev/ttyACM1");
         port.BaudRate = (9600);
         port.Parity = (Parity.None);
         port.DataBits = (8);
