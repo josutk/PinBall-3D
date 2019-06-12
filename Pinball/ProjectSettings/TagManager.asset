@@ -18,7 +18,7 @@ TagManager:
   - RollOverTrigger
   - Right Flipper
   - Left Flipper
-  - Signal handler
+  - Signal Handler
   layers:
   - Default
   - TransparentFX

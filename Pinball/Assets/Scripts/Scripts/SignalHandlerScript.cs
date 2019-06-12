@@ -12,6 +12,13 @@ public class SignalHandlerScript : MonoBehaviour
         public bool select;
         public bool rightButton;
         public bool leftButton;
+
+        public Buttons(bool select, bool rightButton, bool leftButton)
+        {
+            this.select = select;
+            this.rightButton = rightButton;
+            this.leftButton = leftButton;
+        }
     };
 
     public struct Launcher
@@ -32,26 +39,29 @@ public class SignalHandlerScript : MonoBehaviour
     private Launcher previousLauncher;
     private Angle previousAngle;
 
-    private int[] previousMessage;
-    private int[] message;
+    private int[] previousMessage = new int[2]{-1, -1};
+    private int[] message = new int[2]{-1, -1};
 
     private Rigidbody Ball;
 
     void Start()
     {
         UART.Start();
+
+        buttons = new Buttons(false, false, false);
     }
 
     void Update()
     {
         message = UART.GetMessage();
 
-        // This if was created because of the way that I did the classes.
         // It doesn't have anything to do with MSP.
-        if(!message.Equals(previousMessage))
+        if((message[0] != previousMessage[0]) || (message[1] != previousMessage[1]))
         {
+
             //TODO(Roger): Check which message (message[0] or message[1] is different and parse accordingly)
-            previousMessage = message;
+            previousMessage[0] = message[0];
+            previousMessage[1] = message[1];
 
             ParseInput();    
         }
@@ -77,7 +87,9 @@ public class SignalHandlerScript : MonoBehaviour
     private void ParseInput()
     {
         buttons.select = Convert.ToBoolean(message[0] & 00000001);
+
         buttons.leftButton = Convert.ToBoolean(message[0] & 00000010);
+
         buttons.rightButton = Convert.ToBoolean(message[0] & 00000100);
 
         launcher.force = (message[0] >> 3) & 00000111;

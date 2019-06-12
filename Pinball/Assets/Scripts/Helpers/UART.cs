@@ -6,6 +6,7 @@ using System;
 using System.IO.Ports;
 using System.Threading;
 using System.Diagnostics;
+using UnityEngine;
 
 public class UART 
 {
@@ -14,7 +15,7 @@ public class UART
     static byte[] request = new byte[1]{ 0xF0 };
     static byte[] message = new byte[2];
 
-    private static int[] receivedMessage = new int[2];
+    private static int[] receivedMessage = new int[2]{-1, -1};
 
     private static void OpenPort()
     {
@@ -92,6 +93,9 @@ public class UART
                 receivedMessage[0] = port.ReadByte();
 
                 receivedMessage[1] = port.ReadByte();
+
+                if(receivedMessage[0] != -1 || receivedMessage[1] != -1)
+                    UnityEngine.Debug.Log($"GetMessage receivedMessage: {receivedMessage[0]} {receivedMessage[1]}");
             }
             catch(TimeoutException) {
             }
@@ -100,6 +104,8 @@ public class UART
 
     public static int[] GetMessage()
     {
+        
+
         return receivedMessage;
     }
 }
