@@ -9,9 +9,13 @@ public class SelectorScript : MonoBehaviour
     private LinkedList<int> LLPosition = new LinkedList<int>(new int[3] {1, 2, 3});
     private LinkedListNode<int> currentPosition;
 
+    private GameScript game;
+
     void Start()
     {
-        signalHandler = GameObject.FindGameObjectWithTag(Constants.SIGNAL_HANDLER_TAG).GetComponent<SignalHandlerScript>();
+        signalHandler = FinderHelper.GetSignalHandler();
+        game = FinderHelper.GetGameController();
+        
         currentPosition = LLPosition.First;
     }
 
@@ -21,9 +25,16 @@ public class SelectorScript : MonoBehaviour
         {
             MoveUp();
         }
+        
         if(signalHandler.buttons.leftButton)
         {
             MoveDown();
+        }
+
+        if(signalHandler.buttons.select)
+        {
+            if(currentPosition.Value == 1) game.LoadMenu();
+            else if(currentPosition.Value == 2) game.LoadFGArcade();
         }
 
         MoveSelector();

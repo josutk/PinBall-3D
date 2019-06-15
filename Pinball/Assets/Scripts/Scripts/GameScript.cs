@@ -34,7 +34,7 @@ public class GameScript : MonoBehaviour
        // }
     }
 
-    public void UnloadOtherScenes()
+    private void UnloadOtherScenes()
     {
         int numberOfScenes = SceneManager.sceneCount;
 
@@ -51,11 +51,13 @@ public class GameScript : MonoBehaviour
 
     public void LoadMenu()
     {
+        UnloadOtherScenes();
         SceneManager.LoadScene(Constants.MENU_SCENE_NAME, LoadSceneMode.Additive);
     }
 
-    public void LoadLevelOne()
+    public void LoadFGArcade()
     {
-        SceneManager.LoadScene(Constants.LEVEL_ONE_SCENE_NAME, LoadSceneMode.Additive);
+        UnloadOtherScenes();
+        SceneManager.LoadScene(Constants.FGARCADE_SCENE, LoadSceneMode.Additive);
     }
 }
