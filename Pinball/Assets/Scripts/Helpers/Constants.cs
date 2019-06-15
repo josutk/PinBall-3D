@@ -11,4 +11,7 @@ public static class Constants
     public const string PERSISTANT_SCENE_NAME = "Persistant";
 
     public const string LEFT_FLIPPER_INPUT = "LFlipper";
+    public static string RIGHT_FLIPPER_INPUT = "RFlipper";
+
+    public const string SIGNAL_HANDLER_TAG = "Signal Handler";
 }
