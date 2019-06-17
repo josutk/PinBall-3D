@@ -9,13 +9,23 @@ public class HighscoreTable : MonoBehaviour {
     private List<Transform> highscoreEntryTransformList;
     public int saveScoreTrashold = 10;
 
+    private string alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    private string initials = "";
+    public float moveDelay = 0.5f;
+    private int letterSelect = 0;
+    private int stepper = 0;
+    private GameObject nextText;
+    public GameObject gameDialog;
+    private bool readyToMove = true;
+    public Text[] Letters = null;
+
     private void Awake() {
         entryContainer = transform.Find("HighscoreEntryContainer");
         entryTemplate = entryContainer.Find("HighscoreEntryTemplate");
 
         entryTemplate.gameObject.SetActive(false);
 
-        AddHighscoreEntry(30, "IGO");
+        //AddHighscoreEntry(30, "IGO");
         //RemoveLastScoreTable();        
         //ClearScoreTable();
 
@@ -26,6 +36,20 @@ public class HighscoreTable : MonoBehaviour {
         foreach (HighScoreEntry highScoreEntry in highscores.highscoreEntryList) {
             CreatingHighscoreEntryTransform(highScoreEntry, entryContainer, highscoreEntryTransformList);
         }
+    }
+
+    void Start() {
+        Letters[letterSelect].text = alphabet[stepper].ToString();
+        Input.ResetInputAxes();
+        nextText = GameObject.Find("Button");
+    }
+
+    void Update() {
+        if (Input.GetKeyDown(KeyCode.Escape)) {
+            gameDialog.SetActive(!gameDialog.activeSelf);
+        }
+
+        EnterName();
     }
 
     private void CreatingHighscoreEntryTransform(HighScoreEntry highScoreEntry,
@@ -68,8 +92,8 @@ public class HighscoreTable : MonoBehaviour {
 
     private void AddHighscoreEntry(int score, string name) {
         // Create HighscoreEntry
-        HighScoreEntry highScoreEntry = new HighScoreEntry { score = score, name = name };        
-        
+        HighScoreEntry highScoreEntry = new HighScoreEntry { score = score, name = name };
+
         if (PlayerPrefs.HasKey("HighscoreTable")) {
             //Load saved Highscore
             string jsonString = PlayerPrefs.GetString("HighscoreTable");
@@ -81,11 +105,11 @@ public class HighscoreTable : MonoBehaviour {
                 HighScoreEntry lowestScore = highscores.highscoreEntryList[highscores.highscoreEntryList.Count - 1];
                 Debug.Log("lowest " + lowestScore.score);
                 Debug.Log("new " + score);
-                if (lowestScore != null && saveScoreTrashold > 0 && 
+                if (lowestScore != null && saveScoreTrashold > 0 &&
                     highscores.highscoreEntryList.Count >= saveScoreTrashold && score > lowestScore.score) {
                     Debug.Log("Entrou FDP ");
                     RemoveLastScoreTable();
-                    hsCount--;                    
+                    hsCount--;
                 }
             }
             if (hsCount <= saveScoreTrashold) {
@@ -103,8 +127,8 @@ public class HighscoreTable : MonoBehaviour {
                 PlayerPrefs.Save();
 
                 Debug.Log("Third " + PlayerPrefs.GetString("HighscoreTable"));
-            }                     
-        }        
+            }
+        }
     }
 
     private void RemoveLastScoreTable() {
@@ -129,7 +153,7 @@ public class HighscoreTable : MonoBehaviour {
             PlayerPrefs.Save();
             Debug.Log("First3 " + PlayerPrefs.GetString("HighscoreTable"));
             //Debug.Log(PlayerPrefs.GetString("HighscoreTable"));
-        }        
+        }
     }
 
     private void ClearScoreTable() {
@@ -157,6 +181,61 @@ public class HighscoreTable : MonoBehaviour {
                 }
             }
         }
+    }
+
+    private void EnterName() {
+        if (initials.Length < 3) {
+
+            if (Input.GetKey("up") && readyToMove) {
+                if (stepper < alphabet.Length - 1) {
+                    stepper++;
+                    Letters[letterSelect].text = alphabet[stepper].ToString();
+                    readyToMove = false;
+                    Invoke("ResetReadyToMove", moveDelay);
+                }
+            }
+            //
+            if (Input.GetKey("down") && readyToMove) {
+                if (stepper > 0) {
+                    stepper--;
+                    Letters[letterSelect].text = alphabet[stepper].ToString();
+                    readyToMove = false;
+                    Invoke("ResetReadyToMove", moveDelay);
+                }
+            }
+            //
+            if (Input.GetKey("tab") && readyToMove) {
+                if (letterSelect <= Letters.Length - 1) {
+                    initials = initials + alphabet[stepper].ToString();
+
+                    if (letterSelect == Letters.Length - 1) {
+                        letterSelect = 3; // breaks loop then sets name 
+                        string nameFromInput = initials;
+                        int scoreTest = 45;
+
+                        //foreach (GameObject kl in GameObject.FindGameObjectsWithTag("Template")) {
+                        //    Destroy(kl);
+                        //}
+                        AddHighscoreEntry(scoreTest, nameFromInput);
+                        Debug.Log(nameFromInput);
+                    }
+
+                    if (letterSelect < Letters.Length - 1) {
+                        letterSelect++;
+                        readyToMove = false;
+                        Invoke("ResetReadyToMove", moveDelay);
+                    }
+                    //Debug.Log(initials);
+                    stepper = 0;
+                }
+            }
+        }
+
+
+    }
+
+    void ResetReadyToMove() {
+        readyToMove = true;
     }
 
     private class Highscores {
