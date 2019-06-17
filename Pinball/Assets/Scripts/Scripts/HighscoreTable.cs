@@ -7,6 +7,7 @@ public class HighscoreTable : MonoBehaviour {
     private Transform entryContainer;
     private Transform entryTemplate;
     private List<Transform> highscoreEntryTransformList;
+    public int saveScoreTrashold = 10;
 
     private void Awake() {
         entryContainer = transform.Find("HighscoreEntryContainer");
@@ -14,8 +15,9 @@ public class HighscoreTable : MonoBehaviour {
 
         entryTemplate.gameObject.SetActive(false);
 
-        //AddHighscoreEntry(137210, "FDP");
-        RemoveLastScoreTable();        
+        AddHighscoreEntry(30, "IGO");
+        //RemoveLastScoreTable();        
+        //ClearScoreTable();
 
         string jsonString = PlayerPrefs.GetString("HighscoreTable");
         Highscores highscores = JsonUtility.FromJson<Highscores>(jsonString);
@@ -66,37 +68,43 @@ public class HighscoreTable : MonoBehaviour {
 
     private void AddHighscoreEntry(int score, string name) {
         // Create HighscoreEntry
-        HighScoreEntry highScoreEntry = new HighScoreEntry { score = score, name = name };
-        Highscores highscores;
-
-        string json;
-        string jsonString;
-
+        HighScoreEntry highScoreEntry = new HighScoreEntry { score = score, name = name };        
+        
         if (PlayerPrefs.HasKey("HighscoreTable")) {
             //Load saved Highscore
-            jsonString = PlayerPrefs.GetString("HighscoreTable");
-            highscores = JsonUtility.FromJson<Highscores>(jsonString);
+            string jsonString = PlayerPrefs.GetString("HighscoreTable");
+            Highscores highscores = JsonUtility.FromJson<Highscores>(jsonString);
 
-            // Add new entry to Highscores
-            highscores.highscoreEntryList.Add(highScoreEntry);
+            int hsCount = highscores.highscoreEntryList.Count;
 
-            SortListTable(highscores);
+            if (highscores.highscoreEntryList.Count > 0) {
+                HighScoreEntry lowestScore = highscores.highscoreEntryList[highscores.highscoreEntryList.Count - 1];
+                Debug.Log("lowest " + lowestScore.score);
+                Debug.Log("new " + score);
+                if (lowestScore != null && saveScoreTrashold > 0 && 
+                    highscores.highscoreEntryList.Count >= saveScoreTrashold && score > lowestScore.score) {
+                    Debug.Log("Entrou FDP ");
+                    RemoveLastScoreTable();
+                    hsCount--;                    
+                }
+            }
+            if (hsCount <= saveScoreTrashold) {
+                // Add new entry to Highscores
+                jsonString = PlayerPrefs.GetString("HighscoreTable");
+                highscores = JsonUtility.FromJson<Highscores>(jsonString);
+                Debug.Log("Second " + PlayerPrefs.GetString("HighscoreTable"));
+                highscores.highscoreEntryList.Add(highScoreEntry);
 
-            // Save updated Highscores
-            json = JsonUtility.ToJson(highscores);
+                SortListTable(highscores);
 
-            PlayerPrefs.SetString("HighscoreTable", json);
+                // Save updated Highscores
+                string json = JsonUtility.ToJson(highscores);
+                PlayerPrefs.SetString("HighscoreTable", json);
+                PlayerPrefs.Save();
 
-            PlayerPrefs.Save();
-        }
-        //else {
-        //    HighScoreEntry defaultHighScoreEntry = new HighScoreEntry { score = 1000, name = "AIR" };            
-        //    json = JsonUtility.ToJson(defaultHighScoreEntry);
-        //    PlayerPrefs.SetString("HighscoreTable", json);
-        //    PlayerPrefs.Save();
-        //}
-        //PlayerPrefs.DeleteKey("HighscoreTable");
-
+                Debug.Log("Third " + PlayerPrefs.GetString("HighscoreTable"));
+            }                     
+        }        
     }
 
     private void RemoveLastScoreTable() {
@@ -104,23 +112,23 @@ public class HighscoreTable : MonoBehaviour {
         string jsonString = PlayerPrefs.GetString("HighscoreTable");
         Highscores highscores = JsonUtility.FromJson<Highscores>(jsonString);
 
-        Debug.Log("First " + PlayerPrefs.GetString("HighscoreTable"));        
-
-        int savedScore = 5;
-
-        if (savedScore <= highscores.highscoreEntryList.Count) {
-            int deleteCount = highscores.highscoreEntryList.Count - savedScore;
+        Debug.Log("First " + PlayerPrefs.GetString("HighscoreTable"));
+        if (saveScoreTrashold <= highscores.highscoreEntryList.Count) {
+            int deleteCount = highscores.highscoreEntryList.Count - saveScoreTrashold;
+            Debug.Log("First2Deletecount " + deleteCount);
             highscores.highscoreEntryList.Reverse();
-            for (int i = 0; i < deleteCount; i++) {
+            for (int i = 0; i <= deleteCount; i++) {
                 //Remove last score table         
                 highscores.highscoreEntryList.RemoveAt(i);
+                Debug.Log("First25 " + i);
             }
             SortListTable(highscores);
             //Save updated scores 
             string json = JsonUtility.ToJson(highscores);
             PlayerPrefs.SetString("HighscoreTable", json);
             PlayerPrefs.Save();
-            Debug.Log(PlayerPrefs.GetString("HighscoreTable"));
+            Debug.Log("First3 " + PlayerPrefs.GetString("HighscoreTable"));
+            //Debug.Log(PlayerPrefs.GetString("HighscoreTable"));
         }        
     }
 
