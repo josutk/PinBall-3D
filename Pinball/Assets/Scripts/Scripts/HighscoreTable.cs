@@ -86,7 +86,7 @@ public class HighscoreTable : MonoBehaviour {
             entryTransform.Find("ScoreText").GetComponent<Text>().color = Color.green;
             entryTransform.Find("NameText").GetComponent<Text>().color = Color.green;
         }
-
+        
         transformList.Add(entryTransform);
     }
 
@@ -211,12 +211,21 @@ public class HighscoreTable : MonoBehaviour {
                     if (letterSelect == Letters.Length - 1) {
                         letterSelect = 3; // breaks loop then sets name 
                         string nameFromInput = initials;
-                        int scoreTest = 45;
-
-                        //foreach (GameObject kl in GameObject.FindGameObjectsWithTag("Template")) {
-                        //    Destroy(kl);
-                        //}
+                        int scoreTest = 49;
+                        
+                        foreach (GameObject scores in GameObject.FindGameObjectsWithTag("Template")) {
+                            Destroy(scores);
+                        }
                         AddHighscoreEntry(scoreTest, nameFromInput);
+
+                        string jsonString = PlayerPrefs.GetString("HighscoreTable");
+                        Highscores highscores = JsonUtility.FromJson<Highscores>(jsonString);
+
+                        highscoreEntryTransformList = new List<Transform>();
+                        foreach (HighScoreEntry highScoreEntry in highscores.highscoreEntryList) {
+                            CreatingHighscoreEntryTransform(highScoreEntry, entryContainer, highscoreEntryTransformList);
+                        }
+
                         Debug.Log(nameFromInput);
                     }
 
