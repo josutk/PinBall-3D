@@ -5144,6 +5144,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 6922312061013286684, guid: 8b8da04a46e98954ca46c6240f3f4ba1,
+        type: 3}
+      propertyPath: m_Name
+      value: ScoreManager
+      objectReference: {fileID: 0}
     - target: {fileID: 2265360805323120202, guid: 8b8da04a46e98954ca46c6240f3f4ba1,
         type: 3}
       propertyPath: m_LocalPosition.z
@@ -5158,11 +5163,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Logo
-      objectReference: {fileID: 0}
-    - target: {fileID: 6922312061013286684, guid: 8b8da04a46e98954ca46c6240f3f4ba1,
-        type: 3}
-      propertyPath: m_Name
-      value: ScoreManager
       objectReference: {fileID: 0}
     - target: {fileID: 6922312061013286686, guid: 8b8da04a46e98954ca46c6240f3f4ba1,
         type: 3}
@@ -5223,6 +5223,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Text
       value: Hello World
+      objectReference: {fileID: 0}
+    - target: {fileID: 6922312061643808459, guid: 8b8da04a46e98954ca46c6240f3f4ba1,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8b8da04a46e98954ca46c6240f3f4ba1, type: 3}

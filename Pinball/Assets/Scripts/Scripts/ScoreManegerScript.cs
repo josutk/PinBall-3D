@@ -14,12 +14,12 @@ public class ScoreManegerScript : MonoBehaviour {
     }
 
     public void AddScore(int score) {
-        this.score += score;
+        this.score += score;        
         UpdateScore();
     }
 
     void UpdateScore() {
         //scoreText.text = string.Format(scoreTextFormat, this.score);
-        scoreText.text = this.score.ToString("N0").PadLeft(11, '0');
+        scoreText.text = this.score.ToString("N0").PadLeft(11, '0');        
     }
 }

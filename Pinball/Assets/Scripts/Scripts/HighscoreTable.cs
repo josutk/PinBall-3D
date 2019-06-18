@@ -18,6 +18,7 @@ public class HighscoreTable : MonoBehaviour {
     public GameObject gameDialog;
     private bool readyToMove = true;
     public Text[] Letters = null;
+    private int scoreS;
 
     private void Awake() {
         entryContainer = transform.Find("HighscoreEntryContainer");
@@ -28,6 +29,9 @@ public class HighscoreTable : MonoBehaviour {
         //AddHighscoreEntry(30, "IGO");
         //RemoveLastScoreTable();        
         //ClearScoreTable();
+
+        scoreS = PlayerPrefs.GetInt("Score");
+        
 
         string jsonString = PlayerPrefs.GetString("HighscoreTable");
         Highscores highscores = JsonUtility.FromJson<Highscores>(jsonString);
@@ -48,7 +52,7 @@ public class HighscoreTable : MonoBehaviour {
         if (Input.GetKeyDown(KeyCode.Escape)) {
             gameDialog.SetActive(!gameDialog.activeSelf);
         }
-
+        //AddHighscoreEntry(44, "Igor");
         EnterName();
     }
 
@@ -211,12 +215,13 @@ public class HighscoreTable : MonoBehaviour {
                     if (letterSelect == Letters.Length - 1) {
                         letterSelect = 3; // breaks loop then sets name 
                         string nameFromInput = initials;
-                        int scoreTest = 49;
+                        //int scoreTest = 47;
                         
                         foreach (GameObject scores in GameObject.FindGameObjectsWithTag("Template")) {
                             Destroy(scores);
                         }
-                        AddHighscoreEntry(scoreTest, nameFromInput);
+                        Debug.Log("ScoreHigh " + scoreS);
+                        AddHighscoreEntry(scoreS, nameFromInput);
 
                         string jsonString = PlayerPrefs.GetString("HighscoreTable");
                         Highscores highscores = JsonUtility.FromJson<Highscores>(jsonString);
