@@ -103,7 +103,6 @@ public class SingleDropTargetScript : MonoBehaviour
 
     private void Move(Vector3 start, Vector3 end)
     {
-        Debug.Log($"status == {status.ToString()}");
 
         float distCovered = (Time.time - startTime) * dropSpeed;
 
@@ -113,7 +112,6 @@ public class SingleDropTargetScript : MonoBehaviour
         // Set our position as a fraction of the distance between the markers.
         transform.position = Vector3.Lerp(start, end, fracJourney);
 
-        Debug.Log($"fracJourney == {fracJourney}");
 
         if(fracJourney >= 1) // Ended
         {

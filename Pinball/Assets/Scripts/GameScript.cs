@@ -22,7 +22,6 @@ public class GameScript : MonoBehaviour
     {
         if(last < score)
         {
-            Debug.Log($"Player Score: ${score}");
         }
 
         last = score;
