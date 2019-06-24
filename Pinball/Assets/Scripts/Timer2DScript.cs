@@ -11,9 +11,7 @@ public class Timer2DScript : MonoBehaviour
 
     void Start()
     {
-
         timerDisplayed = GetComponent<Text>();
-       
     }
 
     // Update is called once per frame
@@ -22,10 +20,9 @@ public class Timer2DScript : MonoBehaviour
         timer += Time.deltaTime;
         int seconds = (int)( timer % 60);
         timerDisplayed.text = seconds.ToString();
-        if(seconds >= 20)
+        if(seconds >= 21)
         {
-            //Chamar o fim da fase.
-            Debug.Log("Acabou o tempo da fase");
+            //Call next scene.
             timer = 0.0f;
         }
             

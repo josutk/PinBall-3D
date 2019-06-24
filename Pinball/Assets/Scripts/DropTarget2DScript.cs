@@ -30,14 +30,10 @@ public class DropTarget2DScript : MonoBehaviour
     {
         if (renderState == true)
         {
-            Debug.Log("Colidiu");
             renderState = false;
-            //Physics2D.IgnoreCollision(collider.gameObject.GetComponent<Collider2D>(), GetComponent<Collider2D>());
         }else
-
         {
-           // GetComponent<Renderer>().enabled = true;
-            // = true;
+
         }
     }
 
