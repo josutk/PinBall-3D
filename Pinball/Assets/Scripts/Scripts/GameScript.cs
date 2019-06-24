@@ -26,12 +26,6 @@ public class GameScript : MonoBehaviour
         }
 
         last = score;
-
-       // if(Input.GetAxis(Constants.LEFT_FLIPPER_INPUT) == 1)
-       // {
-       //     UnloadOtherScenes();
-       //     LoadLevelOne();
-       // }
     }
 
     private void UnloadOtherScenes()

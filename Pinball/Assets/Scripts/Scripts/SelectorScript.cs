@@ -11,6 +11,8 @@ public class SelectorScript : MonoBehaviour
 
     private GameScript game;
 
+    public SpriteRenderer fgarcadePreview;
+
     void Start()
     {
         signalHandler = FinderHelper.GetSignalHandler();
@@ -21,23 +23,82 @@ public class SelectorScript : MonoBehaviour
 
     void Update()
     {
-        if(signalHandler.buttons.rightButton)
+        if (signalHandler.buttons.rightButton)
         {
             MoveUp();
         }
-        
-        if(signalHandler.buttons.leftButton)
+
+        if (signalHandler.buttons.leftButton)
         {
             MoveDown();
         }
 
-        if(signalHandler.buttons.select)
+        ShowInHover();
+
+        if (signalHandler.buttons.select)
         {
-            if(currentPosition.Value == 1) game.LoadMenu();
-            else if(currentPosition.Value == 2) game.LoadFGArcade();
+            if (IsHoveringRanking) { }// Show ranking
+            else if (IsHoveringFGArcade) game.LoadFGArcade();
         }
 
         MoveSelector();
+    }
+
+    private void ShowInHover()
+    {
+        if (IsHoveringFGArcade)
+        {
+            fgarcadePreview.enabled = true;
+        }
+        else
+        {
+            fgarcadePreview.enabled = false;
+        }
+
+        if (IsHoveringRanking)
+        {
+            // Show something in big screen;
+        }
+        else
+        {
+            // Don't Show
+        }
+
+        if (IsHoveringPinballBet)
+        {
+            // Show Something in big screen
+        }
+        else
+        {
+            // Don't Show
+        }
+    }
+
+    private bool IsHoveringRanking
+    {
+        get
+        {
+            if (currentPosition.Value == 1) return true;
+            else return false;
+        }
+    }
+
+    private bool IsHoveringFGArcade
+    {
+        get
+        {
+            if(currentPosition.Value == 2) return true;
+            else return false;
+        }
+    }
+
+    private bool IsHoveringPinballBet
+    {
+        get
+        {
+            if(currentPosition.Value == 3) return true;
+            else return false;
+        }
     }
 
     void MoveDown() => currentPosition = currentPosition.Previous ?? LLPosition.Last;

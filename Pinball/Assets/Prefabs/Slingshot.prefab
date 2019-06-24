@@ -167,6 +167,7 @@ GameObject:
   - component: {fileID: 3614031245846350128}
   - component: {fileID: 4893378555006191901}
   - component: {fileID: 3075550671110630598}
+  - component: {fileID: 1210449884362902281}
   m_Layer: 0
   m_Name: Collider
   m_TagString: Untagged
@@ -242,6 +243,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 686e573675627ab4b85b15f088bc0bc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  audioSource: {fileID: 0}
+--- !u!114 &1210449884362902281
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7741459234466218995}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7cb419fb58400864ebce9e03e78fac37, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  score: 250
+  gameScore: {fileID: 0}
 --- !u!1 &7822067448904562671
 GameObject:
   m_ObjectHideFlags: 0

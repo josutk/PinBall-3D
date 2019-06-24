@@ -17,6 +17,7 @@ TagManager:
   - Hole
   - RollOverTrigger
   - Signal Handler
+  - Template
   layers:
   - Default
   - TransparentFX
