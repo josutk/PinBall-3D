@@ -5,40 +5,37 @@ using UnityEngine;
 public class Handler2DDropTarget : MonoBehaviour
 {
     // Start is called before the first frame update
-    private List<DropTarget2DScript> scripts;
+    public List<DropTarget2DScript> scripts = new List<DropTarget2DScript>();
 
     void Start()
     {
-        scripts = new List<DropTarget2DScript>();
-
-        foreach (Transform child in transform)
-        {
-            scripts.Add(child.gameObject.GetComponent<DropTarget2DScript>());
-        }
+ 
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (AreAllSingleDropTargetsDown())
+        if (areAllSingleDropTargetsDown())
         {
             foreach (DropTarget2DScript script in scripts)
             {
-                //script.renderStatus = true;
+                Debug.Log("aqui");
+                script.setRenderState(true);
             }
         }
     }
 
-    bool AreAllSingleDropTargetsDown()
+    bool areAllSingleDropTargetsDown()
     {
         foreach (DropTarget2DScript script in scripts)
         {
-           // if (!script.renderStatus)
-           // {
-             //   return false;
-           // }
+            if (script.getRenderState())
+            {
+                Debug.Log("FALSE");
+                return false;
+            }
         }
+        Debug.Log("TRUE");
         return true;
     }
-
 }
