@@ -26,15 +26,9 @@ public class GameScript : MonoBehaviour
         }
 
         last = score;
-
-        if(Input.GetAxis(Constants.LEFT_FLIPPER_INPUT) == 1)
-        {
-            UnloadOtherScenes();
-            LoadLevelOne();
-        }
     }
 
-    public void UnloadOtherScenes()
+    private void UnloadOtherScenes()
     {
         int numberOfScenes = SceneManager.sceneCount;
 
@@ -51,11 +45,19 @@ public class GameScript : MonoBehaviour
 
     public void LoadMenu()
     {
+        UnloadOtherScenes();
         SceneManager.LoadScene(Constants.MENU_SCENE_NAME, LoadSceneMode.Additive);
     }
 
-    public void LoadLevelOne()
+    public void LoadFGArcade()
     {
-        SceneManager.LoadScene(Constants.LEVEL_ONE_SCENE_NAME, LoadSceneMode.Additive);
+        UnloadOtherScenes();
+        SceneManager.LoadScene(Constants.FGARCADE_SCENE, LoadSceneMode.Additive);
+    }
+
+    public void LoadPinballBet()
+    {
+        UnloadOtherScenes();
+        SceneManager.LoadScene(Constants.PINBALLBET_SCENE, LoadSceneMode.Additive);
     }
 }

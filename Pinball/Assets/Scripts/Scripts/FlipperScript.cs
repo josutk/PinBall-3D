@@ -33,28 +33,41 @@ public class FlipperScript : MonoBehaviour{
         spring.spring = hitStrenght;
         spring.damper = flipperDamper;
 
-        if(isLeft)
+        if(signalHandler.usingMSP)
         {
-            if (signalHandler.buttons.leftButton) 
+            if(isLeft)
             {
-                spring.targetPosition = pressedPosition;
+                if (signalHandler.buttons.leftButton) 
+                {
+                    spring.targetPosition = pressedPosition;
+                }
+                else {
+                    spring.targetPosition = initialPosition;
+                }    
             }
-            else {
-                spring.targetPosition = initialPosition;
-            }    
+            else
+            {
+                if (signalHandler.buttons.rightButton) 
+                {
+                    spring.targetPosition = pressedPosition;
+                }
+                else {
+                    spring.targetPosition = initialPosition;
+                }
+            }
         }
         else
         {
-            if (signalHandler.buttons.rightButton) 
-            {
-                spring.targetPosition = pressedPosition;
-            }
-            else {
-                spring.targetPosition = initialPosition;
-            }
+            spring.targetPosition = MoveKeyboard(spring);
         }
 
         hinge.spring = spring;
         hinge.useLimits = true;
+    }
+
+    float MoveKeyboard(JointSpring spring)
+    {
+        if (Input.GetAxis(inputName) == 1) return pressedPosition;
+        else return initialPosition;
     }
 }

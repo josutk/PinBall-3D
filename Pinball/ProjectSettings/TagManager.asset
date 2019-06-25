@@ -19,6 +19,7 @@ TagManager:
   - Right Flipper
   - Left Flipper
   - Signal Handler
+  - Template
   layers:
   - Default
   - TransparentFX

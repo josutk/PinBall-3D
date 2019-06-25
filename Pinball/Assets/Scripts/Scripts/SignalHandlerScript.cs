@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿﻿using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -44,28 +42,42 @@ public class SignalHandlerScript : MonoBehaviour
 
     private Rigidbody Ball;
 
+
+    public bool usingMSP = false;
+
     void Start()
     {
-        UART.Start();
+        if(usingMSP) UART.Start();
 
         buttons = new Buttons(false, false, false);
     }
 
     void Update()
     {
-        message = UART.GetMessage();
-
-        // It doesn't have anything to do with MSP.
-        if((message[0] != previousMessage[0]) || (message[1] != previousMessage[1]))
+        if(!usingMSP)
         {
+            buttons.leftButton = Input.GetKeyDown(KeyCode.A);
+           
+            buttons.rightButton = Input.GetKeyDown(KeyCode.D);
 
-            //TODO(Roger): Check which message (message[0] or message[1] is different and parse accordingly)
-            previousMessage[0] = message[0];
-            previousMessage[1] = message[1];
-
-            ParseInput();    
+            buttons.select = Input.GetKeyDown(KeyCode.Space);
         }
-    }
+        else
+        {
+            message = UART.GetMessage();
+
+            // It doesn't have anything to do with MSP.
+            if((message[0] != previousMessage[0]) || (message[1] != previousMessage[1]))
+            {
+
+                //TODO(Roger): Check which message (message[0] or message[1] is different and parse accordingly)
+                previousMessage[0] = message[0];
+                previousMessage[1] = message[1];
+
+                ParseInput();    
+            }
+        }
+    } 
 
     private bool IsLevelLoaded()
     {
@@ -75,7 +87,7 @@ public class SignalHandlerScript : MonoBehaviour
         {
             Scene scene = SceneManager.GetSceneAt(i);
 
-            if(scene.isLoaded && !scene.name.Equals(Constants.FGA_ARCADE_LEVEL_NAME))
+            if(scene.isLoaded && !scene.name.Equals(Constants.FGARCADE_SCENE))
             {
                 return true;
             }
@@ -97,13 +109,7 @@ public class SignalHandlerScript : MonoBehaviour
         angle.angle = message[1] & 01111111;
     }
 
-    public void ChangeSound(Int32 volume)
-    {
-        UART.ChangeSound(volume);
-    }
+    public void ChangeSound(Int32 volume) => UART.ChangeSound(volume);
 
-    public void ChangeLights(Int32 speed)
-    {
-        UART.ChangeLights(speed);
-    }
+    public void ChangeLights(Int32 speed) => UART.ChangeLights(speed);
 }
