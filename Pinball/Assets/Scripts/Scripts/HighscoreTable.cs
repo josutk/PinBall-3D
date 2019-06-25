@@ -25,20 +25,22 @@ public class HighscoreTable : MonoBehaviour {
         entryTemplate = entryContainer.Find("HighscoreEntryTemplate");
 
         entryTemplate.gameObject.SetActive(false);
-
-        //AddHighscoreEntry(30, "IGO");
-        //RemoveLastScoreTable();        
-        //ClearScoreTable();
-
-        scoreS = PlayerPrefs.GetInt("Score");
         
+        scoreS = PlayerPrefs.GetInt("Score");
+        if (PlayerPrefs.HasKey("HighscoreTable")) {
+            string jsonString = PlayerPrefs.GetString("HighscoreTable");
+            Highscores highscores = JsonUtility.FromJson<Highscores>(jsonString);
 
-        string jsonString = PlayerPrefs.GetString("HighscoreTable");
-        Highscores highscores = JsonUtility.FromJson<Highscores>(jsonString);
-
-        highscoreEntryTransformList = new List<Transform>();
-        foreach (HighScoreEntry highScoreEntry in highscores.highscoreEntryList) {
-            CreatingHighscoreEntryTransform(highScoreEntry, entryContainer, highscoreEntryTransformList);
+            highscoreEntryTransformList = new List<Transform>();
+            foreach (HighScoreEntry highScoreEntry in highscores.highscoreEntryList) {
+                CreatingHighscoreEntryTransform(highScoreEntry, entryContainer, highscoreEntryTransformList);
+            }
+        }
+        else {
+            HighScoreEntry defaultHighscoreEntry = new HighScoreEntry { score = 100, name = "AAA" };
+            string defaultJson = JsonUtility.ToJson(defaultHighscoreEntry);
+            PlayerPrefs.SetString("HighscoreTable", defaultJson);
+            PlayerPrefs.Save();            
         }
     }
 
@@ -49,10 +51,10 @@ public class HighscoreTable : MonoBehaviour {
     }
 
     void Update() {
-        if (Input.GetKeyDown(KeyCode.Escape)) {
-            gameDialog.SetActive(!gameDialog.activeSelf);
-        }
-        //AddHighscoreEntry(44, "Igor");
+        //if (Input.GetKeyDown(KeyCode.Escape)) {
+        //    gameDialog.SetActive(!gameDialog.activeSelf);
+        //}
+        gameDialog.SetActive(true);
         EnterName();
     }
 
@@ -90,7 +92,7 @@ public class HighscoreTable : MonoBehaviour {
             entryTransform.Find("ScoreText").GetComponent<Text>().color = Color.green;
             entryTransform.Find("NameText").GetComponent<Text>().color = Color.green;
         }
-        
+
         transformList.Add(entryTransform);
     }
 
@@ -110,8 +112,7 @@ public class HighscoreTable : MonoBehaviour {
                 Debug.Log("lowest " + lowestScore.score);
                 Debug.Log("new " + score);
                 if (lowestScore != null && saveScoreTrashold > 0 &&
-                    highscores.highscoreEntryList.Count >= saveScoreTrashold && score > lowestScore.score) {
-                    Debug.Log("Entrou FDP ");
+                    highscores.highscoreEntryList.Count >= saveScoreTrashold && score > lowestScore.score) {                    
                     RemoveLastScoreTable();
                     hsCount--;
                 }
@@ -216,7 +217,7 @@ public class HighscoreTable : MonoBehaviour {
                         letterSelect = 3; // breaks loop then sets name 
                         string nameFromInput = initials;
                         //int scoreTest = 47;
-                        
+
                         foreach (GameObject scores in GameObject.FindGameObjectsWithTag("Template")) {
                             Destroy(scores);
                         }
