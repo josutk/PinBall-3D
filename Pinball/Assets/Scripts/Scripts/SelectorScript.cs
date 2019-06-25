@@ -12,6 +12,7 @@ public class SelectorScript : MonoBehaviour
     private GameScript game;
 
     public SpriteRenderer fgarcadePreview;
+    public SpriteRenderer pinballBetPreview;
 
     void Start()
     {
@@ -39,6 +40,7 @@ public class SelectorScript : MonoBehaviour
         {
             if (IsHoveringRanking) { }// Show ranking
             else if (IsHoveringFGArcade) game.LoadFGArcade();
+            else if (IsHoveringPinballBet) game.LoadPinballBet();
         }
 
         MoveSelector();
@@ -66,11 +68,11 @@ public class SelectorScript : MonoBehaviour
 
         if (IsHoveringPinballBet)
         {
-            // Show Something in big screen
+            pinballBetPreview.enabled = true;
         }
         else
         {
-            // Don't Show
+            pinballBetPreview.enabled = false;
         }
     }
 

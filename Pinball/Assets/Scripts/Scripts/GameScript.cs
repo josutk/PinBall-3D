@@ -54,4 +54,10 @@ public class GameScript : MonoBehaviour
         UnloadOtherScenes();
         SceneManager.LoadScene(Constants.FGARCADE_SCENE, LoadSceneMode.Additive);
     }
+
+    public void LoadPinballBet()
+    {
+        UnloadOtherScenes();
+        SceneManager.LoadScene(Constants.PINBALLBET_SCENE, LoadSceneMode.Additive);
+    }
 }
