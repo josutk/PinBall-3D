@@ -112,13 +112,13 @@ public class SelectorScript : MonoBehaviour
         switch(currentPosition.Value)
         {
             case 1:
-                transform.position = new Vector3(0.34f, -0.79f, -30.21f);
+                transform.position = new Vector3(0.32f, -0.3f, -29.75f);
                 break;
             case 2:
-                transform.position = new Vector3(0.34f, -1.71f, -30.21f);
+                transform.position = new Vector3(0.32f, -1.3f, -29.75f);
                 break;
             case 3:
-                transform.position = new Vector3(0.34f, -2.54f, -30.21f);
+                transform.position = new Vector3(0.32f, -2.05f, -29.75f);
                 break;
             default:
                 break;       
