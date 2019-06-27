@@ -16,7 +16,7 @@ public class ColisionZoneScript : MonoBehaviour {
 
     private void Start()
     {
-        game = FinderHelper.GetGameController();
+        game = Finder.GetGameController();
     }
 
     void Update() {

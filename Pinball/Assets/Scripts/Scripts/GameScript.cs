@@ -5,28 +5,50 @@ using UnityEngine.SceneManagement;
 
 public class GameScript : MonoBehaviour
 {
-    public int score
-    { get; set; }
+    private SignalHandlerScript signalHandler;
 
-    public int multiplier
-    { get; set; }
-
-    public int last = 0;
+    public const float TILT_THRESHOLD = 5;
 
     void Start()
     {
+        signalHandler = Finder.GetSignalHandler();
+        
         LoadMenu();
-        LoadRanking(false);
+        LoadRanking(false);      
     }
 
     void Update()
     {
-        if(last < score)
-        {
-            Debug.Log($"Player Score: ${score}");
-        }
+        TiltBall();    
+    }
 
-        last = score;
+    private void TiltBall()
+    {
+        if(DidTilt)
+        {
+            GameObject[] spheres = Finder.GetSpheres();
+
+            foreach(GameObject sphere in spheres)
+            {
+                // Rigidbody rb = sphere.GetComponent<Rigidbody>();
+                // rb.AddForce();
+            }
+        }
+    }
+
+    private bool DidTilt
+    {
+        get
+        {
+            if (signalHandler.angle.angle > 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
     }
 
     private void UnloadOtherScenes()

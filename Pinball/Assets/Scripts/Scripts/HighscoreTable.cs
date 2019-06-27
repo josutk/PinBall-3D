@@ -51,7 +51,7 @@ public class HighscoreTable : MonoBehaviour {
         Input.ResetInputAxes();
         nextText = GameObject.Find("Button");
 
-        game = FinderHelper.GetGameController();
+        game = Finder.GetGameController();
     }
 
     void Update() {

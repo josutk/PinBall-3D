@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public static class FinderHelper
+public static class Finder
 {
     public static GameScript GetGameController()
     {
@@ -10,5 +10,10 @@ public static class FinderHelper
     public static SignalHandlerScript GetSignalHandler()
     {
         return GameObject.FindGameObjectWithTag(Constants.SIGNAL_HANDLER_TAG).GetComponent<SignalHandlerScript>();
+    }
+
+    public static GameObject[] GetSpheres()
+    {
+        return GameObject.FindGameObjectsWithTag(Constants.SPHERE_TAG);
     }
 }

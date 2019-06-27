@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ScoopScript : MonoBehaviour
+public class Script : MonoBehaviour
 {
     private GameObject sphere;
     private GameObject[] table;

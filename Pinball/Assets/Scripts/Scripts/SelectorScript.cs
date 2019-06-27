@@ -16,8 +16,8 @@ public class SelectorScript : MonoBehaviour
 
     void Start()
     {
-        signalHandler = FinderHelper.GetSignalHandler();
-        game = FinderHelper.GetGameController();
+        signalHandler = Finder.GetSignalHandler();
+        game = Finder.GetGameController();
         
         currentPosition = LLPosition.First;
     }
