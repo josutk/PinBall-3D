@@ -12,6 +12,13 @@ public class ColisionZoneScript : MonoBehaviour {
     public bool gameOver = false;
     private int saveScore;    
 
+    private GameScript game;
+
+    private void Start()
+    {
+        game = FinderHelper.GetGameController();
+    }
+
     void Update() {
         
         if (!GameObject.FindGameObjectWithTag("Sphere") && !gameOver) {            
@@ -33,7 +40,7 @@ public class ColisionZoneScript : MonoBehaviour {
                 saveScore = GameObject.Find("ScoreManager").GetComponent<ScoreManegerScript>().score;
                 Debug.Log("ScoreScene " + GameObject.Find("ScoreManager").GetComponent<ScoreManegerScript>().score);
                 PlayerPrefs.SetInt("Score", saveScore);
-                SceneManager.LoadScene("RankingScene");
+                game.LoadRanking();
             }
             //Debug.Log("Score " + GameObject.Find("ScoreManager").GetComponent<ScoreManegerScript>().score);
         }

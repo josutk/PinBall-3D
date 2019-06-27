@@ -16,6 +16,7 @@ public class GameScript : MonoBehaviour
     void Start()
     {
         LoadMenu();
+        LoadRanking(false);
     }
 
     void Update()
@@ -60,4 +61,10 @@ public class GameScript : MonoBehaviour
         UnloadOtherScenes();
         SceneManager.LoadScene(Constants.PINBALLBET_SCENE, LoadSceneMode.Additive);
     }
+
+    public void LoadRanking(bool unloadOtherScenes = true)
+    {
+        if(unloadOtherScenes) UnloadOtherScenes();
+        SceneManager.LoadScene(Constants.RANKING_SCENE, LoadSceneMode.Additive);
+    } 
 }

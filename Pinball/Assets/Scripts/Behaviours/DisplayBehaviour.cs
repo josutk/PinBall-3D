@@ -5,9 +5,22 @@ using UnityEngine;
 public class DisplayBehaviour : MonoBehaviour
 {
     void Start()
+    {       
+        if(IsSecondScreenConected) ActivateSmallScreen();
+    }
+
+    private void ActivateSmallScreen()
     {
-        Debug.Log($"Displays Connected {Display.displays.Length}");
         Display.displays[1].Activate();
         Display.displays[1].SetRenderingResolution(1024, 768); 
+    }
+
+    private bool IsSecondScreenConected
+    {
+        get
+        {
+            if (Display.displays.Length > 1) return true;
+            else return false;
+        }
     }
 }

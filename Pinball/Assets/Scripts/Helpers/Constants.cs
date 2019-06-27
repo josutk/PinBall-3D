@@ -11,6 +11,7 @@ public static class Constants
     public const string FGARCADE_SCENE = "FGArcadeScene";
     public static string PINBALLBET_SCENE = "PinballBetScene";
     public const string PERSISTANT_SCENE_NAME = "Persistant";
+    public const string RANKING_SCENE = "RankingScene";
 
     public const string LEFT_FLIPPER_INPUT = "LFlipper";
     public static string RIGHT_FLIPPER_INPUT = "RFlipper";

@@ -20,6 +20,8 @@ public class HighscoreTable : MonoBehaviour {
     public Text[] Letters = null;
     private int scoreS;
 
+    private GameScript game;
+
     private void Awake() {
         entryContainer = transform.Find("HighscoreEntryContainer");
         entryTemplate = entryContainer.Find("HighscoreEntryTemplate");
@@ -48,6 +50,8 @@ public class HighscoreTable : MonoBehaviour {
         Letters[letterSelect].text = alphabet[stepper].ToString();
         Input.ResetInputAxes();
         nextText = GameObject.Find("Button");
+
+        game = FinderHelper.GetGameController();
     }
 
     void Update() {
@@ -231,8 +235,7 @@ public class HighscoreTable : MonoBehaviour {
                         foreach (HighScoreEntry highScoreEntry in highscores.highscoreEntryList) {
                             CreatingHighscoreEntryTransform(highScoreEntry, entryContainer, highscoreEntryTransformList);
                         }
-
-                        Debug.Log(nameFromInput);
+                        game.LoadMenu();
                     }
 
                     if (letterSelect < Letters.Length - 1) {
