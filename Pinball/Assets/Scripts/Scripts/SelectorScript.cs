@@ -13,6 +13,7 @@ public class SelectorScript : MonoBehaviour
 
     public SpriteRenderer fgarcadePreview;
     public SpriteRenderer pinballBetPreview;
+    public static bool isFromMenu = false;
 
     void Start()
     {
@@ -38,7 +39,11 @@ public class SelectorScript : MonoBehaviour
 
         if (signalHandler.buttons.select)
         {
-            if (IsHoveringRanking) { }// Show ranking
+            if (IsHoveringRanking) {
+                game.LoadRanking();
+                isFromMenu = true;
+
+            }// Show ranking
             else if (IsHoveringFGArcade) game.LoadFGArcade();
             else if (IsHoveringPinballBet) game.LoadPinballBet();
         }

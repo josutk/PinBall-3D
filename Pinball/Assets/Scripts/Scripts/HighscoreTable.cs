@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class HighscoreTable : MonoBehaviour {
+public class HighscoreTable : SelectorScript {
     private Transform entryContainer;
     private Transform entryTemplate;
     private List<Transform> highscoreEntryTransformList;
@@ -54,12 +54,17 @@ public class HighscoreTable : MonoBehaviour {
         game = Finder.GetGameController();
     }
 
-    void Update() {
-        //if (Input.GetKeyDown(KeyCode.Escape)) {
-        //    gameDialog.SetActive(!gameDialog.activeSelf);
-        //}
-        gameDialog.SetActive(true);
-        EnterName();
+    void Update() {        
+        if(isFromMenu) {
+            if (Input.GetKeyDown(KeyCode.A)) {
+                game.LoadMenu();
+            }
+        }
+        else {
+            gameDialog.SetActive(true);
+            EnterName();
+        }
+        
     }
 
     private void CreatingHighscoreEntryTransform(HighScoreEntry highScoreEntry,
