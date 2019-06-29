@@ -2,9 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PopBumberScript2D : MonoBehaviour
+public class Table2DScript : MonoBehaviour
 {
-
     // Start is called before the first frame update
     void Start()
     {
@@ -16,9 +15,8 @@ public class PopBumberScript2D : MonoBehaviour
     {
         
     }
-
     void OnCollisionEnter2D(Collision2D collision)
     {
-        collision.rigidbody.AddForce(-collision.contacts[0].normal * 100, ForceMode2D.Impulse);
+        //collision.rigidbody.AddForce(-collision.contacts[0].normal * 35, ForceMode2D.Impulse);
     }
 }

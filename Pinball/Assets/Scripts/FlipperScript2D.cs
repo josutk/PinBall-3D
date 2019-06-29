@@ -20,13 +20,14 @@ public class FlipperScript2D : MonoBehaviour
     {
         if((flipper == true && Input.GetKey(KeyCode.LeftArrow)))
         {
+            Debug.Log("moveu esquerda");
             GetComponent<HingeJoint2D>().useMotor = true;
             motor2D.motorSpeed = speed;
             myHingeJoint.motor = motor2D;
         }
         else if ((flipper == false && Input.GetKey(KeyCode.RightArrow))) {
+            Debug.Log("moveu direita");
             GetComponent<HingeJoint2D>().useMotor = true;
-            
             //GetComponent<HingeJoint2D>().
             motor2D.motorSpeed = speed;
             myHingeJoint.motor = motor2D;
@@ -38,5 +39,9 @@ public class FlipperScript2D : MonoBehaviour
             GetComponent<HingeJoint2D>().useMotor = false;
             
         }
+    }
+    void OnCollisionEnter2D(Collision2D collision)
+    {
+            collision.rigidbody.AddForce(-collision.contacts[0].normal * 150, ForceMode2D.Impulse);    
     }
 }

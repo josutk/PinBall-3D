@@ -26,10 +26,11 @@ public class DropTarget2DScript : MonoBehaviour
         }
     }
 
-    void OnCollisionEnter2D(Collision2D collider)
+    void OnCollisionEnter2D(Collision2D collision)
     {
         if (renderState == true)
         {
+            collision.rigidbody.AddForce(-collision.contacts[0].normal * 40, ForceMode2D.Impulse);
             renderState = false;
         }else
         {
