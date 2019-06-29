@@ -58,6 +58,7 @@ public class HighscoreTable : SelectorScript {
         if(isFromMenu) {
             if (Input.GetKeyDown(KeyCode.A)) {
                 game.LoadMenu();
+                isFromMenu = false;
             }
         }
         else {
@@ -118,8 +119,7 @@ public class HighscoreTable : SelectorScript {
 
             if (highscores.highscoreEntryList.Count > 0) {
                 HighScoreEntry lowestScore = highscores.highscoreEntryList[highscores.highscoreEntryList.Count - 1];
-                Debug.Log("lowest " + lowestScore.score);
-                Debug.Log("new " + score);
+                
                 if (lowestScore != null && saveScoreTrashold > 0 &&
                     highscores.highscoreEntryList.Count >= saveScoreTrashold && score > lowestScore.score) {                    
                     RemoveLastScoreTable();
@@ -129,8 +129,7 @@ public class HighscoreTable : SelectorScript {
             if (hsCount <= saveScoreTrashold) {
                 // Add new entry to Highscores
                 jsonString = PlayerPrefs.GetString("HighscoreTable");
-                highscores = JsonUtility.FromJson<Highscores>(jsonString);
-                Debug.Log("Second " + PlayerPrefs.GetString("HighscoreTable"));
+                highscores = JsonUtility.FromJson<Highscores>(jsonString);                
                 highscores.highscoreEntryList.Add(highScoreEntry);
 
                 SortListTable(highscores);
@@ -138,9 +137,7 @@ public class HighscoreTable : SelectorScript {
                 // Save updated Highscores
                 string json = JsonUtility.ToJson(highscores);
                 PlayerPrefs.SetString("HighscoreTable", json);
-                PlayerPrefs.Save();
-
-                Debug.Log("Third " + PlayerPrefs.GetString("HighscoreTable"));
+                PlayerPrefs.Save();                
             }
         }
     }
@@ -149,24 +146,20 @@ public class HighscoreTable : SelectorScript {
         //Load saved scores 
         string jsonString = PlayerPrefs.GetString("HighscoreTable");
         Highscores highscores = JsonUtility.FromJson<Highscores>(jsonString);
-
-        Debug.Log("First " + PlayerPrefs.GetString("HighscoreTable"));
+        
         if (saveScoreTrashold <= highscores.highscoreEntryList.Count) {
             int deleteCount = highscores.highscoreEntryList.Count - saveScoreTrashold;
-            Debug.Log("First2Deletecount " + deleteCount);
+            
             highscores.highscoreEntryList.Reverse();
             for (int i = 0; i <= deleteCount; i++) {
                 //Remove last score table         
-                highscores.highscoreEntryList.RemoveAt(i);
-                Debug.Log("First25 " + i);
+                highscores.highscoreEntryList.RemoveAt(i);                
             }
             SortListTable(highscores);
             //Save updated scores 
             string json = JsonUtility.ToJson(highscores);
             PlayerPrefs.SetString("HighscoreTable", json);
-            PlayerPrefs.Save();
-            Debug.Log("First3 " + PlayerPrefs.GetString("HighscoreTable"));
-            //Debug.Log(PlayerPrefs.GetString("HighscoreTable"));
+            PlayerPrefs.Save();            
         }
     }
 
@@ -230,7 +223,7 @@ public class HighscoreTable : SelectorScript {
                         foreach (GameObject scores in GameObject.FindGameObjectsWithTag("Template")) {
                             Destroy(scores);
                         }
-                        Debug.Log("ScoreHigh " + scoreS);
+                        
                         AddHighscoreEntry(scoreS, nameFromInput);
 
                         string jsonString = PlayerPrefs.GetString("HighscoreTable");
@@ -248,7 +241,7 @@ public class HighscoreTable : SelectorScript {
                         readyToMove = false;
                         Invoke("ResetReadyToMove", moveDelay);
                     }
-                    //Debug.Log(initials);
+                    
                     stepper = 0;
                 }
             }

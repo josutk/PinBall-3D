@@ -14,7 +14,7 @@ public class GameScript : MonoBehaviour
         signalHandler = Finder.GetSignalHandler();
         
         LoadMenu();
-        LoadRanking(false);      
+        //LoadRanking(false);      
     }
 
     void Update()

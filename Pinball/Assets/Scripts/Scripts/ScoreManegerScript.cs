@@ -7,7 +7,6 @@ public class ScoreManegerScript : MonoBehaviour {
     public int score { get; private set; }
 
     public TextMesh scoreText;    
-    private string scoreTextFormat = "Score: {0}";
 
     void Start() {
         AddScore(0);
@@ -18,8 +17,7 @@ public class ScoreManegerScript : MonoBehaviour {
         UpdateScore();
     }
 
-    void UpdateScore() {
-        //scoreText.text = string.Format(scoreTextFormat, this.score);
+    void UpdateScore() {        
         scoreText.text = this.score.ToString("N0").PadLeft(11, '0');        
     }
 }
