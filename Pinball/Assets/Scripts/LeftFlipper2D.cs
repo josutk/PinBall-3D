@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FlipperScript2D : MonoBehaviour
+public class LeftFlipper2D : MonoBehaviour
 {
-    // Start is called before the first frame update
+
     public float speed = 0f;
     private HingeJoint2D myHingeJoint;
     private JointMotor2D motor2D;
@@ -21,34 +21,21 @@ public class FlipperScript2D : MonoBehaviour
     {
         if ((flipper == true && Input.GetKey(KeyCode.LeftArrow)))
         {
-            //GetComponent<HingeJoint2D>().useMotor = true;
             motor2D.motorSpeed = speed;
             myHingeJoint.motor = motor2D;
-        } else {
-            motor2D.motorSpeed = -speed;
-            myHingeJoint.motor = motor2D;
-        }
-        if ((flipper == false && Input.GetKey(KeyCode.RightArrow))) {
-
-            //GetComponent<HingeJoint2D>().useMotor = true;
-            motor2D.motorSpeed = speed;
-            myHingeJoint.motor = motor2D;
-
         }
         else
         {
             motor2D.motorSpeed = -speed;
             myHingeJoint.motor = motor2D;
-           // GetComponent<HingeJoint2D>().useMotor = false;
-            
         }
     }
 
-    /*
     void OnCollisionEnter2D(Collision2D collision)
     {
-          //  collision.rigidbody.AddForce(-collision.contacts[0].normal * 40);    
+        if (Input.GetKey(KeyCode.LeftArrow))
+        {
+            collision.rigidbody.AddForce(-collision.contacts[0].normal * 40, ForceMode2D.Impulse);
+        }
     }
-    */
-
 }

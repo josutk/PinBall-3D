@@ -17,6 +17,6 @@ public class Table2DScript : MonoBehaviour
     }
     void OnCollisionEnter2D(Collision2D collision)
     {
-        //collision.rigidbody.AddForce(-collision.contacts[0].normal * 35, ForceMode2D.Impulse);
+        collision.rigidbody.AddForce(-collision.contacts[0].normal *2, ForceMode2D.Impulse);
     }
 }
