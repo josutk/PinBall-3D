@@ -10,7 +10,9 @@ public class ColisionZoneScript : MonoBehaviour {
     //public Vector3 initPosition;
     public int lives = 3;
     public bool gameOver = false;
-    private int saveScore;    
+    private int saveScore;
+    private bool deleteSphere = false;
+    public GameObject[] balls = new GameObject[3];
 
     private GameScript game;
 
@@ -26,11 +28,20 @@ public class ColisionZoneScript : MonoBehaviour {
 
             sphere.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePositionY;
             Instantiate(sphere, spawnPosition.position, sphere.transform.rotation);
+            deleteSphere = true;
 
         }
         if (lives < 0) {
             gameOver = true;               
         }
+
+        if (deleteSphere && !gameOver)
+        {
+            Destroy(balls[lives]);
+        }
+
+        deleteSphere = false;
+
         if (gameOver) {
             if (GameObject.FindGameObjectWithTag("Sphere")) {
                 Destroy(GameObject.FindGameObjectWithTag("Sphere"));                                               
