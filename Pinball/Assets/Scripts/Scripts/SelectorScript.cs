@@ -18,8 +18,9 @@ public class SelectorScript : MonoBehaviour
     void Start()
     {
         signalHandler = Finder.GetSignalHandler();
-        game = Finder.GetGameController();
         
+        game = Finder.GetGameController();
+        game.LoadRanking(false);
         currentPosition = LLPosition.First;
     }
 
@@ -39,12 +40,14 @@ public class SelectorScript : MonoBehaviour
 
         if (signalHandler.buttons.select && !signalHandler.PreviousButtons.select)
         {
-            if (IsHoveringRanking) {
-                game.LoadRanking();
-                isFromMenu = true;
-            }// Show ranking
-            else if (IsHoveringFGArcade) game.LoadFGArcade();
-            else if (IsHoveringPinballBet) game.LoadPinballBet();
+            if (IsHoveringFGArcade)
+            {
+                game.LoadFGArcade();
+            }
+            else if (IsHoveringPinballBet)
+            {
+                game.LoadPinballBet();
+            }
         }
 
         MoveSelector();
@@ -63,11 +66,14 @@ public class SelectorScript : MonoBehaviour
 
         if (IsHoveringRanking)
         {
-            // Show something in big screen;
+            // This is necessary because the Ranking scene has it's own camera.
+            GetMenuTableCamera().enabled = false;
+            GetRankingTableCamera().enabled = true;
         }
         else
         {
-            // Don't Show
+            GetRankingTableCamera().enabled = false;
+            GetMenuTableCamera().enabled = true;
         }
 
         if (IsHoveringPinballBet)
@@ -78,6 +84,16 @@ public class SelectorScript : MonoBehaviour
         {
             pinballBetPreview.enabled = false;
         }
+    }
+
+    private Camera GetMenuTableCamera()
+    {
+        return GameObject.FindGameObjectWithTag(Constants.MENU_TABLE_CAMERA).GetComponent<Camera>();
+    }
+
+    private Camera GetRankingTableCamera()
+    {
+        return GameObject.FindGameObjectWithTag(Constants.RANKING_TABLE_CAMERA).GetComponent<Camera>();
     }
 
     private bool IsHoveringRanking

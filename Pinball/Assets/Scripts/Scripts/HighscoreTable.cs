@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class HighscoreTable : SelectorScript {
+public class HighscoreTable : MonoBehaviour {
     private Transform entryContainer;
     private Transform entryTemplate;
     private List<Transform> highscoreEntryTransformList;
@@ -55,17 +55,12 @@ public class HighscoreTable : SelectorScript {
     }
 
     void Update() {        
-        if(isFromMenu) {
-            if (Input.GetKeyDown(KeyCode.A)) {
-                game.LoadMenu();
-                isFromMenu = false;
-            }
-        }
-        else {
+        if(!game.IsMenuLoaded)
+        {
+            Debug.Log("Menu isn't loaded!");
             gameDialog.SetActive(true);
             EnterName();
         }
-        
     }
 
     private void CreatingHighscoreEntryTransform(HighScoreEntry highScoreEntry,

@@ -7,32 +7,46 @@ public class GameScript : MonoBehaviour
 {
     private SignalHandlerScript signalHandler;
 
-    public const float TILT_THRESHOLD = 5;
+    public const float TILT_THRESHOLD_X = 5f;
+    public const float TILT_THRESHOLD_Z = 2f;
 
     void Start()
     {
         signalHandler = Finder.GetSignalHandler();
         
         LoadMenu();
-        //LoadRanking(false);      
     }
 
     void Update()
     {
-        TiltBall();    
+        if(IsFGArcadeLoaded || IsPinballBetLoaded)
+        {
+            if(signalHandler.usingMSP && DidTilt)
+            {
+                TiltBall(signalHandler.angle.angle);    
+            }
+            else
+            {
+                if(Input.GetKeyDown(KeyCode.Return))
+                {
+                    Random.InitState((int)Time.time);
+
+                    int rand = Random.Range(-2, 2);
+
+                    TiltBall(rand);
+                }
+            }
+        }
     }
 
-    private void TiltBall()
+    private void TiltBall(int amount)
     {
-        if(DidTilt)
-        {
-            GameObject[] spheres = Finder.GetSpheres();
+        GameObject[] spheres = Finder.GetSpheres();
 
-            foreach(GameObject sphere in spheres)
-            {
-                // Rigidbody rb = sphere.GetComponent<Rigidbody>();
-                // rb.AddForce();
-            }
+        foreach(GameObject sphere in spheres)
+        {
+            Rigidbody rb = sphere.GetComponent<Rigidbody>();
+            rb.AddForce(amount * TILT_THRESHOLD_X, 0, TILT_THRESHOLD_Z);
         }
     }
 
@@ -84,9 +98,93 @@ public class GameScript : MonoBehaviour
         SceneManager.LoadScene(Constants.PINBALLBET_SCENE, LoadSceneMode.Additive);
     }
 
-    public void LoadRanking(bool unloadOtherScenes = true)
+    public void LoadRanking(bool disableOthers = true)
     {
-        if(unloadOtherScenes) UnloadOtherScenes();
+        if(disableOthers)
+        {
+            UnloadOtherScenes();
+        }
+
         SceneManager.LoadScene(Constants.RANKING_SCENE, LoadSceneMode.Additive);
     } 
+
+    public bool IsRankingLoaded
+    {
+        get
+        {
+            int numberOfScenes = SceneManager.sceneCount;
+
+            for(int i = 0; i < numberOfScenes; i++)
+            {
+                Scene scene = SceneManager.GetSceneAt(i);
+
+                if(scene.isLoaded && scene.name.Equals(Constants.RANKING_SCENE))
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+    }
+
+    public bool IsMenuLoaded 
+    {
+        get
+        {
+            int numberOfScenes = SceneManager.sceneCount;
+
+            for(int i = 0; i < numberOfScenes; i++)
+            {
+                Scene scene = SceneManager.GetSceneAt(i);
+
+                if(scene.isLoaded && scene.name.Equals(Constants.MENU_SCENE_NAME))
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+    }
+
+    public bool IsFGArcadeLoaded 
+    {
+        get
+        {
+            int numberOfScenes = SceneManager.sceneCount;
+
+            for(int i = 0; i < numberOfScenes; i++)
+            {
+                Scene scene = SceneManager.GetSceneAt(i);
+
+                if(scene.isLoaded && scene.name.Equals(Constants.FGARCADE_SCENE))
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+    }
+
+    public bool IsPinballBetLoaded
+    {
+        get
+        {
+            int numberOfScenes = SceneManager.sceneCount;
+
+            for(int i = 0; i < numberOfScenes; i++)
+            {
+                Scene scene = SceneManager.GetSceneAt(i);
+
+                if(scene.isLoaded && scene.name.Equals(Constants.PINBALLBET_SCENE))
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }   
+    }
 }

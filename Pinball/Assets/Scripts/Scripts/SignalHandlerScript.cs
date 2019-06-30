@@ -26,16 +26,26 @@ public class SignalHandlerScript : MonoBehaviour
 
     public struct Angle
     {
-        public int angle;
+        public int angle
+        {   set 
+            {
+                angle = value - 2;   
+            }
+
+            get
+            {
+                return angle;
+            }
+        }
     };
 
     public Buttons buttons;
     public Launcher launcher;
     public Angle angle;
 
-    private Buttons mPpreviousButtons;
-    private Launcher mPreviousLauncher;
-    private Angle mPreviousAngle;
+    public Buttons previousButtons;
+    public Launcher previousLauncher;
+    public Angle previousAngle;
 
     public Buttons PreviousButtons
     { get; }
@@ -99,9 +109,9 @@ public class SignalHandlerScript : MonoBehaviour
 
     private void SavePrevious()
     {
-        mPpreviousButtons = buttons;
-        mPreviousAngle = angle;
-        mPreviousLauncher = launcher;
+        previousButtons = buttons;
+        previousAngle = angle;
+        previousLauncher = launcher;
     }
 
     private void ParseInput()
@@ -114,6 +124,8 @@ public class SignalHandlerScript : MonoBehaviour
 
         launcher.force = (message[0] >> 3) & 00000111;
 
+        // Angle 2 is zero, less than two is left, more than two is right.
+        // We save 2 as zero.
         angle.angle = message[1] & 01111111;
     }
 

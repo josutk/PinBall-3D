@@ -20,6 +20,8 @@ TagManager:
   - Left Flipper
   - Signal Handler
   - Template
+  - Menu Table Camera
+  - Ranking Table Camera
   layers:
   - Default
   - TransparentFX

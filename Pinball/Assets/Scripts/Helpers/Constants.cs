@@ -17,4 +17,8 @@ public static class Constants
     public static string RIGHT_FLIPPER_INPUT = "RFlipper";
 
     public const string SIGNAL_HANDLER_TAG = "Signal Handler";
+
+    public const string MENU_TABLE_CAMERA = "Menu Table Camera";
+
+    public static string RANKING_TABLE_CAMERA = "Ranking Table Camera";
 }
