@@ -17,6 +17,10 @@ public class UART
 
     private static int[] receivedMessage = new int[2]{-1, -1};
 
+    private static bool mShouldStopThread = false;
+
+    private static Thread thread;
+
     private static void OpenPort()
     {
         if(port.IsOpen)
@@ -78,15 +82,21 @@ public class UART
     {
         Configure();
 
-        Thread thread = new Thread(Read);
+        thread = new Thread(Read);
         thread.Start();
 
         InitializeCommunication();
     }
 
+    public static void Stop()
+    {
+        mShouldStopThread = true;
+        thread.Join();
+    }
+
     private static void Read()
     {
-        while(true)
+        while(!mShouldStopThread)
         {
             try 
             {

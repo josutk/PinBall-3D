@@ -33,15 +33,15 @@ public class SignalHandlerScript : MonoBehaviour
     public Launcher launcher;
     public Angle angle;
 
-    private Buttons previousButtons;
-    private Launcher previousLauncher;
-    private Angle previousAngle;
+    private Buttons mPpreviousButtons;
+    private Launcher mPreviousLauncher;
+    private Angle mPreviousAngle;
+
+    public Buttons PreviousButtons
+    { get; }
 
     private int[] previousMessage = new int[2]{-1, -1};
     private int[] message = new int[2]{-1, -1};
-
-    private Rigidbody Ball;
-
 
     public bool usingMSP = false;
 
@@ -74,6 +74,7 @@ public class SignalHandlerScript : MonoBehaviour
                 previousMessage[0] = message[0];
                 previousMessage[1] = message[1];
 
+                SavePrevious();
                 ParseInput();    
             }
         }
@@ -94,6 +95,13 @@ public class SignalHandlerScript : MonoBehaviour
         }
 
         return false;
+    }
+
+    private void SavePrevious()
+    {
+        mPpreviousButtons = buttons;
+        mPreviousAngle = angle;
+        mPreviousLauncher = launcher;
     }
 
     private void ParseInput()

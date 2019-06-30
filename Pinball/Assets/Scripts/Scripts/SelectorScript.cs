@@ -25,24 +25,23 @@ public class SelectorScript : MonoBehaviour
 
     void Update()
     {
-        if (signalHandler.buttons.rightButton)
+        if (signalHandler.buttons.rightButton && !signalHandler.PreviousButtons.rightButton)
         {
             MoveUp();
         }
 
-        if (signalHandler.buttons.leftButton)
+        if (signalHandler.buttons.leftButton &&  !signalHandler.PreviousButtons.leftButton)
         {
             MoveDown();
         }
 
         ShowInHover();
 
-        if (signalHandler.buttons.select)
+        if (signalHandler.buttons.select && !signalHandler.PreviousButtons.select)
         {
             if (IsHoveringRanking) {
                 game.LoadRanking();
                 isFromMenu = true;
-
             }// Show ranking
             else if (IsHoveringFGArcade) game.LoadFGArcade();
             else if (IsHoveringPinballBet) game.LoadPinballBet();
