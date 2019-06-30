@@ -4507,6 +4507,11 @@ PrefabInstance:
       propertyPath: m_LocalScale.x
       value: 1.5589113
       objectReference: {fileID: 0}
+    - target: {fileID: 6498352030757131400, guid: 0bbca926dc2fbc44497efd8349a5222e,
+        type: 3}
+      propertyPath: gameScore
+      value: 
+      objectReference: {fileID: 453676249}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0bbca926dc2fbc44497efd8349a5222e, type: 3}
 --- !u!4 &477961256 stripped
@@ -5136,7 +5141,7 @@ PrefabInstance:
     - target: {fileID: 391450481485490599, guid: 0bbca926dc2fbc44497efd8349a5222e,
         type: 3}
       propertyPath: m_RootOrder
-      value: 8
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 391450481485490599, guid: 0bbca926dc2fbc44497efd8349a5222e,
         type: 3}
@@ -5178,6 +5183,11 @@ PrefabInstance:
       propertyPath: m_LocalScale.x
       value: 1.2333
       objectReference: {fileID: 0}
+    - target: {fileID: 6498352030757131400, guid: 0bbca926dc2fbc44497efd8349a5222e,
+        type: 3}
+      propertyPath: gameScore
+      value: 
+      objectReference: {fileID: 453676249}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0bbca926dc2fbc44497efd8349a5222e, type: 3}
 --- !u!4 &523167019 stripped
@@ -8165,7 +8175,7 @@ PrefabInstance:
         type: 3}
       propertyPath: musicSource
       value: 
-      objectReference: {fileID: 4118570341310426764}
+      objectReference: {fileID: 989228544}
     - target: {fileID: 6565504236118721170, guid: 05b337df29693a747b06849a7da7bf51,
         type: 3}
       propertyPath: gameScore
@@ -8299,6 +8309,12 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 989228542}
   m_PrefabAsset: {fileID: 0}
+--- !u!82 &989228544 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 1740852965851997251, guid: 05b337df29693a747b06849a7da7bf51,
+    type: 3}
+  m_PrefabInstance: {fileID: 989228542}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &994017554
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8386,6 +8402,11 @@ PrefabInstance:
       propertyPath: m_LocalPosition.x
       value: -0.07317
       objectReference: {fileID: 0}
+    - target: {fileID: 6498352030757131400, guid: 0bbca926dc2fbc44497efd8349a5222e,
+        type: 3}
+      propertyPath: gameScore
+      value: 
+      objectReference: {fileID: 453676249}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0bbca926dc2fbc44497efd8349a5222e, type: 3}
 --- !u!4 &994017555 stripped
@@ -13959,6 +13980,11 @@ PrefabInstance:
       propertyPath: m_LocalScale.x
       value: 1.2610312
       objectReference: {fileID: 0}
+    - target: {fileID: 6498352030757131400, guid: 0bbca926dc2fbc44497efd8349a5222e,
+        type: 3}
+      propertyPath: gameScore
+      value: 
+      objectReference: {fileID: 453676249}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0bbca926dc2fbc44497efd8349a5222e, type: 3}
 --- !u!4 &1642279167 stripped
@@ -15731,10 +15757,10 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 477961256}
   - {fileID: 8430235257103945769}
-  - {fileID: 1642279167}
   - {fileID: 994017555}
+  - {fileID: 1642279167}
+  - {fileID: 477961256}
   - {fileID: 523167019}
   m_Father: {fileID: 200085251799504311}
   m_RootOrder: 1
@@ -23196,7 +23222,7 @@ PrefabInstance:
         type: 3}
       propertyPath: musicSource
       value: 
-      objectReference: {fileID: 4118570341310426764}
+      objectReference: {fileID: 5770718400669662249}
     - target: {fileID: 6565504236118721170, guid: 05b337df29693a747b06849a7da7bf51,
         type: 3}
       propertyPath: gameScore
@@ -23219,6 +23245,12 @@ PrefabInstance:
       objectReference: {fileID: 453676249}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 05b337df29693a747b06849a7da7bf51, type: 3}
+--- !u!82 &5770718400669662249 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 1740852965851997251, guid: 05b337df29693a747b06849a7da7bf51,
+    type: 3}
+  m_PrefabInstance: {fileID: 5770718400669662248}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &5783380914228755752
 Transform:
   m_ObjectHideFlags: 0
@@ -25009,6 +25041,11 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3389622725818092102, guid: 0bbca926dc2fbc44497efd8349a5222e,
+        type: 3}
+      propertyPath: gameScore
+      value: 
+      objectReference: {fileID: 453676249}
+    - target: {fileID: 6498352030757131400, guid: 0bbca926dc2fbc44497efd8349a5222e,
         type: 3}
       propertyPath: gameScore
       value: 
