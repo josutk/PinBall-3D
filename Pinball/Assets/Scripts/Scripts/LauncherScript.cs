@@ -6,10 +6,12 @@ using UnityEngine.UI;
 public class LauncherScript: MonoBehaviour
 {
 
-    float power;
+    private float power;
+
+    public float launchThreshold = 100f;
     public float maxPower = 1000f;
     public Slider powerSlider;
-    List<Rigidbody> ballList;
+    GameObject sphere;
     bool ballReady;
     private SignalHandlerScript signalHandler;
     // Start is called before the first frame update
@@ -18,8 +20,6 @@ public class LauncherScript: MonoBehaviour
         signalHandler = Finder.GetSignalHandler();
         powerSlider.minValue = 0f;
         powerSlider.maxValue = maxPower;
-        ballList = new List<Rigidbody>();
-
     }
 
     // Update is called once per frame
@@ -39,10 +39,8 @@ public class LauncherScript: MonoBehaviour
 
 
         powerSlider.value = power;
-        if (ballList.Count > 0)
+        if (sphere != null)
         {
-            ballReady = true;
-
             if (Input.GetKey(KeyCode.Space))
             {
                 if (power <= maxPower)
@@ -50,38 +48,32 @@ public class LauncherScript: MonoBehaviour
                     power += 250 * Time.deltaTime;
                 }
             }
-            if (signalHandler.launcher.force < 0 || Input.GetKeyUp(KeyCode.Space))
+
+            if (signalHandler.launcher.force > 0 || Input.GetKeyUp(KeyCode.Space))
             {
-                foreach (Rigidbody r in ballList)
-                {
-                    Debug.Log("Lançando!");
-                    r.AddForce(signalHandler.launcher.force * power * Vector3.forward);
-                }
+                Debug.Log("Lançando!");
+                Rigidbody rb = sphere.GetComponent<Rigidbody>();
+                float force = signalHandler.launcher.force * launchThreshold;
+                Debug.Log($"Força de Lançamento {force}");
+                rb.AddForce(force * Vector3.forward);
             }
         }
-        else {
-
-            ballReady = false;
-            power = 0f;
-
-        }
-
     }
 
-    private void OnTriggerEnter(Collider other) {
-        if (other.gameObject.CompareTag("Sphere")) {
-            ballList.Add(other.gameObject.GetComponent<Rigidbody>());
-
-            }
+    private void OnTriggerEnter(Collider other) 
+    {
+        if(CollisionHelper.DidCollideWithSphere(other.tag))
+        {
+            sphere = other.gameObject;
+            Debug.Log("Sphere");
         }
+    }
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.CompareTag("Sphere"))
+        if(CollisionHelper.DidCollideWith2DSpere(other.tag))
         {
-            ballList.Remove(other.gameObject.GetComponent<Rigidbody>());
-            power = 0f;
-
+            sphere = null;
         }
     }
 }

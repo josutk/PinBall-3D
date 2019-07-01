@@ -8,6 +8,9 @@ using System.Threading;
 using System.Diagnostics;
 using UnityEngine;
 using System.IO;
+using Debug = UnityEngine.Debug;
+using System.Collections;
+using System.Collections.Generic;
 
 public class UART 
 {
@@ -22,13 +25,15 @@ public class UART
 
     private static Thread thread;
 
+    private static List<int[]> buffer = new List<int[]>();
+
     private static void OpenPort()
     {
         if(port.IsOpen)
         {
-            //port.Close();
-            //Thread.Sleep(1000);
-            //port.Open();
+            port.Close();
+            Thread.Sleep(250);
+            port.Open();
             port.DiscardInBuffer();
             port.DiscardOutBuffer();
         }
@@ -94,12 +99,15 @@ public class UART
 
     public static void Stop()
     {
+        Debug.Log("Quit!");
+        mShouldStopThread = true;
         byte[] messageToSend = new byte[1]{ 0xFD };
         
         port.Write(message, 0, 1);
 
-        mShouldStopThread = true;
         thread.Join();
+        port.Close();
+        Thread.Sleep(250);
     }
 
     private static void Read()
@@ -112,7 +120,19 @@ public class UART
 
                 receivedMessage[1] = port.ReadByte();
 
-                if(receivedMessage[0] != -1 || receivedMessage[1] != -1)
+                if(buffer.Count > 0)
+                {
+                    if(buffer[0] != receivedMessage)
+                    {
+                        buffer.Add(receivedMessage);
+                    }
+                }
+                else
+                {
+                    buffer.Add(receivedMessage);
+                }
+
+                if(receivedMessage[0] != -1 || receivedMessage[1] != -1){}
                     UnityEngine.Debug.Log($"GetMessage receivedMessage: {receivedMessage[0]} {receivedMessage[1]}");
             }
             catch(TimeoutException) {
@@ -124,6 +144,16 @@ public class UART
 
     public static int[] GetMessage()
     {
-        return receivedMessage;
+        if(buffer.Count > 0)
+        {
+            int[] messageFromBuffer = buffer[0];    
+            buffer.RemoveAt(0);
+
+            return messageFromBuffer;
+        }
+        else
+        {
+            return new int[2]{-1, -1};
+        }
     }
 }

@@ -4325,6 +4325,11 @@ PrefabInstance:
       propertyPath: m_Limits.min
       value: -35
       objectReference: {fileID: 0}
+    - target: {fileID: 7183068523551283203, guid: 5715afdf03c6076498c8ff4f5adedd36,
+        type: 3}
+      propertyPath: isLeft
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5715afdf03c6076498c8ff4f5adedd36, type: 3}
 --- !u!4 &277516220863288972

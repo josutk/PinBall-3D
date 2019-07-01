@@ -1,4 +1,4 @@
-﻿﻿using System;
+﻿using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -105,11 +105,29 @@ public class SignalHandlerScript : MonoBehaviour
         }
         else
         {
-            message = UART.GetMessage();
+            int[] temporaryMessage = new int[2]{-1, -1};
+
+            temporaryMessage = UART.GetMessage();
+            
+            // Buttons and force, then angle
+            if(!Convert.ToBoolean(temporaryMessage[0] >> 7))
+            {
+                message[0] = temporaryMessage[0];
+                message[1] = temporaryMessage[1];
+            }
+            else
+            {
+                message[0] = temporaryMessage[1];
+                message[1] = temporaryMessage[0];
+            }
+
+            Debug.Log($"Corrected Orders {message[0]} {message[1]}");
 
             // It doesn't have anything to do with MSP.
             if((message[0] != previousMessage[0]) || (message[1] != previousMessage[1]))
             {
+
+                Debug.Log("Different messages");
 
                 //TODO(Roger): Check which message (message[0] or message[1] is different and parse accordingly)
                 previousMessage[0] = message[0];
@@ -147,37 +165,29 @@ public class SignalHandlerScript : MonoBehaviour
 
     private void ParseInput()
     {
+        Debug.Log("PARSEANDO!");
+        
         if(!freeze)
         {
-            int isButtons = message[0] >> 7;
+            buttons.select = Convert.ToBoolean(message[0] & 0b00000001);
 
-            buttons.select = Convert.ToBoolean(message[isButtons] & 0b00000001);
+            buttons.leftButton = Convert.ToBoolean(message[0] & 0b00000010);
 
-            buttons.leftButton = Convert.ToBoolean(message[isButtons] & 0b00000010);
+            buttons.rightButton = Convert.ToBoolean(message[0] & 0b00000100);
 
-            buttons.rightButton = Convert.ToBoolean(message[isButtons] & 0b00000100);
+            launcher.force = (message[0] >> 3) & 0b00000111;
 
-            launcher.force = (message[isButtons] >> 3) & 0b00000111;
+            Debug.Log($"LauncherForce: {message[0]} {message[0] >> 3}");
 
-            if(Convert.ToBoolean(isButtons))
-            {
-                // Angle 2 is zero, less than two is left, more than two is right.
-                // We save 2 as zero.
-                angle.angleX = message[0] & 0b00000111;
-                angle.angleZ = (message[0] >> 3) & 0b00000111;
-            }
-            else
-            {
-                angle.angleX = message[1] & 0b00000111;
-                angle.angleZ = (message[1] >> 3) & 0b00000111;
-            }
+            angle.angleX = message[1] & 0b00000111;
+            angle.angleZ = (message[1] >> 3) & 0b00000111;
 
-            Debug.Log($"Angulo X: {angle.angleX}");
-            Debug.Log($"Ângulo Z: {angle.angleZ}");
+            //Debug.Log($"Angulo X: {angle.angleX}");
+            //Debug.Log($"Ângulo Z: {angle.angleZ}");
+            Debug.Log($"Força Parse {launcher.force}");
         }
         else
         {
-            Debug.Log("Frozen!");
             buttons.select = false;
             buttons = new Buttons(false, false, false);
             launcher.force = 0;
@@ -194,5 +204,4 @@ public class SignalHandlerScript : MonoBehaviour
     {
         UART.Stop();
     }
-
 }
