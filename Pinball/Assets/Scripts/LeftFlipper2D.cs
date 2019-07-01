@@ -8,7 +8,6 @@ public class LeftFlipper2D : MonoBehaviour
     public float speed = 0f;
     private HingeJoint2D myHingeJoint;
     private JointMotor2D motor2D;
-    public bool flipper;
 
     void Start()
     {
@@ -16,10 +15,9 @@ public class LeftFlipper2D : MonoBehaviour
         motor2D = myHingeJoint.motor;
     }
 
-    // Update is called once per frame
-    void FixedUpdate()
+    void Update()
     {
-        if ((flipper == true && Input.GetKey(KeyCode.LeftArrow)))
+        if (Input.GetKey(KeyCode.LeftArrow))
         {
             motor2D.motorSpeed = speed;
             myHingeJoint.motor = motor2D;
@@ -28,14 +26,6 @@ public class LeftFlipper2D : MonoBehaviour
         {
             motor2D.motorSpeed = -speed;
             myHingeJoint.motor = motor2D;
-        }
-    }
-
-    void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (Input.GetKey(KeyCode.LeftArrow))
-        {
-            collision.rigidbody.AddForce(-collision.contacts[0].normal * 40, ForceMode2D.Impulse);
         }
     }
 }

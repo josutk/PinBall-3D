@@ -4,22 +4,9 @@ using UnityEngine;
 
 public class LoseCondition2DBonus : MonoBehaviour
 {
-    // Start is called before the first frame update
-
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     void OnCollisionEnter2D(Collision2D objectCollision)
     {
-       if( objectCollision.gameObject.name == "ball")
+       if(CollisionHelper.DidCollideWith2DSpere(objectCollision.gameObject.tag))
         {
             Debug.Log("Voce Perdeu");
         }

@@ -55,6 +55,6 @@ public class GameScript : MonoBehaviour
 
     public void LoadLevelOne()
     {
-        SceneManager.LoadScene(Constants.LEVEL_ONE_SCENE_NAME, LoadSceneMode.Additive);
+        SceneManager.LoadScene(Constants.FGARCADE_SCENE, LoadSceneMode.Additive);
     }
 }

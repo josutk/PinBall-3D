@@ -11,7 +11,6 @@ public class DropTarget2DScript : MonoBehaviour
     {
         renderState = true;
         GetComponent<Renderer>().enabled = true;
-
     }
 
     // Update is called once per frame
@@ -23,18 +22,6 @@ public class DropTarget2DScript : MonoBehaviour
         }else
         {
             GetComponent<Renderer>().enabled = false;
-        }
-    }
-
-    void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (renderState == true)
-        {
-            collision.rigidbody.AddForce(-collision.contacts[0].normal * 40, ForceMode2D.Impulse);
-            renderState = false;
-        }else
-        {
-
         }
     }
 
