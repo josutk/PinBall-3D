@@ -11,10 +11,11 @@ public class LauncherScript: MonoBehaviour
     public Slider powerSlider;
     List<Rigidbody> ballList;
     bool ballReady;
+    private SignalHandlerScript signalHandler;
     // Start is called before the first frame update
     void Start()
     {
-
+        signalHandler = Finder.GetSignalHandler();
         powerSlider.minValue = 0f;
         powerSlider.maxValue = maxPower;
         ballList = new List<Rigidbody>();
@@ -49,11 +50,12 @@ public class LauncherScript: MonoBehaviour
                     power += 250 * Time.deltaTime;
                 }
             }
-            if (Input.GetKeyUp(KeyCode.Space))
+            if (signalHandler.launcher.force < 0 || Input.GetKeyUp(KeyCode.Space))
             {
                 foreach (Rigidbody r in ballList)
                 {
-                    r.AddForce(power * Vector3.forward);
+                    Debug.Log("Lançando!");
+                    r.AddForce(signalHandler.launcher.force * power * Vector3.forward);
                 }
             }
         }

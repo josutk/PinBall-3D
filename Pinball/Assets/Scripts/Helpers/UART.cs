@@ -7,6 +7,7 @@ using System.IO.Ports;
 using System.Threading;
 using System.Diagnostics;
 using UnityEngine;
+using System.IO;
 
 public class UART 
 {
@@ -25,8 +26,11 @@ public class UART
     {
         if(port.IsOpen)
         {
-            port.Close();
-            OpenPort();
+            //port.Close();
+            //Thread.Sleep(1000);
+            //port.Open();
+            port.DiscardInBuffer();
+            port.DiscardOutBuffer();
         }
         else
         {
@@ -39,7 +43,7 @@ public class UART
     private static void Configure()
     {
         port = new SerialPort();
-        port.PortName = ("/dev/ttyACM1");
+        port.PortName = (SerialPort.GetPortNames()[0]);
         port.BaudRate = (9600);
         port.Parity = (Parity.None);
         port.DataBits = (8);
@@ -90,6 +94,10 @@ public class UART
 
     public static void Stop()
     {
+        byte[] messageToSend = new byte[1]{ 0xFD };
+        
+        port.Write(message, 0, 1);
+
         mShouldStopThread = true;
         thread.Join();
     }
@@ -108,6 +116,8 @@ public class UART
                     UnityEngine.Debug.Log($"GetMessage receivedMessage: {receivedMessage[0]} {receivedMessage[1]}");
             }
             catch(TimeoutException) {
+            }
+            catch(IOException){
             }
         }
     }

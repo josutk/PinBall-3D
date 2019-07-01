@@ -27,17 +27,37 @@ public class SignalHandlerScript : MonoBehaviour
     public struct Angle
     {
         // Necessary so we don't accidentaly cause Stack Overflow.
-        private int mAngle;
-        public int angle
+        private int mAngleX;
+        private int mAngleZ;
+        public int angleX
         {   set 
             {
-                mAngle = value - 2;   
+                mAngleX = value - 2;   
             }
 
             get
             {
-                return mAngle;
+                return mAngleX;
             }
+        }
+
+        public int angleZ
+        { 
+            get
+            {
+                return mAngleZ;
+            }
+            
+            set
+            {
+                mAngleZ = value - 2;
+            }
+        }
+
+        public Angle(int x, int z)
+        {
+            mAngleX = x;
+            mAngleZ = z;
         }
     };
 
@@ -129,17 +149,31 @@ public class SignalHandlerScript : MonoBehaviour
     {
         if(!freeze)
         {
-            buttons.select = Convert.ToBoolean(message[0] & 00000001);
+            int isButtons = message[0] >> 7;
 
-            buttons.leftButton = Convert.ToBoolean(message[0] & 00000010);
+            buttons.select = Convert.ToBoolean(message[isButtons] & 0b00000001);
 
-            buttons.rightButton = Convert.ToBoolean(message[0] & 00000100);
+            buttons.leftButton = Convert.ToBoolean(message[isButtons] & 0b00000010);
 
-            launcher.force = (message[0] >> 3) & 00000111;
+            buttons.rightButton = Convert.ToBoolean(message[isButtons] & 0b00000100);
 
-            // Angle 2 is zero, less than two is left, more than two is right.
-            // We save 2 as zero.
-            angle.angle = message[1] & 01111111;
+            launcher.force = (message[isButtons] >> 3) & 0b00000111;
+
+            if(Convert.ToBoolean(isButtons))
+            {
+                // Angle 2 is zero, less than two is left, more than two is right.
+                // We save 2 as zero.
+                angle.angleX = message[0] & 0b00000111;
+                angle.angleZ = (message[0] >> 3) & 0b00000111;
+            }
+            else
+            {
+                angle.angleX = message[1] & 0b00000111;
+                angle.angleZ = (message[1] >> 3) & 0b00000111;
+            }
+
+            Debug.Log($"Angulo X: {angle.angleX}");
+            Debug.Log($"Ângulo Z: {angle.angleZ}");
         }
         else
         {
@@ -147,11 +181,18 @@ public class SignalHandlerScript : MonoBehaviour
             buttons.select = false;
             buttons = new Buttons(false, false, false);
             launcher.force = 0;
-            angle.angle = 2; // 0
+            angle.angleX = 2; // 0
+            angle.angleZ = 2;
         }
     }
 
     public void ChangeSound(Int32 volume) => UART.ChangeSound(volume);
 
     public void ChangeLights(Int32 speed) => UART.ChangeLights(speed);
+
+    private void OnApplicationQuit()
+    {
+        UART.Stop();
+    }
+
 }

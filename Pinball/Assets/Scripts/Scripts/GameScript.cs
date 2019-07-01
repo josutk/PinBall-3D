@@ -11,7 +11,7 @@ public class GameScript : MonoBehaviour
     private SignalHandlerScript signalHandler;
 
     public const float TILT_THRESHOLD_X = 5f;
-    public const float TILT_THRESHOLD_Z = 2f;
+    public const float TILT_THRESHOLD_Z = 0f;
 
     private struct SavedStatus
     {
@@ -26,7 +26,7 @@ public class GameScript : MonoBehaviour
     {
         signalHandler = Finder.GetSignalHandler();
         
-        LoadMenu();
+        //LoadMenu();
     }
 
     void Update()
@@ -35,7 +35,7 @@ public class GameScript : MonoBehaviour
         {
             if(signalHandler.usingMSP && DidTilt)
             {
-                TiltBall(signalHandler.angle.angle);    
+                TiltBall(signalHandler.angle);    
             }
             else
             {
@@ -43,22 +43,25 @@ public class GameScript : MonoBehaviour
                 {
                     Random.InitState((int)Time.time);
 
-                    int rand = Random.Range(-2, 2);
+                    int randX = Random.Range(-2, 2);
+                    int randZ = Random.Range(-2, 2);
 
-                    TiltBall(rand);
+                    TiltBall(new SignalHandlerScript.Angle(randX,randZ));
                 }
             }
         }
     }
 
-    private void TiltBall(int amount)
+    private void TiltBall(SignalHandlerScript.Angle amount)
     {
         GameObject[] spheres = Finder.GetSpheres();
 
         foreach(GameObject sphere in spheres)
         {
             Rigidbody rb = sphere.GetComponent<Rigidbody>();
-            rb.AddForce(amount * TILT_THRESHOLD_X, 0, TILT_THRESHOLD_Z);
+
+            //rb.velocity = new Vector3(amount.angleX, 0, amount.angleZ);
+            rb.AddForce(amount.angleX, 0, amount.angleZ);
         }
     }
 
@@ -66,7 +69,7 @@ public class GameScript : MonoBehaviour
     {
         get
         {
-            if (signalHandler.angle.angle > 0)
+            if (signalHandler.angle.angleX > 0 || signalHandler.angle.angleZ > 0)
             {
                 return true;
             }
