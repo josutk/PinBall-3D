@@ -105,7 +105,7 @@ public class SignalHandlerScript : MonoBehaviour
         }
         else
         {
-            int[] temporaryMessage = new int[2]{-1, -1};
+            int[] temporaryMessage;
 
             temporaryMessage = UART.GetMessage();
             
@@ -126,7 +126,6 @@ public class SignalHandlerScript : MonoBehaviour
             // It doesn't have anything to do with MSP.
             if((message[0] != previousMessage[0]) || (message[1] != previousMessage[1]))
             {
-
                 Debug.Log("Different messages");
 
                 //TODO(Roger): Check which message (message[0] or message[1] is different and parse accordingly)
@@ -136,6 +135,10 @@ public class SignalHandlerScript : MonoBehaviour
                 SavePrevious();
                 ParseInput();    
             }
+            // else if(UART.force > 0)
+            // {
+            //     launcher.force = UART.force;
+            // }
         }
     } 
 
@@ -175,7 +178,7 @@ public class SignalHandlerScript : MonoBehaviour
 
             buttons.rightButton = Convert.ToBoolean(message[0] & 0b00000100);
 
-            launcher.force = (message[0] >> 3) & 0b00000111;
+            //launcher.force = (message[0] >> 3) & 0b00000111;
 
             Debug.Log($"LauncherForce: {message[0]} {message[0] >> 3}");
 

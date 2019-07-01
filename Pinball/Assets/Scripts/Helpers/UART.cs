@@ -27,6 +27,8 @@ public class UART
 
     private static List<int[]> buffer = new List<int[]>();
 
+    public static int force = 0;
+
     private static void OpenPort()
     {
         if(port.IsOpen)
@@ -104,6 +106,7 @@ public class UART
         byte[] messageToSend = new byte[1]{ 0xFD };
         
         port.Write(message, 0, 1);
+        Thread.Sleep(250);
 
         thread.Join();
         port.Close();
@@ -120,9 +123,25 @@ public class UART
 
                 receivedMessage[1] = port.ReadByte();
 
+                // int possibleForce = 0;
+
+                // if(Convert.ToBoolean(receivedMessage[0] >> 7))
+                // {
+                //     possibleForce = (receivedMessage[0] >> 3) & 0b00000111;
+                // }
+                // else if(Convert.ToBoolean(receivedMessage[0] >> 7))
+                // {
+                //     possibleForce = (receivedMessage[0] >> 3) & 0b00000111;
+                // }
+
+                // if(possibleForce != 0)
+                // {
+                //         force = possibleForce;
+                // }
+
                 if(buffer.Count > 0)
                 {
-                    if(buffer[0] != receivedMessage)
+                    if(buffer[buffer.Count - 1] != receivedMessage)
                     {
                         buffer.Add(receivedMessage);
                     }
