@@ -114,8 +114,6 @@ public class UART
 
     public static int[] GetMessage()
     {
-        
-
         return receivedMessage;
     }
 }

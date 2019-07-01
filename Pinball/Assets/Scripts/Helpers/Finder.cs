@@ -16,4 +16,16 @@ public static class Finder
     {
         return GameObject.FindGameObjectsWithTag(Constants.SPHERE_TAG);
     }
+
+    public static GameObject Get2DBall()
+    {
+        return GameObject.FindGameObjectWithTag(Constants.BALL_2D_TAG);
+    }
+
+    public static Camera GetFGArcadeBackglassCamera() => GameObject.FindGameObjectWithTag(Constants.FGARCADE_BACKGLASS_CAMERA).GetComponent<Camera>();
+
+    public static Camera GetBonusLevelBackglassCamera() => 
+        GameObject
+            .FindGameObjectWithTag(Constants.BONUS_LEVEL_BACKGLASS_CAMERA)
+            .GetComponent<Camera>();
 }

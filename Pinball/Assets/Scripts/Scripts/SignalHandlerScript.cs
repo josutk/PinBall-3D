@@ -26,15 +26,17 @@ public class SignalHandlerScript : MonoBehaviour
 
     public struct Angle
     {
+        // Necessary so we don't accidentaly cause Stack Overflow.
+        private int mAngle;
         public int angle
         {   set 
             {
-                angle = value - 2;   
+                mAngle = value - 2;   
             }
 
             get
             {
-                return angle;
+                return mAngle;
             }
         }
     };
@@ -55,6 +57,8 @@ public class SignalHandlerScript : MonoBehaviour
 
     public bool usingMSP = false;
 
+    public bool freeze = false;
+
     void Start()
     {
         if(usingMSP) UART.Start();
@@ -66,11 +70,18 @@ public class SignalHandlerScript : MonoBehaviour
     {
         if(!usingMSP)
         {
-            buttons.leftButton = Input.GetKeyDown(KeyCode.A);
+            if(!freeze)
+            {
+                buttons.leftButton = Input.GetKeyDown(KeyCode.A);
            
-            buttons.rightButton = Input.GetKeyDown(KeyCode.D);
+                buttons.rightButton = Input.GetKeyDown(KeyCode.D);
 
-            buttons.select = Input.GetKeyDown(KeyCode.Space);
+                buttons.select = Input.GetKeyDown(KeyCode.Space);
+            }
+            else
+            {
+                ParseInput();
+            }
         }
         else
         {
@@ -116,17 +127,28 @@ public class SignalHandlerScript : MonoBehaviour
 
     private void ParseInput()
     {
-        buttons.select = Convert.ToBoolean(message[0] & 00000001);
+        if(!freeze)
+        {
+            buttons.select = Convert.ToBoolean(message[0] & 00000001);
 
-        buttons.leftButton = Convert.ToBoolean(message[0] & 00000010);
+            buttons.leftButton = Convert.ToBoolean(message[0] & 00000010);
 
-        buttons.rightButton = Convert.ToBoolean(message[0] & 00000100);
+            buttons.rightButton = Convert.ToBoolean(message[0] & 00000100);
 
-        launcher.force = (message[0] >> 3) & 00000111;
+            launcher.force = (message[0] >> 3) & 00000111;
 
-        // Angle 2 is zero, less than two is left, more than two is right.
-        // We save 2 as zero.
-        angle.angle = message[1] & 01111111;
+            // Angle 2 is zero, less than two is left, more than two is right.
+            // We save 2 as zero.
+            angle.angle = message[1] & 01111111;
+        }
+        else
+        {
+            Debug.Log("Frozen!");
+            buttons.select = false;
+            buttons = new Buttons(false, false, false);
+            launcher.force = 0;
+            angle.angle = 2; // 0
+        }
     }
 
     public void ChangeSound(Int32 volume) => UART.ChangeSound(volume);

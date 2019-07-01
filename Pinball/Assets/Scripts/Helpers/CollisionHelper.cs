@@ -13,4 +13,16 @@ public class CollisionHelper
         if(tag == Constants.SPHERE_TAG) return true;
         else return false;
     }
+
+    public static bool DidCollideWith2DSpere(string tag)
+    {
+        if(tag == Constants.BALL_2D_TAG)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
 }

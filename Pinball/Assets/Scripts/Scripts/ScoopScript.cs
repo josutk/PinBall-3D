@@ -2,88 +2,22 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Script : MonoBehaviour
+public class ScoopScript : MonoBehaviour
 {
-    private GameObject sphere;
-    private GameObject[] table;
-    private GameObject ball2D;
-    private float previousSpeed = 0;
 
-    // Constant related to the impulse given to the 2D ball.
-    // This is used because the velocities doesn't translate well two 2D environments.
-    public const float IMPULSE = 9;
+    private GameScript game;
 
-    void Start()
+    private void Start()
     {
-        sphere = GameObject.FindGameObjectWithTag(Constants.SPHERE_TAG);
-        table = GameObject.FindGameObjectsWithTag(Constants.TABLE_TAG);
-        ball2D = GameObject.FindGameObjectWithTag(Constants.BALL_2D_TAG);
+        game = Finder.GetGameController();        
     }
 
-    void OnTriggerEnter(Collider other)
+    void OnCollisionEnter(Collision other)
     {
-        if(DidCollideWithSphere(other))
+        if(CollisionHelper.DidCollideWithSphere(other.gameObject.tag))
         {
-            foreach(GameObject t in table)
-            {
-                Physics.IgnoreCollision(other, t.GetComponent<Collider>());
-
-                Rigidbody ballRigidBody = other.gameObject.GetComponent<Rigidbody>();
-
-                GameObject bottom = GameObject.FindGameObjectWithTag("Hole");
-
-                previousSpeed = ballRigidBody.velocity.z;
-
-                ballRigidBody.AddForce((bottom.transform.position - ballRigidBody.position) * 10);
-            }
-        }
-    }
-
-    void OnTriggerExit(Collider other)
-    {
-        if(DidCollideWithSphere(other))
-        {
-            foreach(GameObject t in table)
-            {
-                Physics.IgnoreCollision(other, t.GetComponent<Collider>(), false);
-            }
-
-            ActivateBonusLevel();
-        }
-    }
-
-    private void ActivateBonusLevel()
-    {
-        ActivateSecondScreenElements();
-        ThrowBall();
-    }
-
-    private void ActivateSecondScreenElements()
-    {
-        GameObject secondScreen = GameObject.FindGameObjectWithTag(Constants.SECOND_SCREEN_TAG);
-        SecondScreenScript script = secondScreen.GetComponent<SecondScreenScript>();
-        script.ReactivateChildren();
-    }
-
-    private void ThrowBall()
-    {
-        Rigidbody2D rb2D = ball2D.GetComponent<Rigidbody2D>(); 
-        Rigidbody rb = sphere.GetComponent<Rigidbody>();
-
-        rb2D.constraints = RigidbodyConstraints2D.None;
-
-        rb2D.AddForce(new Vector2(0,  (-previousSpeed) * IMPULSE));   
-    }
-
-    private bool DidCollideWithSphere(Collider other)
-    {
-        if(other.gameObject.tag == Constants.SPHERE_TAG)
-        {
-            return true;
-        }
-        else
-        {
-            return false;
+            other.gameObject.GetComponent<Renderer>().enabled = false;
+            game.LoadBonusLevel(other.gameObject, other.relativeVelocity);
         }
     }
 }

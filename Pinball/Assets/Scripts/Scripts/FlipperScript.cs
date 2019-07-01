@@ -67,7 +67,7 @@ public class FlipperScript : MonoBehaviour{
 
     float MoveKeyboard(JointSpring spring)
     {
-        if (Input.GetAxis(inputName) == 1) return pressedPosition;
+        if (Input.GetAxis(inputName) == 1 && !signalHandler.freeze) return pressedPosition;
         else return initialPosition;
     }
 }
