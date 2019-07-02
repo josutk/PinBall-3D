@@ -14,6 +14,16 @@ using System.Collections.Generic;
 
 public class UART 
 {
+    public class LastQ<T> : Queue<T>
+    {
+        public T Last { get; private set; }
+
+        public new void Enqueue(T item)
+        {
+            Last = item;
+            base.Enqueue(item);
+        }
+    }
     static SerialPort port;
     static byte[] ok_message = new byte[1]{ 0xFF };
     static byte[] request = new byte[1]{ 0xF0 };
@@ -21,18 +31,25 @@ public class UART
 
     private static int[] receivedMessage = new int[2]{-1, -1};
 
-    private static bool mShouldStopThread = false;
+    public static bool mShouldStopThread = false;
 
     private static Thread thread;
 
-    private static List<int[]> buffer = new List<int[]>();
+    private static LastQ<int[]> buffer = new LastQ<int[]>();
 
-    public static int force = 0;
+    private static Semaphore semaphore;
+
+    public static int[] defaultMessage = new int[2]{ -1, -1};
+    public static bool generateLauncher;
+    public static bool generateButtonLeft;
+    public static bool generateButtonRight;
+    public static bool generateButtonSelect;
 
     private static void OpenPort()
     {
         if(port.IsOpen)
         {
+            Debug.Log("Is already open!");
             port.Close();
             Thread.Sleep(250);
             port.Open();
@@ -41,6 +58,7 @@ public class UART
         }
         else
         {
+            Debug.Log("Open!");
             port.Open();
             port.DiscardInBuffer();
             port.DiscardOutBuffer();
@@ -89,28 +107,148 @@ public class UART
         port.Write(message, 0, 2);
     }
 
-    public static void Start()
+    public static void Start(bool fake = false)
     {
-        Configure();
+        if(fake)
+        {
+            //semaphore = new Semaphore(0, 1);
+            thread = new Thread(FakeRead);
+            receivedMessage[0] = 0;
+            receivedMessage[1] = 0;
+            thread.Start();
+        }
+        else
+        {
+            Configure();
 
-        thread = new Thread(Read);
-        thread.Start();
+            semaphore = new Semaphore(0, 1);
 
-        InitializeCommunication();
+            thread = new Thread(Read);
+            thread.Start();
+
+            InitializeCommunication();
+        }
+    }
+
+    private static void FakeRead()
+    {
+        Debug.Log("Starting Fake Thread!");
+
+        while(!mShouldStopThread)
+        {
+            Debug.Log("Inside Fake Read!");
+            if(generateButtonLeft)
+            {
+                GenerateButtonLeft();
+                generateButtonLeft = false;
+            }
+            else if(generateButtonRight)
+            {
+                GenerateButtonRight();
+                generateButtonRight = false;
+            }
+            else if(generateButtonSelect)
+            {
+                GenerateButtonSelect();
+                generateButtonSelect = false;
+            }
+
+            if(generateLauncher)
+            {
+                GenerateLauncher();
+                generateLauncher = false;
+            }
+
+            if(receivedMessage[0] != 0 || receivedMessage[1] != 0)
+            {
+                Debug.Log($"GetMessage receivedMessage: {receivedMessage[0]} {receivedMessage[1]}");
+            }
+        }
+    }
+
+    private static void GenerateButtonSelect()
+    {
+        receivedMessage[0] = receivedMessage[0] | 0b00000100;
+
+        //semaphore.WaitOne();
+
+        AddToBuffer();
+
+        //semaphore.Release();
+    }
+
+    private static void AddToBuffer()
+    {
+        if (buffer.Count > 0 && buffer.Last != receivedMessage)
+        {
+            buffer.Enqueue(receivedMessage);
+        }
+        else
+        {
+            buffer.Enqueue(receivedMessage);
+        }
+
+        Debug.Log($"Message to Enqueue {receivedMessage[0]}");        
+    }
+
+    private static void GenerateButtonRight()
+    {
+        receivedMessage[0] = receivedMessage[0] | 0b00000010;
+
+        //semaphore.WaitOne();
+
+        AddToBuffer();
+
+        //semaphore.Release();
+    }
+
+    private static void GenerateLauncher()
+    {
+        Debug.Log("Generate Launcher!");
+
+        receivedMessage[0] = receivedMessage[0] | 0b00001000;
+
+        Debug.Log($"Message After Launcher {receivedMessage[0]}");
+
+        //semaphore.WaitOne();
+
+        AddToBuffer();
+
+        //semaphore.Release();
+
+        receivedMessage[0] = receivedMessage[0] & 0b00000000;
+        
+        //semaphore.WaitOne();        
+        AddToBuffer();
+        //semaphore.Release();
+
+    }
+
+    private static void GenerateButtonLeft()
+    {
+        receivedMessage[0] = receivedMessage[0] | 0b00000001;
+
+        //semaphore.WaitOne();
+
+        AddToBuffer();
+
+        //semaphore.Release();
     }
 
     public static void Stop()
     {
         Debug.Log("Quit!");
-        mShouldStopThread = true;
-        byte[] messageToSend = new byte[1]{ 0xFD };
-        
-        port.Write(message, 0, 1);
-        Thread.Sleep(250);
 
-        thread.Join();
-        port.Close();
-        Thread.Sleep(250);
+        mShouldStopThread = true;
+
+        if(port != null && port.IsOpen)
+        {
+            byte[] messageToSend = new byte[1]{ 0xFD };
+        
+            port.Write(message, 0, 1);
+            Thread.Sleep(500);
+            port.Close();
+        }
     }
 
     private static void Read()
@@ -123,36 +261,16 @@ public class UART
 
                 receivedMessage[1] = port.ReadByte();
 
-                // int possibleForce = 0;
+                semaphore.WaitOne();
 
-                // if(Convert.ToBoolean(receivedMessage[0] >> 7))
-                // {
-                //     possibleForce = (receivedMessage[0] >> 3) & 0b00000111;
-                // }
-                // else if(Convert.ToBoolean(receivedMessage[0] >> 7))
-                // {
-                //     possibleForce = (receivedMessage[0] >> 3) & 0b00000111;
-                // }
+                AddToBuffer();
 
-                // if(possibleForce != 0)
-                // {
-                //         force = possibleForce;
-                // }
+                semaphore.Release();
 
-                if(buffer.Count > 0)
+                if(receivedMessage[0] != -1 || receivedMessage[1] != -1)
                 {
-                    if(buffer[buffer.Count - 1] != receivedMessage)
-                    {
-                        buffer.Add(receivedMessage);
-                    }
-                }
-                else
-                {
-                    buffer.Add(receivedMessage);
-                }
-
-                if(receivedMessage[0] != -1 || receivedMessage[1] != -1){}
                     UnityEngine.Debug.Log($"GetMessage receivedMessage: {receivedMessage[0]} {receivedMessage[1]}");
+                }
             }
             catch(TimeoutException) {
             }
@@ -163,16 +281,20 @@ public class UART
 
     public static int[] GetMessage()
     {
+        Debug.Log("Get Message!");
+
         if(buffer.Count > 0)
         {
-            int[] messageFromBuffer = buffer[0];    
-            buffer.RemoveAt(0);
+            //semaphore.WaitOne();
 
-            return messageFromBuffer;
+            int[] messageToSend = buffer.Dequeue();
+
+            //semaphore.Release();
+            return messageToSend;
         }
         else
         {
-            return new int[2]{-1, -1};
+            return defaultMessage;
         }
     }
 }

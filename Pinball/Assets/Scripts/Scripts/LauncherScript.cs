@@ -7,8 +7,7 @@ public class LauncherScript: MonoBehaviour
 {
 
     private float power;
-
-    public float launchThreshold = 100f;
+    public float launchThreshold = 10f;
     public float maxPower = 1000f;
     public Slider powerSlider;
     GameObject sphere;
@@ -49,13 +48,21 @@ public class LauncherScript: MonoBehaviour
                 }
             }
 
+            if (Input.GetKeyUp(KeyCode.Space))
+            {
+                Rigidbody rb = sphere.GetComponent<Rigidbody>();
+                Debug.Log($"Power: {power}");
+                rb.AddForce(power * Vector3.forward);
+            }
+
+            Debug.Log($"Signal handler force {signalHandler.launcher.force}");
+            
             if (signalHandler.launcher.force > 0 || Input.GetKeyUp(KeyCode.Space))
             {
-                Debug.Log("Lançando!");
                 Rigidbody rb = sphere.GetComponent<Rigidbody>();
                 float force = signalHandler.launcher.force * launchThreshold;
                 Debug.Log($"Força de Lançamento {force}");
-                rb.AddForce(force * Vector3.forward);
+                rb.AddForce(49 * Vector3.forward);
             }
         }
     }
@@ -65,7 +72,6 @@ public class LauncherScript: MonoBehaviour
         if(CollisionHelper.DidCollideWithSphere(other.tag))
         {
             sphere = other.gameObject;
-            Debug.Log("Sphere");
         }
     }
 

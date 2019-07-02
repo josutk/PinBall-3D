@@ -2779,6 +2779,11 @@ PrefabInstance:
       propertyPath: maxPower
       value: 60
       objectReference: {fileID: 0}
+    - target: {fileID: 981230162961356965, guid: 42d5f6988ebe0b146b7a512356dafa3e,
+        type: 3}
+      propertyPath: launchThreshold
+      value: 20
+      objectReference: {fileID: 0}
     - target: {fileID: 981230162972009550, guid: 42d5f6988ebe0b146b7a512356dafa3e,
         type: 3}
       propertyPath: m_AnchorMax.y
@@ -8392,6 +8397,11 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6922312061643808458, guid: 8b8da04a46e98954ca46c6240f3f4ba1,
+        type: 3}
+      propertyPath: m_TagString
+      value: FGArcade Backglass Camera
+      objectReference: {fileID: 0}
     - target: {fileID: 2265360805323120202, guid: 8b8da04a46e98954ca46c6240f3f4ba1,
         type: 3}
       propertyPath: m_LocalPosition.z
@@ -8531,11 +8541,6 @@ PrefabInstance:
         type: 3}
       propertyPath: far clip plane
       value: 12
-      objectReference: {fileID: 0}
-    - target: {fileID: 6922312061643808458, guid: 8b8da04a46e98954ca46c6240f3f4ba1,
-        type: 3}
-      propertyPath: m_TagString
-      value: FGArcade Backglass Camera
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8b8da04a46e98954ca46c6240f3f4ba1, type: 3}
