@@ -14,16 +14,6 @@ using System.Collections.Generic;
 
 public class UART 
 {
-    public class LastQ<T> : Queue<T>
-    {
-        public T Last { get; private set; }
-
-        public new void Enqueue(T item)
-        {
-            Last = item;
-            base.Enqueue(item);
-        }
-    }
     static SerialPort port;
     static byte[] ok_message = new byte[1]{ 0xFF };
     static byte[] request = new byte[1]{ 0xF0 };
@@ -31,19 +21,17 @@ public class UART
 
     private static int[] receivedMessage = new int[2]{-1, -1};
 
-    public static bool mShouldStopThread = false;
+    private static bool mShouldStopThread = false;
 
     private static Thread thread;
 
-    private static LastQ<int[]> buffer = new LastQ<int[]>();
+    private static Mutex mutex = new Mutex();
 
-    private static Semaphore semaphore;
-
-    public static int[] defaultMessage = new int[2]{ -1, -1};
     public static bool generateLauncher;
     public static bool generateButtonLeft;
     public static bool generateButtonRight;
     public static bool generateButtonSelect;
+    internal static bool generateAngle;
 
     private static void OpenPort()
     {
@@ -111,17 +99,12 @@ public class UART
     {
         if(fake)
         {
-            //semaphore = new Semaphore(0, 1);
             thread = new Thread(FakeRead);
-            receivedMessage[0] = 0;
-            receivedMessage[1] = 0;
             thread.Start();
         }
         else
         {
             Configure();
-
-            semaphore = new Semaphore(0, 1);
 
             thread = new Thread(Read);
             thread.Start();
@@ -132,107 +115,79 @@ public class UART
 
     private static void FakeRead()
     {
-        Debug.Log("Starting Fake Thread!");
+        //Debug.Log("Starting Fake Thread!");
 
         while(!mShouldStopThread)
         {
-            Debug.Log("Inside Fake Read!");
+            mutex.WaitOne();
+            
+            receivedMessage[0] = 0;
+            receivedMessage[1] = 0;
+            
             if(generateButtonLeft)
             {
+                //Debug.Log("Button Left!");
                 GenerateButtonLeft();
-                generateButtonLeft = false;
             }
-            else if(generateButtonRight)
+            
+            if(generateButtonRight)
             {
                 GenerateButtonRight();
-                generateButtonRight = false;
             }
-            else if(generateButtonSelect)
+            
+            if(generateButtonSelect)
             {
                 GenerateButtonSelect();
-                generateButtonSelect = false;
             }
 
             if(generateLauncher)
             {
+                //Debug.Log("UART Generate Launcher");
                 GenerateLauncher();
-                generateLauncher = false;
             }
 
+            if(generateAngle)
+            {
+                GenerateAngle();
+            }
+
+            mutex.ReleaseMutex();
+            
             if(receivedMessage[0] != 0 || receivedMessage[1] != 0)
             {
-                Debug.Log($"GetMessage receivedMessage: {receivedMessage[0]} {receivedMessage[1]}");
+                // Debug.Log($"GetMessage receivedMessage: {receivedMessage[0]} {receivedMessage[1]}");
             }
         }
+
+        Debug.Log("Finished fake read!");
+    }
+
+    private static void GenerateAngle()
+    {
+        receivedMessage[1] = receivedMessage[1] | 0b10001010;
     }
 
     private static void GenerateButtonSelect()
     {
-        receivedMessage[0] = receivedMessage[0] | 0b00000100;
-
-        //semaphore.WaitOne();
-
-        AddToBuffer();
-
-        //semaphore.Release();
-    }
-
-    private static void AddToBuffer()
-    {
-        if (buffer.Count > 0 && buffer.Last != receivedMessage)
-        {
-            buffer.Enqueue(receivedMessage);
-        }
-        else
-        {
-            buffer.Enqueue(receivedMessage);
-        }
-
-        Debug.Log($"Message to Enqueue {receivedMessage[0]}");        
+        receivedMessage[0] = receivedMessage[0] | 0b00000001;
     }
 
     private static void GenerateButtonRight()
     {
-        receivedMessage[0] = receivedMessage[0] | 0b00000010;
-
-        //semaphore.WaitOne();
-
-        AddToBuffer();
-
-        //semaphore.Release();
+        receivedMessage[0] = receivedMessage[0] | 0b00000100;
     }
 
     private static void GenerateLauncher()
     {
-        Debug.Log("Generate Launcher!");
-
         receivedMessage[0] = receivedMessage[0] | 0b00001000;
 
-        Debug.Log($"Message After Launcher {receivedMessage[0]}");
-
-        //semaphore.WaitOne();
-
-        AddToBuffer();
-
-        //semaphore.Release();
-
-        receivedMessage[0] = receivedMessage[0] & 0b00000000;
-        
-        //semaphore.WaitOne();        
-        AddToBuffer();
-        //semaphore.Release();
-
+        // Debug.Log($"Message After Launcher {receivedMessage[0]}");
     }
 
     private static void GenerateButtonLeft()
     {
-        receivedMessage[0] = receivedMessage[0] | 0b00000001;
-
-        //semaphore.WaitOne();
-
-        AddToBuffer();
-
-        //semaphore.Release();
+        receivedMessage[0] = receivedMessage[0] | 0b00000010;
+        Debug.Log($"Received Message: {receivedMessage[0]}");
     }
 
     public static void Stop()
@@ -240,6 +195,7 @@ public class UART
         Debug.Log("Quit!");
 
         mShouldStopThread = true;
+        thread.Join();
 
         if(port != null && port.IsOpen)
         {
@@ -261,12 +217,6 @@ public class UART
 
                 receivedMessage[1] = port.ReadByte();
 
-                semaphore.WaitOne();
-
-                AddToBuffer();
-
-                semaphore.Release();
-
                 if(receivedMessage[0] != -1 || receivedMessage[1] != -1)
                 {
                     UnityEngine.Debug.Log($"GetMessage receivedMessage: {receivedMessage[0]} {receivedMessage[1]}");
@@ -281,20 +231,20 @@ public class UART
 
     public static int[] GetMessage()
     {
-        Debug.Log("Get Message!");
+        
+        mutex.WaitOne();
+        // Never return the same array, or you will return it's reference.
+        // if(receivedMessage[0] == 8)
+        // {
+        //     Debug.Log("Oito!");
+        // }
 
-        if(buffer.Count > 0)
-        {
-            //semaphore.WaitOne();
+        int[] messageToSend = new int[2] {receivedMessage[0], receivedMessage[1] };
+        mutex.ReleaseMutex();
 
-            int[] messageToSend = buffer.Dequeue();
+        //Debug.Log($"Message to send: {messageToSend[0]} {messageToSend[1]}");
 
-            //semaphore.Release();
-            return messageToSend;
-        }
-        else
-        {
-            return defaultMessage;
-        }
+        
+        return messageToSend;
     }
 }

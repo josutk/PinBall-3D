@@ -104,51 +104,77 @@ public class SignalHandlerScript : MonoBehaviour
         {
             if(fake)
             {
-                if(Input.GetKeyDown(KeyCode.L))
-                {
-                    UART.generateLauncher = true;
-                    Debug.Log("Generate UART Launcher");
-                }
-
-                if(Input.GetKeyDown(KeyCode.C))
-                {
-                    UART.generateButtonLeft = true;
-                }
-
-                if(Input.GetKeyDown(KeyCode.B))
-                {
-                    UART.generateButtonRight = true;
-                }
-
-                if(Input.GetKeyDown(KeyCode.S))
-                {
-                    UART.generateButtonSelect = true;
-                }
+                SimulateSignals();
             }
 
-            int[] temporaryMessage;
+            int[] temporaryMessage = new int[2];
 
             temporaryMessage = UART.GetMessage();
 
-            if(temporaryMessage != UART.defaultMessage)
+            CorrectOrder(temporaryMessage);
+
+            Debug.Log($"Mensagem anterior: {previousMessage[0]} {previousMessage[1]} {message[0]} {message[1]}");
+
+            if (message[0] != previousMessage[0])
             {
-                CorrectOrder(temporaryMessage);
-
-                Debug.Log($"Corrected Orders {message[0]} {message[1]}");
-
-                if (message[0] != previousMessage[0])
-                {
-                    previousMessage[0] = message[0];
-                    SavePreviousButtons();
-                    ParseButtonsAndForce();
-                }
-
-                if (message[1] != previousMessage[1])
-                {
-                    previousMessage[1] = message[1];
-                    ParseAngle();
-                }
+                previousMessage[0] = message[0];
+                SavePreviousButtons();
+                ParseButtonsAndForce();
             }
+
+            if (message[1] != previousMessage[1])
+            {
+                 previousMessage[1] = message[1];
+                 ParseAngle();
+            }
+        }
+    }
+
+    private static void SimulateSignals()
+    {
+        if (Input.GetKeyDown(KeyCode.L))
+        {
+            UART.generateLauncher = true;
+        }
+        else
+        {
+            UART.generateLauncher = false;
+        }
+
+        if (Input.GetKey(KeyCode.C))
+        {
+            UART.generateButtonLeft = true;
+        }
+        else
+        {
+            UART.generateButtonLeft = false;
+        }
+
+        if (Input.GetKey(KeyCode.B))
+        {
+            UART.generateButtonRight = true;
+        }
+        else
+        {
+            UART.generateButtonRight = false;
+        }
+
+        if (Input.GetKey(KeyCode.S))
+        {
+            UART.generateButtonSelect = true;
+        }
+        else
+        {
+            UART.generateLauncher = false;
+        }
+
+        if(Input.GetKey(KeyCode.Return))
+        {
+            UART.generateAngle = true;
+        }
+        else
+        {
+            UART.generateAngle = false;
         }
     }
 
@@ -189,8 +215,6 @@ public class SignalHandlerScript : MonoBehaviour
 
     private void ParseButtonsAndForce()
     {
-        Debug.Log("Parsing Buttons and Force!");
-
         buttons.select = Convert.ToBoolean(message[0] & 0b00000001);
 
         buttons.leftButton = Convert.ToBoolean(message[0] & 0b00000010);
@@ -198,8 +222,6 @@ public class SignalHandlerScript : MonoBehaviour
         buttons.rightButton = Convert.ToBoolean(message[0] & 0b00000100);
 
         launcher.force = (message[0] >> 3) & 0b00000111;
-
-        Debug.Log($"Launcher force {launcher.force}");
     }
 
     public void ChangeSound(Int32 volume) => UART.ChangeSound(volume);
