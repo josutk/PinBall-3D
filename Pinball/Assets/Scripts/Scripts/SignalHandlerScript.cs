@@ -132,7 +132,12 @@ public class SignalHandlerScript : MonoBehaviour
 
     private static void SimulateSignals()
     {
-        if (Input.GetKeyDown(KeyCode.L))
+        /*
+            There is a bug with using GetKeyDown, which will be the case for the launcher.
+            Unfortunately, the variable generateLauncher becomes true AND false before the
+            thread can read it and generate the signal. Probably won't happen with the MSP.
+         */
+        if (Input.GetKey(KeyCode.L))
         {
             UART.generateLauncher = true;
         }

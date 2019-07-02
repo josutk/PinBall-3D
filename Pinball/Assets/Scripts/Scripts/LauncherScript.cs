@@ -73,7 +73,8 @@ public class LauncherScript: MonoBehaviour
             {
                 Rigidbody rb = sphere.GetComponent<Rigidbody>();
                 float force = signalHandler.launcher.force * launchThreshold;
-                rb.AddForce(5 * signalHandler.launcher.force * Vector3.forward);
+                Debug.Log($"Force: {force}");
+                rb.AddForce(force * Vector3.forward);
             }
         }
     }
