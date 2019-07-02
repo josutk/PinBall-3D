@@ -20,6 +20,7 @@ public class UART
     static byte[] message = new byte[2];
 
     private static int[] receivedMessage = new int[2]{-1, -1};
+    private static LastQueue<int[]> buffer = new LastQueue<int[]>();
 
     private static bool mShouldStopThread = false;
 
@@ -119,47 +120,67 @@ public class UART
 
         while(!mShouldStopThread)
         {
+
             mutex.WaitOne();
-            
+
             receivedMessage[0] = 0;
             receivedMessage[1] = 0;
-            
-            if(generateButtonLeft)
+
+            if (generateButtonLeft)
             {
                 //Debug.Log("Button Left!");
                 GenerateButtonLeft();
             }
-            
-            if(generateButtonRight)
+
+            if (generateButtonRight)
             {
                 GenerateButtonRight();
             }
-            
-            if(generateButtonSelect)
+
+            if (generateButtonSelect)
             {
                 GenerateButtonSelect();
             }
 
-            if(generateLauncher)
+            if (generateLauncher)
             {
-                //Debug.Log("UART Generate Launcher");
+                Debug.Log("UART Generate Launcher");
                 GenerateLauncher();
             }
 
-            if(generateAngle)
+            if (generateAngle)
             {
                 GenerateAngle();
             }
 
+            AddToBuffer();
+
             mutex.ReleaseMutex();
-            
-            if(receivedMessage[0] != 0 || receivedMessage[1] != 0)
-            {
-                // Debug.Log($"GetMessage receivedMessage: {receivedMessage[0]} {receivedMessage[1]}");
-            }
+
+            // if (receivedMessage[0] != 0 || receivedMessage[1] != 0)
+            // {
+            //     Debug.Log($"GetMessage receivedMessage: {receivedMessage[0]} {receivedMessage[1]}");
+            // }
         }
 
         Debug.Log("Finished fake read!");
+    }
+
+    private static void AddToBuffer()
+    {
+        if (buffer.Count > 0)
+        {
+            int[] last = buffer.Last;
+
+            if (last[0] != receivedMessage[0])
+            {
+                buffer.Enqueue(new int[2] { receivedMessage[0], receivedMessage[1] });
+            }
+        }
+        else
+        {
+            buffer.Enqueue(new int[2] { receivedMessage[0], receivedMessage[1] });
+        }
     }
 
     private static void GenerateAngle()
@@ -179,7 +200,7 @@ public class UART
 
     private static void GenerateLauncher()
     {
-        receivedMessage[0] = receivedMessage[0] | 0b00001000;
+        receivedMessage[0] = receivedMessage[0] | 0b00010000;
 
         // Debug.Log($"Message After Launcher {receivedMessage[0]}");
     }
@@ -187,7 +208,7 @@ public class UART
     private static void GenerateButtonLeft()
     {
         receivedMessage[0] = receivedMessage[0] | 0b00000010;
-        Debug.Log($"Received Message: {receivedMessage[0]}");
+        //Debug.Log($"Received Message: {receivedMessage[0]}");
     }
 
     public static void Stop()
@@ -195,7 +216,10 @@ public class UART
         Debug.Log("Quit!");
 
         mShouldStopThread = true;
-        thread.Join();
+        if(thread.IsAlive)
+        {
+            thread.Join();
+        }
 
         if(port != null && port.IsOpen)
         {
@@ -239,7 +263,15 @@ public class UART
         //     Debug.Log("Oito!");
         // }
 
-        int[] messageToSend = new int[2] {receivedMessage[0], receivedMessage[1] };
+        int[] fromBuffer = buffer.Dequeue();
+
+        if(fromBuffer[0] == 8)
+        {
+            Debug.Log("Os comprimidos não me compreendem");
+        }
+
+
+        int[] messageToSend = new int[2] {fromBuffer[0], fromBuffer[1] };
         mutex.ReleaseMutex();
 
         //Debug.Log($"Message to send: {messageToSend[0]} {messageToSend[1]}");
