@@ -15,6 +15,19 @@ TagManager:
   - Second Screen
   - 2D Camera
   - Hole
+  - RollOverTrigger
+  - Right Flipper
+  - Left Flipper
+  - Signal Handler
+  - Template
+  - Menu Table Camera
+  - Ranking Table Camera
+  - Dead
+  - Gold
+  - Backglass Camera
+  - FGArcade Backglass Camera
+  - Bonus Level Backglass Camera
+  - Wall
   layers:
   - Default
   - TransparentFX

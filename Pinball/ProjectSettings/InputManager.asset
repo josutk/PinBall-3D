@@ -262,11 +262,11 @@ InputManager:
     axis: 0
     joyNum: 0
   - serializedVersion: 3
-    m_Name: LFlipper
+    m_Name: kli
     descriptiveName: 
     descriptiveNegativeName: 
     negativeButton: 
-    positiveButton: a
+    positiveButton: enter
     altNegativeButton: 
     altPositiveButton: space
     gravity: 1000
@@ -314,7 +314,7 @@ InputManager:
     descriptiveName: 
     descriptiveNegativeName: 
     negativeButton: 
-    positiveButton: c
+    positiveButton: escape
     altNegativeButton: 
     altPositiveButton: joystick button 1
     gravity: 1000
