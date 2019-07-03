@@ -231,7 +231,16 @@ public class SignalHandlerScript : MonoBehaviour
 
     public void ChangeSound(Int32 volume) => UART.ChangeSound(volume);
 
-    public void ChangeLights(Int32 speed) => UART.ChangeLights(speed);
+    public void ChangeLights(Int32 speed)
+    {
+        Debug.Log($"Speed {speed}");
+        UART.ChangeLights(speed);
+    }
+
+    public void SendMessage() 
+    { 
+        UART.SendMessage();
+    }
 
     private void OnApplicationQuit()
     {
