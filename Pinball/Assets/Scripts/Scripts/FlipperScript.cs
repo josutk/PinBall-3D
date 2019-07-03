@@ -8,12 +8,23 @@ public class FlipperScript : MonoBehaviour{
     public float hitStrenght = 10000f;
     public float flipperDamper = 150f;
     public string inputName;
-    HingeJoint hinge;
+
+    public bool isLeft = false;
+    
+    private HingeJoint hinge;
+
+    private SignalHandlerScript signalHandler;
+
 
     // Start is called before the first frame update
     void Start() {
         hinge = GetComponent<HingeJoint>();
+
         hinge.useSpring = true;
+
+        signalHandler = GameObject
+                        .FindGameObjectWithTag(Constants.SIGNAL_HANDLER_TAG)
+                        .GetComponent<SignalHandlerScript>();
     }
 
     // Update is called once per frame
@@ -22,14 +33,41 @@ public class FlipperScript : MonoBehaviour{
         spring.spring = hitStrenght;
         spring.damper = flipperDamper;
 
-        if (Input.GetAxis(inputName) == 1) {
-            spring.targetPosition = pressedPosition;
+        if(signalHandler.usingMSP)
+        {
+            if(isLeft)
+            {
+                if (signalHandler.buttons.leftButton) 
+                {
+                    spring.targetPosition = pressedPosition;
+                }
+                else {
+                    spring.targetPosition = initialPosition;
+                }    
+            }
+            else
+            {
+                if (signalHandler.buttons.rightButton) 
+                {
+                    spring.targetPosition = pressedPosition;
+                }
+                else {
+                    spring.targetPosition = initialPosition;
+                }
+            }
         }
-        else {
-            spring.targetPosition = initialPosition;
+        else
+        {
+            spring.targetPosition = MoveKeyboard(spring);
         }
 
         hinge.spring = spring;
         hinge.useLimits = true;
+    }
+
+    float MoveKeyboard(JointSpring spring)
+    {
+        if (Input.GetAxis(inputName) == 1 && !signalHandler.freeze) return pressedPosition;
+        else return initialPosition;
     }
 }

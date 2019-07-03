@@ -54,7 +54,6 @@ public class StandupScript : MonoBehaviour
         if(CollidedWithSphere(collision.gameObject.tag))
         {
             hitCount++;
-            Debug.Log($"Hit Count == {hitCount}");
             // TODO(Roger): game.score += COMPONENT_SCORE;
             
             SetupRecoilMovement(collision);

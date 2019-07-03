@@ -6,6 +6,18 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/Persistant.unity
+    guid: 39d20070cecc5ae40908cb25d8ddb06b
+  - enabled: 1
+    path: Assets/Scenes/Menu.unity
+    guid: 001008dab19c10f40b7712b16d74cf22
+  - enabled: 1
     path: Assets/Scenes/FGArcadeScene.unity
     guid: 33e24284d379c774ca00ce21d837244c
+  - enabled: 1
+    path: Assets/Scenes/RankingScene.unity
+    guid: 19728d1d11e05a844b15e0818d01b179
+  - enabled: 1
+    path: Assets/Scenes/PinballBetScene.unity
+    guid: 4d0caaacde34ce04daf86ba08a1898ce
   m_configObjects: {}

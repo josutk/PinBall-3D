@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 7998205056367313048}
   - component: {fileID: 1918891335051072629}
   - component: {fileID: 1770148554230302277}
+  - component: {fileID: 1473157783483107588}
   m_Layer: 0
   m_Name: SmallSling
   m_TagString: Untagged
@@ -104,4 +105,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8596bd90f8b1494e9121cd672b06de5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  velocityIncrement: 1.1
+  minIncrement: 0
+  maxIncrement: 0
+--- !u!114 &1473157783483107588
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1918891335051072630}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7cb419fb58400864ebce9e03e78fac37, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  score: 150
+  gameScore: {fileID: 0}
