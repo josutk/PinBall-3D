@@ -113,12 +113,12 @@ public class SignalHandlerScript : MonoBehaviour
 
             CorrectOrder(temporaryMessage);
 
-            Debug.Log($"Mensagem anterior: {previousMessage[0]} {previousMessage[1]} {message[0]} {message[1]}");
+            SavePreviousButtons();
 
             if (message[0] != previousMessage[0])
             {
+                Debug.Log($"Mensagem: anterior {previousMessage[0]} atual {message[0]}");
                 previousMessage[0] = message[0];
-                SavePreviousButtons();
                 ParseButtonsAndForce();
             }
 

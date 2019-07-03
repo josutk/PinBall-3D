@@ -13,7 +13,7 @@ public class GameScript : MonoBehaviour
     public const float TILT_THRESHOLD_X = 5f;
     public const float TILT_THRESHOLD_Z = 0f;
 
-    int velocity = 1;
+    int velocity = 0;
 
     private struct SavedStatus
     {
