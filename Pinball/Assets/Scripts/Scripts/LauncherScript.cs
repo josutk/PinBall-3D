@@ -13,12 +13,15 @@ public class LauncherScript: MonoBehaviour
     GameObject sphere;
     bool ballReady;
     private SignalHandlerScript signalHandler;
+
+    private AudioSource audioSource;
     // Start is called before the first frame update
     void Start()
     {
         signalHandler = Finder.GetSignalHandler();
         powerSlider.minValue = 0f;
         powerSlider.maxValue = maxPower;
+        audioSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -75,6 +78,7 @@ public class LauncherScript: MonoBehaviour
                 float force = signalHandler.launcher.force * launchThreshold;
                 Debug.Log($"Force: {force}");
                 rb.AddForce(force * Vector3.forward);
+                audioSource.Play();
             }
         }
     }
