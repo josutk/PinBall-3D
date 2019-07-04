@@ -13,7 +13,8 @@ public class ScoreManager : MonoBehaviour {
     }
 
     public void AddScore(int score) {
-        this.score += score;        
+        this.score += score;
+        Debug.Log("PONTO" + this.score);        
         UpdateScore();
     }
 

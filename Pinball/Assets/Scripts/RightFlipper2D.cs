@@ -14,11 +14,10 @@ public class RightFlipper2D : MonoBehaviour
         myHingeJoint = GetComponent<HingeJoint2D>();
         motor2D = myHingeJoint.motor;
         signalHandler = GameObject
-                      .FindGameObjectWithTag(Constants.SIGNAL_HANDLER_TAG_2D)
+                      .FindGameObjectWithTag(Constants.SIGNAL_HANDLER_TAG)
                       .GetComponent<SignalHandlerScript>();
     }
-
-    void FixedUpdate()
+    void Update()
     {
         if (signalHandler.fake) {
 
