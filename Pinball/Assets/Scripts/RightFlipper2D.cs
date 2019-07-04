@@ -24,7 +24,6 @@ public class RightFlipper2D : MonoBehaviour
 
             if (signalHandler.buttons.rightButton)
             {
-                Debug.Log("entrei aqui direito");
                 motor2D.motorSpeed = -speed;
                 myHingeJoint.motor = motor2D;
 

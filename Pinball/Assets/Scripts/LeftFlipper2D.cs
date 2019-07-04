@@ -25,10 +25,8 @@ public class LeftFlipper2D : MonoBehaviour
     {
         if (signalHandler.fake)
         {
-            flipperState = signalHandler.buttons.leftButton;
-            if (signalHandler.buttons.leftButton != flipperState)
+            if (signalHandler.buttons.leftButton)
             {
-                Debug.Log("entrei aqui esquerdo");
                 motor2D.motorSpeed = speed;
                 myHingeJoint.motor = motor2D;
             }
