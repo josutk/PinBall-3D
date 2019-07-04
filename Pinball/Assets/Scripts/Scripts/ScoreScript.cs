@@ -5,11 +5,16 @@ using UnityEngine;
 public class ScoreScript : MonoBehaviour {
     
     public int score;
-    public ScoreManegerScript gameScore;   
+    private ScoreManager scoreManager;   
+
+    private void Start()
+    {
+        scoreManager = Finder.GetScoreManager();
+    }
 
     void OnCollisionEnter(Collision collision) {
         if (GameObject.FindGameObjectWithTag(Constants.SPHERE_TAG)) {
-            gameScore.AddScore(score);
+            scoreManager.AddScore(score);
         }
     }
 }

@@ -35,13 +35,11 @@ public class ColisionZoneScript : MonoBehaviour {
             if (GameObject.FindGameObjectWithTag("Sphere")) {
                 Destroy(GameObject.FindGameObjectWithTag("Sphere"));                                               
             }
-            if (Input.GetKeyDown(KeyCode.Space)) {
-                //SceneManager.LoadScene("FGArcadeScene");
-                saveScore = GameObject.Find("ScoreManager").GetComponent<ScoreManegerScript>().score;
-                Debug.Log("ScoreScene " + GameObject.Find("ScoreManager").GetComponent<ScoreManegerScript>().score);
-                PlayerPrefs.SetInt("Score", saveScore);
-                game.LoadRanking();
-            }
+            //SceneManager.LoadScene("FGArcadeScene");
+            saveScore = GameObject.Find("ScoreManager").GetComponent<ScoreManager>().score;
+            Debug.Log("ScoreScene " + GameObject.Find("ScoreManager").GetComponent<ScoreManager>().score);
+            PlayerPrefs.SetInt("Score", saveScore);
+            game.LoadRanking();
             //Debug.Log("Score " + GameObject.Find("ScoreManager").GetComponent<ScoreManegerScript>().score);
         }
                 
