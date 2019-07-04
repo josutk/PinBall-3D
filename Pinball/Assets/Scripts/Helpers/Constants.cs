@@ -20,6 +20,7 @@ public static class Constants
     public static string RIGHT_FLIPPER_INPUT = "RFlipper";
 
     public const string SIGNAL_HANDLER_TAG = "Signal Handler";
+    public const string SIGNAL_HANDLER_TAG_2D = "SignalHandler2D";
 
     public const string MENU_TABLE_CAMERA = "Menu Table Camera";
 

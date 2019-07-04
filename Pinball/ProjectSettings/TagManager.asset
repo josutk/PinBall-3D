@@ -28,6 +28,7 @@ TagManager:
   - FGArcade Backglass Camera
   - Bonus Level Backglass Camera
   - Wall
+  - SignalHandler2D
   layers:
   - Default
   - TransparentFX

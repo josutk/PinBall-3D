@@ -7,25 +7,34 @@ public class RightFlipper2D : MonoBehaviour
     public float speed = 0f;
     private HingeJoint2D myHingeJoint;
     private JointMotor2D motor2D;
+    private SignalHandlerScript signalHandler;
 
     void Start()
     {
         myHingeJoint = GetComponent<HingeJoint2D>();
         motor2D = myHingeJoint.motor;
+        signalHandler = GameObject
+                      .FindGameObjectWithTag(Constants.SIGNAL_HANDLER_TAG_2D)
+                      .GetComponent<SignalHandlerScript>();
     }
-    // Update is called once per frame
+
     void FixedUpdate()
     {
-        if (Input.GetKey(KeyCode.RightArrow))
-        {
-            motor2D.motorSpeed = -speed;
-            myHingeJoint.motor = motor2D;
+        if (signalHandler.fake) {
 
+            if (signalHandler.buttons.rightButton)
+            {
+                Debug.Log("entrei aqui direito");
+                motor2D.motorSpeed = -speed;
+                myHingeJoint.motor = motor2D;
+
+            }
+            else
+            {
+                motor2D.motorSpeed = speed;
+                myHingeJoint.motor = motor2D;
+            }
         }
-        else
-        {
-            motor2D.motorSpeed = speed;
-            myHingeJoint.motor = motor2D;
-        }
+
     }
 }
