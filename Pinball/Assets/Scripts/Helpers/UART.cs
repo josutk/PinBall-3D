@@ -253,7 +253,8 @@ public class UART
                 }
             }
             catch(TimeoutException e) {
-                Debug.Log($"Timeout: {e.Message}");
+                Debug.Log($"Erro: {e.Message}");
+                mutex.ReleaseMutex();
             }
             catch(IOException){
             }
@@ -270,13 +271,16 @@ public class UART
         //     Debug.Log("Oito!");
         // }
 
-        int[] fromBuffer = buffer.Dequeue();
+        int[] fromBuffer;
 
-        if(fromBuffer[0] == 8)
+        if(buffer.Count > 0)
         {
-            Debug.Log("Os comprimidos não me compreendem");
+            fromBuffer = buffer.Dequeue();
         }
-
+        else
+        {
+            fromBuffer = new int[2]{0 , 0};
+        } 
 
         int[] messageToSend = new int[2] {fromBuffer[0], fromBuffer[1] };
         mutex.ReleaseMutex();
