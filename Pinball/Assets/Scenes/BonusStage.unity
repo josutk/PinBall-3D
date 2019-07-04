@@ -253,7 +253,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b711fad61f138d49af348c01c546719, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: -10000
+  speed: -1000
 --- !u!50 &40707636
 Rigidbody2D:
   serializedVersion: 4
@@ -1535,7 +1535,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b711fad61f138d49af348c01c546719, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: -10000
+  speed: -1000
 --- !u!60 &631708900
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -1946,7 +1946,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6773c8790865e7a439fe8a61c573663b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: -10000
+  speed: -1000
 --- !u!60 &778577921
 PolygonCollider2D:
   m_ObjectHideFlags: 0

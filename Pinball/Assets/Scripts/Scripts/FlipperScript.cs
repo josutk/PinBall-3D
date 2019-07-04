@@ -15,6 +15,10 @@ public class FlipperScript : MonoBehaviour{
 
     private SignalHandlerScript signalHandler;
 
+    private AudioSource audioSource;
+
+    public AudioClip flipperDown;
+    public AudioClip flipperUp;
 
     // Start is called before the first frame update
     void Start() {
@@ -25,6 +29,8 @@ public class FlipperScript : MonoBehaviour{
         signalHandler = GameObject
                         .FindGameObjectWithTag(Constants.SIGNAL_HANDLER_TAG)
                         .GetComponent<SignalHandlerScript>();
+
+        audioSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -40,9 +46,22 @@ public class FlipperScript : MonoBehaviour{
                 if (signalHandler.buttons.leftButton) 
                 {
                     spring.targetPosition = pressedPosition;
+
+                    if(!signalHandler.previousButtons.leftButton)
+                    {
+                        audioSource.clip = flipperUp;
+                        audioSource.Play();
+                    }
                 }
-                else {
+                else 
+                {
                     spring.targetPosition = initialPosition;
+                  
+                    if(signalHandler.previousButtons.leftButton)
+                    {
+                        audioSource.clip = flipperDown;
+                        audioSource.Play();
+                    }
                 }    
             }
             else
@@ -50,9 +69,21 @@ public class FlipperScript : MonoBehaviour{
                 if (signalHandler.buttons.rightButton) 
                 {
                     spring.targetPosition = pressedPosition;
+                    
+                    if(!signalHandler.previousButtons.rightButton)
+                    {
+                        audioSource.clip = flipperUp;
+                        audioSource.Play();
+                    }
                 }
                 else {
                     spring.targetPosition = initialPosition;
+
+                    if(signalHandler.previousButtons.rightButton)
+                    {
+                        audioSource.clip = flipperDown;
+                        audioSource.Play();
+                    }
                 }
             }
         }

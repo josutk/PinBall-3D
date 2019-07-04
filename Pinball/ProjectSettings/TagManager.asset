@@ -29,6 +29,7 @@ TagManager:
   - Bonus Level Backglass Camera
   - Wall
   - SignalHandler2D
+  - Score Manager
   layers:
   - Default
   - TransparentFX

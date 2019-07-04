@@ -13,6 +13,8 @@ public class GameScript : MonoBehaviour
     public const float TILT_THRESHOLD_X = 5f;
     public const float TILT_THRESHOLD_Z = 0f;
 
+    int velocity = 0;
+
     private struct SavedStatus
     {
         public List<Rigidbody> rbs;
@@ -49,6 +51,21 @@ public class GameScript : MonoBehaviour
                     TiltBall(new SignalHandlerScript.Angle(randX,randZ));
                 }
             }
+        }
+
+        if(Input.GetKeyDown(KeyCode.I))
+        {
+            Debug.Log($"Change Lights! {velocity}");
+
+            signalHandler.ChangeLights(velocity);
+            velocity++;
+
+            if(velocity > 7)
+            {
+                velocity = 0;
+            }
+
+            signalHandler.SendMessage();
         }
     }
 
