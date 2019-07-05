@@ -243,7 +243,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b711fad61f138d49af348c01c546719, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: -10000
+  speed: -2500
 --- !u!50 &40707636
 Rigidbody2D:
   serializedVersion: 4
@@ -2521,7 +2521,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b711fad61f138d49af348c01c546719, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: -10000
+  speed: -2500
 --- !u!60 &631708900
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -2695,7 +2695,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 718318499}
-  - component: {fileID: 718318498}
   m_Layer: 0
   m_Name: Score
   m_TagString: Score Manager
@@ -2703,19 +2702,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &718318498
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 718318497}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ebd8e69c2f4fc044489464e9c124aff9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  scoreText: {fileID: 0}
 --- !u!4 &718318499
 Transform:
   m_ObjectHideFlags: 0
@@ -3045,7 +3031,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6773c8790865e7a439fe8a61c573663b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: -10000
+  speed: -2500
 --- !u!60 &778577921
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -6163,7 +6149,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 361b190fd1f603a41b34f779d6d81dfe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  usingMSP: 0
+  usingMSP: 1
   freeze: 0
   fake: 1
 --- !u!4 &1572501365

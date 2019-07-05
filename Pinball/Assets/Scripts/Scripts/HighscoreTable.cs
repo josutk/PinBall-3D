@@ -24,6 +24,8 @@ public class HighscoreTable : MonoBehaviour {
     private Color AlfaColor = Color.yellow;
     private GameScript game;
 
+    private SignalHandlerScript signalHandler;
+
     private void Awake() {
         entryContainer = transform.Find("HighscoreEntryContainer");
         entryTemplate = entryContainer.Find("HighscoreEntryTemplate");
@@ -53,7 +55,8 @@ public class HighscoreTable : MonoBehaviour {
         Letters[letterSelect].color = AlfaColor;
         Input.ResetInputAxes();
         nextText = GameObject.Find("Button");
-        game = Finder.GetGameController();        
+        game = Finder.GetGameController();
+        signalHandler = Finder.GetSignalHandler();
     }
 
     void Update() {        
@@ -190,59 +193,122 @@ public class HighscoreTable : MonoBehaviour {
 
     private void EnterName() {
         if (initials.Length < 3) {
-
-            if (Input.GetKey("up") && readyToMove) {
-                if (stepper < alphabet.Length - 1) {
-                    stepper++;
-                    Letters[letterSelect].text = alphabet[stepper].ToString();
-                    readyToMove = false;
-                    Invoke("ResetReadyToMove", moveDelay);
-                }
-            }
-            //
-            if (Input.GetKey("down") && readyToMove) {
-                if (stepper > 0) {
-                    stepper--;
-                    Letters[letterSelect].text = alphabet[stepper].ToString();
-                    readyToMove = false;
-                    Invoke("ResetReadyToMove", moveDelay);
-                }
-            }
-            //
-            if (Input.GetKey("tab") && readyToMove) {
-                if (letterSelect <= Letters.Length - 1) {
-                    initials = initials + alphabet[stepper].ToString();
-
-                    if (letterSelect == Letters.Length - 1) {
-                        letterSelect = 3; // breaks loop then sets name 
-                        string nameFromInput = initials;
-                        //int scoreTest = 47;
-
-                        foreach (GameObject scores in GameObject.FindGameObjectsWithTag("Template")) {
-                            Destroy(scores);
-                        }
-                        
-                        AddHighscoreEntry(scoreS, nameFromInput);
-
-                        string jsonString = PlayerPrefs.GetString("HighscoreTable");
-                        Highscores highscores = JsonUtility.FromJson<Highscores>(jsonString);
-
-                        highscoreEntryTransformList = new List<Transform>();
-                        foreach (HighScoreEntry highScoreEntry in highscores.highscoreEntryList) {
-                            CreatingHighscoreEntryTransform(highScoreEntry, entryContainer, highscoreEntryTransformList);
-                        }
-                        game.LoadMenu();
-                    }                    
-                    
-                    if (letterSelect < Letters.Length - 1) {
-                        letterSelect++;
-                        Letters[letterSelect].color = AlfaColor;                        
-                        Letters[letterSelect - 1].color = selectedColor;
+            if (signalHandler.usingMSP) {
+                if (signalHandler.buttons.rightButton && readyToMove) {
+                //if (Input.GetKey("up") && readyToMove) {
+                    if (stepper < alphabet.Length - 1) {
+                        stepper++;
+                        Letters[letterSelect].text = alphabet[stepper].ToString();
                         readyToMove = false;
                         Invoke("ResetReadyToMove", moveDelay);
                     }
-                    
-                    stepper = 0;
+                }
+                //
+                if (signalHandler.buttons.leftButton && readyToMove) {
+                    //if (Input.GetKey("down") && readyToMove) {
+                    if (stepper > 0) {
+                        stepper--;
+                        Letters[letterSelect].text = alphabet[stepper].ToString();
+                        readyToMove = false;
+                        Invoke("ResetReadyToMove", moveDelay);
+                    }
+                }
+                //
+                if (signalHandler.buttons.select && readyToMove) {
+                //if (Input.GetKey("tab") && readyToMove) {
+                    if (letterSelect <= Letters.Length - 1) {
+                        initials = initials + alphabet[stepper].ToString();
+
+                        if (letterSelect == Letters.Length - 1) {
+                            letterSelect = 3; // breaks loop then sets name 
+                            string nameFromInput = initials;
+                            //int scoreTest = 47;
+
+                            foreach (GameObject scores in GameObject.FindGameObjectsWithTag("Template")) {
+                                Destroy(scores);
+                            }
+
+                            AddHighscoreEntry(scoreS, nameFromInput);
+
+                            string jsonString = PlayerPrefs.GetString("HighscoreTable");
+                            Highscores highscores = JsonUtility.FromJson<Highscores>(jsonString);
+
+                            highscoreEntryTransformList = new List<Transform>();
+                            foreach (HighScoreEntry highScoreEntry in highscores.highscoreEntryList) {
+                                CreatingHighscoreEntryTransform(highScoreEntry, entryContainer, highscoreEntryTransformList);
+                            }
+                            game.LoadMenu();
+                        }
+
+                        if (letterSelect < Letters.Length - 1) {
+                            letterSelect++;
+                            Letters[letterSelect].color = AlfaColor;
+                            Letters[letterSelect - 1].color = selectedColor;
+                            readyToMove = false;
+                            Invoke("ResetReadyToMove", moveDelay);
+                        }
+
+                        stepper = 0;
+                    }
+                }
+            }
+            else {
+
+                if (Input.GetKey("up") && readyToMove) {
+                    if (stepper < alphabet.Length - 1) {
+                        stepper++;
+                        Letters[letterSelect].text = alphabet[stepper].ToString();
+                        readyToMove = false;
+                        Invoke("ResetReadyToMove", moveDelay);
+                    }
+                }
+                //
+
+                if (Input.GetKey("down") && readyToMove) {
+                    if (stepper > 0) {
+                        stepper--;
+                        Letters[letterSelect].text = alphabet[stepper].ToString();
+                        readyToMove = false;
+                        Invoke("ResetReadyToMove", moveDelay);
+                    }
+                }
+                //
+
+                if (Input.GetKey("tab") && readyToMove) {
+                    if (letterSelect <= Letters.Length - 1) {
+                        initials = initials + alphabet[stepper].ToString();
+
+                        if (letterSelect == Letters.Length - 1) {
+                            letterSelect = 3; // breaks loop then sets name 
+                            string nameFromInput = initials;
+                            //int scoreTest = 47;
+
+                            foreach (GameObject scores in GameObject.FindGameObjectsWithTag("Template")) {
+                                Destroy(scores);
+                            }
+
+                            AddHighscoreEntry(scoreS, nameFromInput);
+
+                            string jsonString = PlayerPrefs.GetString("HighscoreTable");
+                            Highscores highscores = JsonUtility.FromJson<Highscores>(jsonString);
+
+                            highscoreEntryTransformList = new List<Transform>();
+                            foreach (HighScoreEntry highScoreEntry in highscores.highscoreEntryList) {
+                                CreatingHighscoreEntryTransform(highScoreEntry, entryContainer, highscoreEntryTransformList);
+                            }
+                            game.LoadMenu();
+                        }
+
+                        if (letterSelect < Letters.Length - 1) {
+                            letterSelect++;
+                            Letters[letterSelect].color = AlfaColor;
+                            Letters[letterSelect - 1].color = selectedColor;
+                            readyToMove = false;
+                            Invoke("ResetReadyToMove", moveDelay);
+                        }
+
+                        stepper = 0;
+                    }
                 }
             }
         }
