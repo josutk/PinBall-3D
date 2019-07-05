@@ -16,11 +16,12 @@ public class HighscoreTable : MonoBehaviour {
     private int stepper = 0;
     private GameObject nextText;
     public GameObject gameDialog;
+    public GameObject movimentMsg;
     private bool readyToMove = true;
     public Text[] Letters = null;
     private int scoreS;
-    private Color selectedColor = Color.yellow;
-    private Color AlfaColor = Color.green;
+    private Color selectedColor = Color.green;
+    private Color AlfaColor = Color.yellow;
     private GameScript game;
 
     private void Awake() {
@@ -60,6 +61,7 @@ public class HighscoreTable : MonoBehaviour {
         {
             Debug.Log("Menu isn't loaded!");
             gameDialog.SetActive(true);
+            movimentMsg.SetActive(true);
             EnterName();
         }
     }
