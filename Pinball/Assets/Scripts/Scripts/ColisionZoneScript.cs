@@ -8,7 +8,7 @@ public class ColisionZoneScript : MonoBehaviour {
     public Transform spawnPosition;
     public GameObject sphere;
     //public Vector3 initPosition;
-    public int lives = 3;
+    public int lives = 20;
     public bool gameOver = false;
     private int saveScore;
     private bool deleteSphere = false;

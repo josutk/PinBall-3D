@@ -16,10 +16,12 @@ public class HighscoreTable : MonoBehaviour {
     private int stepper = 0;
     private GameObject nextText;
     public GameObject gameDialog;
+    public GameObject movimentMsg;
     private bool readyToMove = true;
     public Text[] Letters = null;
     private int scoreS;
-
+    private Color selectedColor = Color.green;
+    private Color AlfaColor = Color.yellow;
     private GameScript game;
 
     private void Awake() {
@@ -48,10 +50,10 @@ public class HighscoreTable : MonoBehaviour {
 
     void Start() {
         Letters[letterSelect].text = alphabet[stepper].ToString();
+        Letters[letterSelect].color = AlfaColor;
         Input.ResetInputAxes();
         nextText = GameObject.Find("Button");
-
-        game = Finder.GetGameController();
+        game = Finder.GetGameController();        
     }
 
     void Update() {        
@@ -59,6 +61,7 @@ public class HighscoreTable : MonoBehaviour {
         {
             Debug.Log("Menu isn't loaded!");
             gameDialog.SetActive(true);
+            movimentMsg.SetActive(true);
             EnterName();
         }
     }
@@ -229,10 +232,12 @@ public class HighscoreTable : MonoBehaviour {
                             CreatingHighscoreEntryTransform(highScoreEntry, entryContainer, highscoreEntryTransformList);
                         }
                         game.LoadMenu();
-                    }
-
+                    }                    
+                    
                     if (letterSelect < Letters.Length - 1) {
                         letterSelect++;
+                        Letters[letterSelect].color = AlfaColor;                        
+                        Letters[letterSelect - 1].color = selectedColor;
                         readyToMove = false;
                         Invoke("ResetReadyToMove", moveDelay);
                     }

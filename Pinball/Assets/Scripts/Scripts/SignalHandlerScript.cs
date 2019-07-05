@@ -102,7 +102,11 @@ public class SignalHandlerScript : MonoBehaviour
         }
         else
         {
-            if(fake)
+            if(freeze)
+            {
+                FrozenInput();
+            }
+            else if(fake)
             {
                 SimulateSignals();
             }
@@ -170,7 +174,7 @@ public class SignalHandlerScript : MonoBehaviour
         }
         else
         {
-            UART.generateLauncher = false;
+            UART.generateButtonSelect = false;
         }
 
         if(Input.GetKey(KeyCode.Return))
