@@ -163,9 +163,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 361b190fd1f603a41b34f779d6d81dfe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  usingMSP: 0
+  usingMSP: 1
   freeze: 0
-  fake: 0
+  fake: 1
 --- !u!1 &1086066417
 GameObject:
   m_ObjectHideFlags: 0
