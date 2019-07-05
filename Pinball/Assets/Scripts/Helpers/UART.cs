@@ -174,7 +174,8 @@ public class UART
         {
             int[] last = buffer.Last;
 
-            if (last[0] != receivedMessage[0])
+            if (last[0] != receivedMessage[0]
+                || last[1] != receivedMessage[1])
             {
                 buffer.Enqueue(new int[2] { receivedMessage[0], receivedMessage[1] });
             }

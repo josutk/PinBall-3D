@@ -106,30 +106,30 @@ public class SignalHandlerScript : MonoBehaviour
             {
                 FrozenInput();
             }
-            else if(fake)
+            else
             {
-                SimulateSignals();
-            }
+                if(fake)
+                {
+                    SimulateSignals();
+                }
 
-            int[] temporaryMessage = new int[2];
-
-            temporaryMessage = UART.GetMessage();
-
-            CorrectOrder(temporaryMessage);
-
-            SavePreviousButtons();
-
-            if (message[0] != previousMessage[0])
-            {
-                Debug.Log($"Mensagem: anterior {previousMessage[0]} atual {message[0]}");
-                previousMessage[0] = message[0];
-                ParseButtonsAndForce();
-            }
-
-            if (message[1] != previousMessage[1])
-            {
-                 previousMessage[1] = message[1];
-                 ParseAngle();
+                int[] temporaryMessage = new int[2];
+                temporaryMessage = UART.GetMessage();
+                CorrectOrder(temporaryMessage);
+                SavePreviousButtons();
+            
+                if (message[0] != previousMessage[0])
+                {
+                    Debug.Log($"Mensagem: anterior {previousMessage[0]} atual {message[0]}");
+                    previousMessage[0] = message[0];
+                    ParseButtonsAndForce();
+                }
+                
+                if (message[1] != previousMessage[1])
+                {
+                    previousMessage[1] = message[1];
+                    ParseAngle();
+                }
             }
         }
     }
