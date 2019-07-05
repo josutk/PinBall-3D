@@ -39,12 +39,13 @@ public class FlipperScript : MonoBehaviour{
         spring.spring = hitStrenght;
         spring.damper = flipperDamper;
 
-        if(signalHandler.usingMSP)
+        if(signalHandler.usingMSP && !signalHandler.freeze)
         {
             if(isLeft)
             {
                 if (signalHandler.buttons.leftButton) 
                 {
+                    Debug.Log("Flip!");
                     spring.targetPosition = pressedPosition;
 
                     if(!signalHandler.previousButtons.leftButton)

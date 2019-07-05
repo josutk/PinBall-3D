@@ -102,12 +102,7 @@ public class SignalHandlerScript : MonoBehaviour
         }
         else
         {
-            if(freeze)
-            {
-                FrozenInput();
-            }
-            else
-            {
+            
                 if(fake)
                 {
                     SimulateSignals();
@@ -129,6 +124,11 @@ public class SignalHandlerScript : MonoBehaviour
                 {
                     previousMessage[1] = message[1];
                     ParseAngle();
+                }
+
+                if(freeze)
+                {
+                    FrozenInput();
                 }
             }
         }
@@ -210,7 +210,7 @@ public class SignalHandlerScript : MonoBehaviour
     private void FrozenInput()
     {   
         buttons.select = false;
-        buttons = new Buttons(false, false, false);
+        // buttons = new Buttons(false, false, false);
         launcher.force = 0;
         angle.angleX = 2; // 0
         angle.angleZ = 2;
