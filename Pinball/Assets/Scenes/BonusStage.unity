@@ -236,7 +236,7 @@ HingeJoint2D:
   m_UseMotor: 0
   m_Motor:
     m_MotorSpeed: 500
-    m_MaximumMotorForce: 10000
+    m_MaximumMotorForce: 5000
   m_UseLimits: 1
   m_AngleLimits:
     m_LowerAngle: 0
@@ -253,7 +253,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b711fad61f138d49af348c01c546719, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: -10000
+  speed: -1500
 --- !u!50 &40707636
 Rigidbody2D:
   serializedVersion: 4
@@ -993,7 +993,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 168f1d8f62522384e9bc630cbf845245, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pushForce: 3
+  pushForce: 1
 --- !u!114 &404523472
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1491,7 +1491,7 @@ HingeJoint2D:
   m_UseMotor: 0
   m_Motor:
     m_MotorSpeed: 500
-    m_MaximumMotorForce: 10000
+    m_MaximumMotorForce: 2500
   m_UseLimits: 1
   m_AngleLimits:
     m_LowerAngle: 0
@@ -1591,7 +1591,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b711fad61f138d49af348c01c546719, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: -10000
+  speed: -1500
 --- !u!60 &631708900
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -2008,7 +2008,7 @@ HingeJoint2D:
   m_UseMotor: 0
   m_Motor:
     m_MotorSpeed: 500
-    m_MaximumMotorForce: 10000
+    m_MaximumMotorForce: 5000
   m_UseLimits: 1
   m_AngleLimits:
     m_LowerAngle: 0
@@ -2046,7 +2046,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6773c8790865e7a439fe8a61c573663b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: -10000
+  speed: -1500
 --- !u!60 &778577921
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -2359,7 +2359,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 168f1d8f62522384e9bc630cbf845245, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pushForce: 2
+  pushForce: 1
 --- !u!50 &848659268
 Rigidbody2D:
   serializedVersion: 4
@@ -2379,7 +2379,7 @@ Rigidbody2D:
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 7
 --- !u!114 &848659269
 MonoBehaviour:
@@ -3360,7 +3360,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 168f1d8f62522384e9bc630cbf845245, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pushForce: 2
+  pushForce: 1
 --- !u!50 &982480753
 Rigidbody2D:
   serializedVersion: 4
@@ -3380,7 +3380,7 @@ Rigidbody2D:
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 7
 --- !u!58 &982480754
 CircleCollider2D:
@@ -3506,7 +3506,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 168f1d8f62522384e9bc630cbf845245, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pushForce: 2
+  pushForce: 1
 --- !u!50 &1018589115
 Rigidbody2D:
   serializedVersion: 4
@@ -3526,7 +3526,7 @@ Rigidbody2D:
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 7
 --- !u!58 &1018589116
 CircleCollider2D:
@@ -3652,7 +3652,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 168f1d8f62522384e9bc630cbf845245, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pushForce: 2
+  pushForce: 1
 --- !u!50 &1109944982
 Rigidbody2D:
   serializedVersion: 4
@@ -3672,7 +3672,7 @@ Rigidbody2D:
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 7
 --- !u!58 &1109944983
 CircleCollider2D:
@@ -3930,7 +3930,7 @@ GameObject:
   - component: {fileID: 1336514884}
   - component: {fileID: 1336514887}
   m_Layer: 0
-  m_Name: Sphere
+  m_Name: Ball
   m_TagString: 2D Ball
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4013,7 +4013,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1336514883}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 51.872005, y: -3.828125, z: 10.813723}
+  m_LocalPosition: {x: 48.41, y: -0.77, z: 10.813723}
   m_LocalScale: {x: 0.085965894, y: 0.085965894, z: 0.021491474}
   m_Children: []
   m_Father: {fileID: 0}
@@ -4242,7 +4242,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 168f1d8f62522384e9bc630cbf845245, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pushForce: 2
+  pushForce: 1
 --- !u!50 &1444733840
 Rigidbody2D:
   serializedVersion: 4
@@ -4262,7 +4262,7 @@ Rigidbody2D:
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 7
 --- !u!58 &1444733841
 CircleCollider2D:
@@ -4387,7 +4387,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 168f1d8f62522384e9bc630cbf845245, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pushForce: 3
+  pushForce: 1
 --- !u!114 &1542847896
 MonoBehaviour:
   m_ObjectHideFlags: 0
