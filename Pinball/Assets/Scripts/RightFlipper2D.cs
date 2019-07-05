@@ -19,20 +19,16 @@ public class RightFlipper2D : MonoBehaviour
     }
     void Update()
     {
-        if (signalHandler.fake) {
+       if (signalHandler.buttons.rightButton)
+       {
+           motor2D.motorSpeed = -speed;
+           myHingeJoint.motor = motor2D;
 
-            if (signalHandler.buttons.rightButton)
-            {
-                motor2D.motorSpeed = -speed;
-                myHingeJoint.motor = motor2D;
-
-            }
-            else
-            {
-                motor2D.motorSpeed = speed;
-                myHingeJoint.motor = motor2D;
-            }
-        }
-
+       }
+       else
+       {
+           motor2D.motorSpeed = speed;
+           myHingeJoint.motor = motor2D;
+       }
     }
 }

@@ -22,18 +22,15 @@ public class LeftFlipper2D : MonoBehaviour
 
     void Update()
     {
-        if (signalHandler.fake)
-        {
-            if (signalHandler.buttons.leftButton)
-            {
-                motor2D.motorSpeed = speed;
-                myHingeJoint.motor = motor2D;
-            }
-            else
-            {
-                motor2D.motorSpeed = -speed;
-                myHingeJoint.motor = motor2D;
-            }
-        }
+       if (signalHandler.buttons.leftButton)
+       {
+          motor2D.motorSpeed = speed;
+           myHingeJoint.motor = motor2D;
+       }
+       else
+       {
+           motor2D.motorSpeed = -speed;
+           myHingeJoint.motor = motor2D;
+       }
     }
 }
