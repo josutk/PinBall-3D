@@ -219,12 +219,19 @@ public class GameScript : MonoBehaviour
     public void LoadFGArcade()
     {
         UnloadOtherScenes();
+
+        ScoreManager scoreManager = Finder.GetScoreManager();
+        scoreManager.ResetScore();
         SceneManager.LoadScene(Constants.FGARCADE_SCENE, LoadSceneMode.Additive);
     }
 
     public void LoadPinballBet()
     {
         UnloadOtherScenes();
+
+        ScoreManager scoreManager = Finder.GetScoreManager();
+        scoreManager.ResetScore();
+
         SceneManager.LoadScene(Constants.PINBALLBET_SCENE, LoadSceneMode.Additive);
 
     }

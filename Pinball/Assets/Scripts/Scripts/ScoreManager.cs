@@ -18,7 +18,14 @@ public class ScoreManager : MonoBehaviour {
         UpdateScore();
     }
 
-    void UpdateScore() {        
+    void UpdateScore() 
+    {        
         scoreText.text = this.score.ToString("N0").PadLeft(11, '0');        
+    }
+
+    public void ResetScore()
+    {
+        score = 0;
+        UpdateScore();
     }
 }

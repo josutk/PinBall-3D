@@ -22,7 +22,7 @@ public class LeftFlipper2D : MonoBehaviour
 
     void Update()
     {
-        if (signalHandler.fake)
+        if (signalHandler.usingMSP)
         {
             if (signalHandler.buttons.leftButton)
             {
