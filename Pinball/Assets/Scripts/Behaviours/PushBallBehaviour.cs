@@ -15,7 +15,7 @@ public class PushBallBehaviour: MonoBehaviour
         // Get collision normal vector
         Vector3 newDirection = collision.contacts[0].normal;
         float collisionForce = collision.relativeVelocity.magnitude;
-        Debug.Log($"CollisionForce ${collisionForce}");
+        //Debug.Log($"CollisionForce ${collisionForce}");
 
         // Change direction
         newDirection = -newDirection.normalized;
@@ -25,7 +25,7 @@ public class PushBallBehaviour: MonoBehaviour
 
         float forceToBeAdded = collisionForce * minIncrement;
 
-        Debug.Log($"Force to be Added {forceToBeAdded}");
+        //Debug.Log($"Force to be Added {forceToBeAdded}");
 
         if(forceToBeAdded > maxIncrement)
         {

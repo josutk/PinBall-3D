@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 using Random = UnityEngine.Random;
 
@@ -28,7 +29,7 @@ public class GameScript : MonoBehaviour
     {
         signalHandler = Finder.GetSignalHandler();
         
-        LoadMenu();
+        //LoadMenu();
     }
 
     void Update()

@@ -30,6 +30,7 @@ TagManager:
   - Wall
   - SignalHandler2D
   - Score Manager
+  - Inserts Group
   layers:
   - Default
   - TransparentFX
@@ -39,7 +40,7 @@ TagManager:
   - UI
   - 
   - 
-  - 
+  - Extingable Insert
   - 
   - 
   - 

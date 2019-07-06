@@ -29,4 +29,11 @@ public static class Constants
     public const string BONUS_LEVEL_BACKGLASS_CAMERA = "Bonus Level Backglass Camera";
 
     public const string SCORE_MANAGER_TAG = "Score Manager";
+
+    public const string INSERTS_GROUP_TAG = "Inserts Group";
+
+    public static class Layers 
+    {
+        public const int EXINGABLE_INSERTS = 8;
+    }
 } 
