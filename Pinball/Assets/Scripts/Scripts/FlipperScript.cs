@@ -41,7 +41,7 @@ public class FlipperScript : MonoBehaviour{
 
         if(isLeft)
         {
-            if (signalHandler.buttons.leftButton) 
+            if (signalHandler.buttons.leftButton && !signalHandler.freeze) 
             {
                 spring.targetPosition = pressedPosition;
 
@@ -64,7 +64,7 @@ public class FlipperScript : MonoBehaviour{
         }
         else
         {
-            if (signalHandler.buttons.rightButton) 
+            if (signalHandler.buttons.rightButton && !signalHandler.freeze) 
             {
                 spring.targetPosition = pressedPosition;
                 
