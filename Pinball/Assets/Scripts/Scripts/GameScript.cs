@@ -33,39 +33,9 @@ public class GameScript : MonoBehaviour
 
     void Update()
     {
-        if(IsFGArcadeLoaded || IsPinballBetLoaded)
+        if((IsFGArcadeLoaded || IsPinballBetLoaded) && (signalHandler.angle.angleX != 0) || (signalHandler.angle.angleZ != 0))
         {
-            if(signalHandler.usingMSP && DidTilt)
-            {
-                TiltBall(signalHandler.angle);    
-            }
-            else
-            {
-                if(Input.GetKeyDown(KeyCode.Return))
-                {
-                    Random.InitState((int)Time.time);
-
-                    int randX = Random.Range(-2, 2);
-                    int randZ = Random.Range(-2, 2);
-
-                    TiltBall(new SignalHandlerScript.Angle(randX,randZ));
-                }
-            }
-        }
-
-        if(Input.GetKeyDown(KeyCode.I))
-        {
-            Debug.Log($"Change Lights! {velocity}");
-
-            signalHandler.ChangeLights(velocity);
-            velocity++;
-
-            if(velocity > 7)
-            {
-                velocity = 0;
-            }
-
-            signalHandler.SendMessage();
+            TiltBall(signalHandler.angle);
         }
     }
 

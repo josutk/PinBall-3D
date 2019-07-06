@@ -53,12 +53,6 @@ public class SignalHandlerScript : MonoBehaviour
                 mAngleZ = value - 2;
             }
         }
-
-        public Angle(int x, int z)
-        {
-            mAngleX = x;
-            mAngleZ = z;
-        }
     };
 
     public Buttons buttons;
@@ -70,65 +64,47 @@ public class SignalHandlerScript : MonoBehaviour
     private int[] previousMessage = new int[2]{-1, -1};
     private int[] message = new int[2]{-1, -1};
 
-    public bool usingMSP = false;
-
     public bool freeze = false;
 
     public bool fake = false;
     
-    void Start()
+    private void Start()
     {
-        if(usingMSP) UART.Start(fake);
+        if(fake)
+        { 
+            UART.Start(fake);
+        }
 
         buttons = new Buttons(false, false, false);
     }
 
-    void Update()
+    private void Update()
     {
-        if(!usingMSP)
+        if(fake)
         {
-            if(!freeze)
-            {
-                buttons.leftButton = Input.GetKeyDown(KeyCode.A);
-           
-                buttons.rightButton = Input.GetKeyDown(KeyCode.D);
-
-                buttons.select = Input.GetKeyDown(KeyCode.Space);
-            }
-            else
-            {
-                FrozenInput();
-            }
+            SimulateSignals();
         }
-        else
+        
+        int[] temporaryMessage = new int[2];
+        temporaryMessage = UART.GetMessage();
+        CorrectOrder(temporaryMessage);
+        SavePreviousButtons();
+        
+        if (message[0] != previousMessage[0])
         {
-            if(fake)
-            {
-                SimulateSignals();
-            }
+            previousMessage[0] = message[0];
+            ParseButtonsAndForce();
+        }
             
-            int[] temporaryMessage = new int[2];
-            temporaryMessage = UART.GetMessage();
-            CorrectOrder(temporaryMessage);
-            SavePreviousButtons();
-            
-            if (message[0] != previousMessage[0])
-            {
-                Debug.Log($"Mensagem: anterior {previousMessage[0]} atual {message[0]}");
-                previousMessage[0] = message[0];
-                ParseButtonsAndForce();
-            }
-                
-            if (message[1] != previousMessage[1])
-            {
-                previousMessage[1] = message[1];
-                ParseAngle();
-            }
+        if (message[1] != previousMessage[1])
+        {
+            previousMessage[1] = message[1];
+            ParseAngle();
+        }
 
-            if(freeze)
-            {
-                FrozenInput();
-            }
+        if(freeze)
+        {
+            FrozenInput();
         }
     }
 
@@ -208,7 +184,6 @@ public class SignalHandlerScript : MonoBehaviour
     private void FrozenInput()
     {   
         buttons.select = false;
-        // buttons = new Buttons(false, false, false);
         launcher.force = 0;
         angle.angleX = 2; // 0
         angle.angleZ = 2;
@@ -235,7 +210,6 @@ public class SignalHandlerScript : MonoBehaviour
 
     public void ChangeLights(Int32 speed)
     {
-        Debug.Log($"Speed {speed}");
         UART.ChangeLights(speed);
     }
 

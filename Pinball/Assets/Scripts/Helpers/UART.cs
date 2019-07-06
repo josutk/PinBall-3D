@@ -125,8 +125,8 @@ public class UART
 
             mutex.WaitOne();
 
-            receivedMessage[0] = 0;
-            receivedMessage[1] = 0;
+            receivedMessage[0] = 0b00000000;
+            receivedMessage[1] = 0b10010010;
 
             if (generateButtonLeft)
             {
@@ -188,7 +188,7 @@ public class UART
 
     private static void GenerateAngle()
     {
-        receivedMessage[1] = receivedMessage[1] | 0b10001010;
+        receivedMessage[1] = receivedMessage[1] | 0b11000100;
     }
 
     private static void GenerateButtonSelect()
@@ -266,11 +266,6 @@ public class UART
     {
         
         mutex.WaitOne();
-        // Never return the same array, or you will return it's reference.
-        // if(receivedMessage[0] == 8)
-        // {
-        //     Debug.Log("Oito!");
-        // }
 
         int[] fromBuffer;
 
