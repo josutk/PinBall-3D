@@ -28,6 +28,7 @@ public class LightBehaviourEditor : Editor
         lightBehaviour.lightSelf = EditorGUILayout.Toggle("Light Self?", lightBehaviour.lightSelf);
         lightBehaviour.turnOffOnExit = EditorGUILayout.Toggle("Turn off on exit?", lightBehaviour.turnOffOnExit);
 
+        SerializedObject serializedObject = new SerializedObject(target);
         SerializedProperty property = serializedObject.FindProperty("objectsToLight");
 
         Object firstObject = null;
@@ -71,7 +72,7 @@ public class LightBehaviourEditor : Editor
                     (Conditions.Condition) methods[methodIndex].CreateDelegate(typeof(Conditions.Condition));
         }
 
-        serializedObject.Update();
+        //serializedObject.Update();
         EditorGUILayout.PropertyField(property, true);
         serializedObject.ApplyModifiedProperties();
     }
