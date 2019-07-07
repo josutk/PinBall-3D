@@ -20,16 +20,21 @@ public class LightBehaviourEditor : Editor
     private MethodInfo[] methods;
     private int index = 0;
 
+    private LightBehaviour lightBehaviour;
+    private SerializedProperty property;
+
+    void OnEnable()
+    {
+        lightBehaviour = (LightBehaviour) target;
+        property = serializedObject.FindProperty("objectsToLight");
+    }
+
+
     public override void OnInspectorGUI()
     {
-        LightBehaviour lightBehaviour = (LightBehaviour) target;
-        
         lightBehaviour.onCollision =  EditorGUILayout.Toggle("Light on Collision?", lightBehaviour.onCollision);
         lightBehaviour.lightSelf = EditorGUILayout.Toggle("Light Self?", lightBehaviour.lightSelf);
         lightBehaviour.turnOffOnExit = EditorGUILayout.Toggle("Turn off on exit?", lightBehaviour.turnOffOnExit);
-
-        SerializedObject serializedObject = new SerializedObject(target);
-        SerializedProperty property = serializedObject.FindProperty("objectsToLight");
 
         Object firstObject = null;
 
@@ -72,8 +77,10 @@ public class LightBehaviourEditor : Editor
                     (Conditions.Condition) methods[methodIndex].CreateDelegate(typeof(Conditions.Condition));
         }
 
-        //serializedObject.Update();
+        Debug.Log($"Size: {property.arraySize}");
+
         EditorGUILayout.PropertyField(property, true);
+        serializedObject.Update();
         serializedObject.ApplyModifiedProperties();
     }
 }
