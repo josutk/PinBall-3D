@@ -70,10 +70,7 @@ public class SignalHandlerScript : MonoBehaviour
     
     private void Start()
     {
-        if(fake)
-        { 
-            UART.Start(fake);
-        }
+        UART.Start(fake);
 
         buttons = new Buttons(false, false, false);
     }
