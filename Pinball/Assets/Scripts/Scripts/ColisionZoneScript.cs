@@ -17,14 +17,17 @@ public class ColisionZoneScript : MonoBehaviour {
     private bool gameOver = false;
 
     private GameScript game;
+    private ScoreManager scoreManager;
 
     private void Start()
     {
         game = Finder.GetGameController();
+        scoreManager = Finder.GetScoreManager();
     }
 
     void Update() {
         
+        //TODO(Roger): Maybe use a collider instead of this?
         if (!GameObject.FindGameObjectWithTag(Constants.SPHERE_TAG) && !gameOver) {            
             lives--;            
 
@@ -48,6 +51,8 @@ public class ColisionZoneScript : MonoBehaviour {
 
                 return x;
             }).Count();
+
+            scoreManager.ResetMultiplier();
         }
         
         if (lives < 0) {

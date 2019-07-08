@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -6,8 +7,11 @@ using static Conditions;
 
 public class LightBehaviour : MonoBehaviour
 {
-    public Condition turnOnCondition;
-    public Condition turnOffCondition;
+
+    public string turnOnMethodName;
+    public string turnOffMethodName;
+    private Condition turnOnCondition;
+    private Condition turnOffCondition;
 
     [HideInInspector]
     public bool onCollision;
@@ -27,6 +31,27 @@ public class LightBehaviour : MonoBehaviour
     void Start()
     {
         game = Finder.GetGameController();
+
+        GetMethods();
+    }
+
+    private void GetMethods()
+    {
+        if(turnOnMethodName != "")
+        {
+            turnOnCondition 
+                = (Condition) Delegate
+                    .CreateDelegate(
+                        typeof(Conditions.Condition),
+                        typeof(Conditions.LightOnConditions),
+                        turnOnMethodName
+                    );
+        }
+        else if(turnOffMethodName != "")
+        {
+            turnOffCondition = 
+                (Condition) Delegate.CreateDelegate(typeof(Conditions.LightOffConditions), this, turnOffMethodName);
+        }
     }
 
     private Light GetLight(GameObject obj)
@@ -55,15 +80,11 @@ public class LightBehaviour : MonoBehaviour
 
     void Update()
     {
-        if(!onCollision && !onTrigger && onCustom)
+        if(onCustom && !onCollision && !onTrigger)
         {
             if(turnOnCondition())
             {
                 On();
-            }
-            else if (turnOffCondition())
-            {
-                Off();
             }
         }
     }

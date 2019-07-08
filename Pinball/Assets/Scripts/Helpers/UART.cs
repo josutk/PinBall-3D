@@ -146,7 +146,6 @@ public class UART
 
             if (generateLauncher)
             {
-                Debug.Log("UART Generate Launcher");
                 GenerateLauncher();
             }
 

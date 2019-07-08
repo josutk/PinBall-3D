@@ -17,70 +17,109 @@ using Object = UnityEngine.Object;
 [CustomEditor(typeof(LightBehaviour))]
 public class LightBehaviourEditor : Editor
 {
-    private MethodInfo[] methods;
-    private int index = 0;
-
+    private string[] turnOnMethods;
+    private int turnOnMethodsIndex = 0;
+    private string[] turnOffMethods;
+    private int turnOffMethodsIndex = 0;
     private LightBehaviour lightBehaviour;
-    private SerializedProperty property;
-
+    private SerializedProperty objectsToLight;
+    private SerializedProperty onCollision;
+    private SerializedProperty lightSelf;
+    private SerializedProperty turnOffOnExit;
+    private SerializedProperty onTrigger;
+    private SerializedProperty onCustom;
+    private SerializedProperty turnOnMethodName;
+    private SerializedProperty turnOffMethodName;
     void OnEnable()
     {
         lightBehaviour = (LightBehaviour) target;
-        property = serializedObject.FindProperty("objectsToLight");
-    }
+        objectsToLight = serializedObject.FindProperty("objectsToLight");
+        onCollision = serializedObject.FindProperty("onCollision");
+        lightSelf = serializedObject.FindProperty("lightSelf");
+        turnOffOnExit = serializedObject.FindProperty("turnOffOnExit");
+        onTrigger = serializedObject.FindProperty("onTrigger");
+        onCustom = serializedObject.FindProperty("onCustom");
+        turnOnMethodName = serializedObject.FindProperty("turnOnMethodName");
+        turnOffMethodName = serializedObject.FindProperty("turnOffMethodName");
 
+        
+    }
 
     public override void OnInspectorGUI()
     {
-        lightBehaviour.onCollision =  EditorGUILayout.Toggle("Light on Collision?", lightBehaviour.onCollision);
-        lightBehaviour.lightSelf = EditorGUILayout.Toggle("Light Self?", lightBehaviour.lightSelf);
-        lightBehaviour.turnOffOnExit = EditorGUILayout.Toggle("Turn off on exit?", lightBehaviour.turnOffOnExit);
+        serializedObject.Update();
 
-        Object firstObject = null;
+        onCollision.boolValue = EditorGUILayout.Toggle("Light on Collision", onCollision.boolValue);
+        lightSelf.boolValue = EditorGUILayout.Toggle("Light self", lightSelf.boolValue);
+        turnOffOnExit.boolValue = EditorGUILayout.Toggle("Turn off on exit", turnOffOnExit.boolValue);
 
-        if(property.arraySize > 0)
+        ShowLightSelfInList();
+
+        onTrigger.boolValue = EditorGUILayout.Toggle("Light on Trigger", onTrigger.boolValue);
+
+        onCustom.boolValue = EditorGUILayout.Toggle("Light on Custom", onCustom.boolValue);
+
+        OnCustom();
+
+        EditorGUILayout.PropertyField(objectsToLight, true);
+        serializedObject.ApplyModifiedProperties();
+    }
+
+    private void OnCustom()
+    {
+        if (onCustom.boolValue)
         {
-            firstObject = property.GetArrayElementAtIndex(0).objectReferenceValue;
-        }
-
-        if(lightBehaviour.lightSelf)
-        {
-            if(firstObject == null || firstObject.ToString() != lightBehaviour.gameObject.ToString())
-            {
-                property.arraySize++;
-                property.GetArrayElementAtIndex(0).objectReferenceValue = lightBehaviour.gameObject;
-            }
-        }
-        else if(firstObject != null && firstObject.ToString() == lightBehaviour.gameObject.ToString())
-        {
-            property.DeleteArrayElementAtIndex(0);
-            property.arraySize--;
-        }
-
-        
-        lightBehaviour.onTrigger = EditorGUILayout.Toggle("Light on Trigger?", lightBehaviour.onTrigger);
-        
-        lightBehaviour.onCustom = EditorGUILayout.Toggle("Light on Custom?", lightBehaviour.onCustom);
-
-        if(lightBehaviour.onCustom)
-        {
-            methods = 
-                typeof(Conditions)
+            turnOnMethods = typeof(Conditions.LightOnConditions)
                 .GetMethods(BindingFlags.Public | BindingFlags.Instance | BindingFlags.Static)
-                .Where(x => x.DeclaringType == typeof(Conditions))
+                .Where(x => x.DeclaringType == typeof(Conditions.LightOnConditions))
+                .Select(x => x.Name)
                 .ToArray();
 
-            
-            string[] names = methods.Select(x => x.Name).ToArray();
-            int methodIndex = EditorGUILayout.Popup(index, names);
-            lightBehaviour.turnOnCondition = 
-                    (Conditions.Condition) methods[methodIndex].CreateDelegate(typeof(Conditions.Condition));
+            turnOnMethodsIndex = 
+                EditorGUILayout
+                .Popup(Array.IndexOf(turnOnMethods, turnOnMethodName.stringValue), turnOnMethods);
+
+            turnOnMethodName.stringValue = turnOnMethods[turnOnMethodsIndex];
+
+            turnOffMethods = typeof(Conditions.LightOffConditions)
+                .GetMethods(BindingFlags.Public | BindingFlags.Instance | BindingFlags.Static)
+                .Where(x => x.DeclaringType == typeof(Conditions.LightOffConditions))
+                .Select(x => x.Name)
+                .ToArray();
+
+            turnOffMethodsIndex = 
+                EditorGUILayout
+                .Popup(Array.IndexOf(turnOffMethods, turnOffMethodName.stringValue), turnOffMethods);
+
+            turnOffMethodName.stringValue = turnOffMethods[turnOffMethodsIndex];
+
+            serializedObject.ApplyModifiedProperties();
+        }
+    }
+
+    private void ShowLightSelfInList()
+    {
+        Object firstObject = null;
+
+        if (objectsToLight.arraySize > 0)
+        {
+            firstObject = objectsToLight.GetArrayElementAtIndex(0).objectReferenceValue;
         }
 
-        Debug.Log($"Size: {property.arraySize}");
+        if (lightSelf.boolValue)
+        {
+            if (firstObject == null || firstObject.ToString() != lightBehaviour.gameObject.ToString())
+            {
+                objectsToLight.arraySize++;
+                objectsToLight.GetArrayElementAtIndex(0).objectReferenceValue = lightBehaviour.gameObject;
+            }
+        }
+        else if (firstObject != null && firstObject.ToString() == lightBehaviour.gameObject.ToString())
+        {
+            objectsToLight.DeleteArrayElementAtIndex(0);
+            objectsToLight.arraySize--;
+        }
 
-        EditorGUILayout.PropertyField(property, true);
-        serializedObject.Update();
         serializedObject.ApplyModifiedProperties();
     }
 }
