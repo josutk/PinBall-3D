@@ -14,9 +14,9 @@ GameObject:
   - component: {fileID: 5741792257238678145}
   - component: {fileID: 2502145166761731722}
   - component: {fileID: 6060471146416461119}
-  - component: {fileID: 3766845474457360756}
   - component: {fileID: 5779610074916579881}
   - component: {fileID: 5718730789589821948}
+  - component: {fileID: 3034386147302271066}
   m_Layer: 0
   m_Name: PopBumpMedium_v2
   m_TagString: Untagged
@@ -110,7 +110,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   score: 400
-  gameScore: {fileID: 0}
 --- !u!82 &6060471146416461119
 AudioSource:
   m_ObjectHideFlags: 0
@@ -207,21 +206,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &3766845474457360756
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5741792257238678150}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 24f1a9461a5187d4fb4d85aac4415c45, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  startColor: {r: 0.7960785, g: 0.82745105, b: 0.8588236, a: 0}
-  changeColor: {r: 0.5882353, g: 0.058823533, b: 0.9333334, a: 0}
-  useParent: 0
 --- !u!114 &5779610074916579881
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -249,3 +233,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   minIncrement: 3
   maxIncrement: 6
+--- !u!114 &3034386147302271066
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5741792257238678150}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3e9bf2a45ab52347864e9e9c194f775, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  turnOnMethodName: 
+  turnOffMethodName: 
+  onCollision: 1
+  onTrigger: 0
+  onCustom: 0
+  turnOffOnExit: 1
+  lightSelf: 1
+  objectsToLight:
+  - {fileID: 5741792257238678150}
+  game: {fileID: 0}

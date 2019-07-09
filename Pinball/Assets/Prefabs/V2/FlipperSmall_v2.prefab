@@ -31,7 +31,7 @@ Transform:
   m_GameObject: {fileID: 7183068523551283261}
   m_LocalRotation: {x: -0, y: 0.02677396, z: -0, w: 0.9996416}
   m_LocalPosition: {x: 0.048697136, y: -0.0051999995, z: -0.08126274}
-  m_LocalScale: {x: 0.61491, y: 0.61491, z: 0.61491}
+  m_LocalScale: {x: 0.61491, y: 0.61491, z: -0.61491}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -53,7 +53,7 @@ MeshRenderer:
   m_GameObject: {fileID: 7183068523551283261}
   m_Enabled: 1
   m_CastShadows: 1
-  m_ReceiveShadows: 1
+  m_ReceiveShadows: 0
   m_DynamicOccludee: 1
   m_MotionVectors: 1
   m_LightProbeUsage: 1
@@ -97,8 +97,9 @@ MonoBehaviour:
   pressedPosition: -45
   hitStrenght: 10000
   flipperDamper: 150
-  inputName: LFlipper
-  isLeft: 0
+  isLeft: 1
+  flipperDown: {fileID: 8300000, guid: fac3a807ebec44a4fbc38d58573d45be, type: 3}
+  flipperUp: {fileID: 8300000, guid: a773ac2fdc6aabf4cb52e4dabc22fc3f, type: 3}
 --- !u!64 &7183068523551283260
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -124,7 +125,7 @@ Rigidbody:
   m_Mass: 20
   m_Drag: 0
   m_AngularDrag: 0
-  m_UseGravity: 1
+  m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0

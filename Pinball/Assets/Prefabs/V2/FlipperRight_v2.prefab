@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 482328063563197465}
   - component: {fileID: 482328063563197464}
   - component: {fileID: 482328063563197471}
+  - component: {fileID: 4519556321340043440}
   m_Layer: 0
   m_Name: FlipperRight_v2
   m_TagString: Untagged
@@ -97,8 +98,9 @@ MonoBehaviour:
   pressedPosition: 45
   hitStrenght: 10000
   flipperDamper: 150
-  inputName: RFlipper
   isLeft: 0
+  flipperDown: {fileID: 8300000, guid: fac3a807ebec44a4fbc38d58573d45be, type: 3}
+  flipperUp: {fileID: 8300000, guid: a773ac2fdc6aabf4cb52e4dabc22fc3f, type: 3}
 --- !u!64 &482328063563197465
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -124,7 +126,7 @@ Rigidbody:
   m_Mass: 20
   m_Drag: 0
   m_AngularDrag: 0
-  m_UseGravity: 1
+  m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
@@ -164,3 +166,17 @@ HingeJoint:
   m_EnablePreprocessing: 1
   m_MassScale: 1
   m_ConnectedMassScale: 1
+--- !u!64 &4519556321340043440
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 482328063563197470}
+  m_Material: {fileID: 13400000, guid: 1d9cf4e5fa056da449cafb38aadf732e, type: 2}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Convex: 1
+  m_CookingOptions: 14
+  m_Mesh: {fileID: 2489482262836792632, guid: c25c0052b82194344ada1311ede8ec2a, type: 3}
