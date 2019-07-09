@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public static class Finder
@@ -10,6 +11,11 @@ public static class Finder
     public static SignalHandlerScript GetSignalHandler()
     {
         return GameObject.FindGameObjectWithTag(Constants.SIGNAL_HANDLER_TAG).GetComponent<SignalHandlerScript>();
+    }
+
+    public static ScoreManager GetScoreManager()
+    {
+        return GameObject.FindGameObjectWithTag(Constants.SCORE_MANAGER_TAG).GetComponent<ScoreManager>();
     }
 
     public static GameObject[] GetSpheres()

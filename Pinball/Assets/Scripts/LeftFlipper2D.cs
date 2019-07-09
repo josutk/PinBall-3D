@@ -8,24 +8,29 @@ public class LeftFlipper2D : MonoBehaviour
     public float speed = 0f;
     private HingeJoint2D myHingeJoint;
     private JointMotor2D motor2D;
+    private SignalHandlerScript signalHandler;
 
     void Start()
     {
         myHingeJoint = GetComponent<HingeJoint2D>();
         motor2D = myHingeJoint.motor;
+        signalHandler = GameObject
+                       .FindGameObjectWithTag(Constants.SIGNAL_HANDLER_TAG)
+                       .GetComponent<SignalHandlerScript>();
+        
     }
 
     void Update()
     {
-        if (Input.GetKey(KeyCode.LeftArrow))
-        {
-            motor2D.motorSpeed = speed;
-            myHingeJoint.motor = motor2D;
-        }
-        else
-        {
-            motor2D.motorSpeed = -speed;
-            myHingeJoint.motor = motor2D;
-        }
+       if (signalHandler.buttons.leftButton)
+       {
+          motor2D.motorSpeed = speed;
+           myHingeJoint.motor = motor2D;
+       }
+       else
+       {
+           motor2D.motorSpeed = -speed;
+           myHingeJoint.motor = motor2D;
+       }
     }
 }

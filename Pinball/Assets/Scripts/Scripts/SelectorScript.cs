@@ -26,19 +26,19 @@ public class SelectorScript : MonoBehaviour
 
     void Update()
     {
-        if (signalHandler.buttons.rightButton)
+        if (signalHandler.buttons.rightButton && !signalHandler.previousButtons.rightButton)
         {
             MoveUp();
         }
 
-        if (signalHandler.buttons.leftButton)
+        if (signalHandler.buttons.leftButton && !signalHandler.previousButtons.leftButton)
         {
             MoveDown();
         }
 
         ShowInHover();
 
-        if (signalHandler.buttons.select)
+        if (signalHandler.buttons.select && !signalHandler.previousButtons.select)
         {
             if (IsHoveringFGArcade)
             {

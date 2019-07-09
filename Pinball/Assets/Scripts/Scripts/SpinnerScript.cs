@@ -15,9 +15,12 @@ public class SpinnerScript : MonoBehaviour
     // Component score
     public const int SCORE = 100;
 
+    private AudioSource audioSource;
+
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        audioSource = GetComponent<AudioSource>();
         
         //GameObject game = GameObject.FindGameObjectWithTag("Game");
 
@@ -48,7 +51,7 @@ public class SpinnerScript : MonoBehaviour
                 rotationCount = 0;
                 rotationAmount = 0;
 
-               // gameScript.score += SCORE;
+                audioSource.Play();
             }
 
             lastFrameAngle = transform.rotation;

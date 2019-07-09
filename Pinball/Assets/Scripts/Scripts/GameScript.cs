@@ -13,6 +13,8 @@ public class GameScript : MonoBehaviour
     public const float TILT_THRESHOLD_X = 5f;
     public const float TILT_THRESHOLD_Z = 0f;
 
+    int velocity = 0;
+
     private struct SavedStatus
     {
         public List<Rigidbody> rbs;
@@ -31,24 +33,9 @@ public class GameScript : MonoBehaviour
 
     void Update()
     {
-        if(IsFGArcadeLoaded || IsPinballBetLoaded)
+        if((IsFGArcadeLoaded || IsPinballBetLoaded) && (signalHandler.angle.angleX != 0) || (signalHandler.angle.angleZ != 0))
         {
-            if(signalHandler.usingMSP && DidTilt)
-            {
-                TiltBall(signalHandler.angle);    
-            }
-            else
-            {
-                if(Input.GetKeyDown(KeyCode.Return))
-                {
-                    Random.InitState((int)Time.time);
-
-                    int randX = Random.Range(-2, 2);
-                    int randZ = Random.Range(-2, 2);
-
-                    TiltBall(new SignalHandlerScript.Angle(randX,randZ));
-                }
-            }
+            TiltBall(signalHandler.angle);
         }
     }
 
@@ -202,12 +189,19 @@ public class GameScript : MonoBehaviour
     public void LoadFGArcade()
     {
         UnloadOtherScenes();
+
+        ScoreManager scoreManager = Finder.GetScoreManager();
+        scoreManager.ResetScore();
         SceneManager.LoadScene(Constants.FGARCADE_SCENE, LoadSceneMode.Additive);
     }
 
     public void LoadPinballBet()
     {
         UnloadOtherScenes();
+
+        ScoreManager scoreManager = Finder.GetScoreManager();
+        scoreManager.ResetScore();
+
         SceneManager.LoadScene(Constants.PINBALLBET_SCENE, LoadSceneMode.Additive);
 
     }

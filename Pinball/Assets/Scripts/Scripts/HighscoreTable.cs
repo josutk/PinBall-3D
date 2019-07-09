@@ -16,11 +16,15 @@ public class HighscoreTable : MonoBehaviour {
     private int stepper = 0;
     private GameObject nextText;
     public GameObject gameDialog;
+    public GameObject movimentMsg;
     private bool readyToMove = true;
     public Text[] Letters = null;
     private int scoreS;
-
+    private Color selectedColor = Color.green;
+    private Color AlfaColor = Color.yellow;
     private GameScript game;
+
+    private SignalHandlerScript signalHandler;
 
     private void Awake() {
         entryContainer = transform.Find("HighscoreEntryContainer");
@@ -48,10 +52,11 @@ public class HighscoreTable : MonoBehaviour {
 
     void Start() {
         Letters[letterSelect].text = alphabet[stepper].ToString();
+        Letters[letterSelect].color = AlfaColor;
         Input.ResetInputAxes();
         nextText = GameObject.Find("Button");
-
         game = Finder.GetGameController();
+        signalHandler = Finder.GetSignalHandler();
     }
 
     void Update() {        
@@ -59,6 +64,7 @@ public class HighscoreTable : MonoBehaviour {
         {
             Debug.Log("Menu isn't loaded!");
             gameDialog.SetActive(true);
+            movimentMsg.SetActive(true);
             EnterName();
         }
     }
@@ -187,8 +193,8 @@ public class HighscoreTable : MonoBehaviour {
 
     private void EnterName() {
         if (initials.Length < 3) {
-
-            if (Input.GetKey("up") && readyToMove) {
+            if (signalHandler.buttons.rightButton && readyToMove) {
+            //if (Input.GetKey("up") && readyToMove) {
                 if (stepper < alphabet.Length - 1) {
                     stepper++;
                     Letters[letterSelect].text = alphabet[stepper].ToString();
@@ -196,8 +202,9 @@ public class HighscoreTable : MonoBehaviour {
                     Invoke("ResetReadyToMove", moveDelay);
                 }
             }
-            //
-            if (Input.GetKey("down") && readyToMove) {
+
+            if (signalHandler.buttons.leftButton && readyToMove) {
+                //if (Input.GetKey("down") && readyToMove) {
                 if (stepper > 0) {
                     stepper--;
                     Letters[letterSelect].text = alphabet[stepper].ToString();
@@ -205,8 +212,8 @@ public class HighscoreTable : MonoBehaviour {
                     Invoke("ResetReadyToMove", moveDelay);
                 }
             }
-            //
-            if (Input.GetKey("tab") && readyToMove) {
+
+            if (signalHandler.buttons.select && readyToMove) {
                 if (letterSelect <= Letters.Length - 1) {
                     initials = initials + alphabet[stepper].ToString();
 
@@ -218,7 +225,7 @@ public class HighscoreTable : MonoBehaviour {
                         foreach (GameObject scores in GameObject.FindGameObjectsWithTag("Template")) {
                             Destroy(scores);
                         }
-                        
+
                         AddHighscoreEntry(scoreS, nameFromInput);
 
                         string jsonString = PlayerPrefs.GetString("HighscoreTable");
@@ -233,16 +240,16 @@ public class HighscoreTable : MonoBehaviour {
 
                     if (letterSelect < Letters.Length - 1) {
                         letterSelect++;
+                        Letters[letterSelect].color = AlfaColor;
+                        Letters[letterSelect - 1].color = selectedColor;
                         readyToMove = false;
                         Invoke("ResetReadyToMove", moveDelay);
                     }
-                    
+
                     stepper = 0;
                 }
             }
         }
-
-
     }
 
     void ResetReadyToMove() {
