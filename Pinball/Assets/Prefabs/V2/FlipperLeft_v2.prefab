@@ -97,8 +97,9 @@ MonoBehaviour:
   pressedPosition: -45
   hitStrenght: 10000
   flipperDamper: 150
-  inputName: LFlipper
   isLeft: 1
+  flipperDown: {fileID: 0}
+  flipperUp: {fileID: 0}
 --- !u!64 &7520005881799369426
 MeshCollider:
   m_ObjectHideFlags: 0
