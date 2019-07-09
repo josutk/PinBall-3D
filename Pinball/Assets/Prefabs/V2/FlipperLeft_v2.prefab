@@ -31,7 +31,7 @@ Transform:
   m_GameObject: {fileID: 7520005881799369429}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0.044975985, y: -0.00062299846, z: 0.09956911}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: -1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -97,8 +97,9 @@ MonoBehaviour:
   pressedPosition: -45
   hitStrenght: 10000
   flipperDamper: 150
-  inputName: LFlipper
   isLeft: 1
+  flipperDown: {fileID: 8300000, guid: fac3a807ebec44a4fbc38d58573d45be, type: 3}
+  flipperUp: {fileID: 8300000, guid: a773ac2fdc6aabf4cb52e4dabc22fc3f, type: 3}
 --- !u!64 &7520005881799369426
 MeshCollider:
   m_ObjectHideFlags: 0

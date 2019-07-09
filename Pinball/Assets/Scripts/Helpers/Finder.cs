@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using UnityEngine;
 
 public static class Finder
@@ -34,4 +35,19 @@ public static class Finder
         GameObject
             .FindGameObjectWithTag(Constants.BONUS_LEVEL_BACKGLASS_CAMERA)
             .GetComponent<Camera>();
+
+    public static GameObject[] GetAllExingableInserts()
+    {
+        Transform[] allInserts = GameObject
+            .FindGameObjectWithTag(Constants.INSERTS_GROUP_TAG)
+            .GetComponentsInChildren<Transform>();
+
+        GameObject[] extingableInserts = 
+            allInserts
+            .Select(x => x.gameObject)
+            .Where(x => x.gameObject.layer == Constants.Layers.EXINGABLE_INSERTS)
+            .ToArray();
+
+        return extingableInserts;
+    }
 }

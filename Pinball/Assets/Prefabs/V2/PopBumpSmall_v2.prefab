@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 367329275702829820}
   - component: {fileID: 1557966485157346859}
   - component: {fileID: 5345891402011847120}
-  - component: {fileID: 7339670704151506984}
+  - component: {fileID: 1262319177209774908}
   m_Layer: 0
   m_Name: PopBumpSmall_v2
   m_TagString: Untagged
@@ -110,7 +110,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   score: 300
-  gameScore: {fileID: 0}
 --- !u!82 &367329275702829820
 AudioSource:
   m_ObjectHideFlags: 0
@@ -234,7 +233,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audioSource: {fileID: 0}
---- !u!114 &7339670704151506984
+--- !u!114 &1262319177209774908
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -243,9 +242,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 2844363472673864259}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 24f1a9461a5187d4fb4d85aac4415c45, type: 3}
+  m_Script: {fileID: 11500000, guid: c3e9bf2a45ab52347864e9e9c194f775, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startColor: {r: 0.78823537, g: 0.8235295, b: 0.85098046, a: 0}
-  changeColor: {r: 0.87843144, g: 0.07058824, b: 0.07058824, a: 0}
-  useParent: 0
+  turnOnMethodName: 
+  turnOffMethodName: 
+  onCollision: 1
+  onTrigger: 0
+  onCustom: 0
+  turnOffOnExit: 1
+  lightSelf: 1
+  objectsToLight:
+  - {fileID: 2844363472673864259}
+  game: {fileID: 0}

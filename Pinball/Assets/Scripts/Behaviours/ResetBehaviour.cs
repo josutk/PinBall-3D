@@ -49,18 +49,13 @@ public class ResetBehaviour : MonoBehaviour
 
     public void Reset()
     {
-        //Debug.Log("Resetting!");
-
         if(resetPosition)
         {
-            //Debug.Log("ResetPosition?");
-
             objectToResetPosition.transform.localPosition = originalPosition;
         }
 
         if(resetTrigger)
         {
-            //Debug.Log("Reset Trigger?");
             trigger.enabled = resetTriggerTo;
         }
     }
