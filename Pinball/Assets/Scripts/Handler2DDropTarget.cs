@@ -31,7 +31,7 @@ public class Handler2DDropTarget : MonoBehaviour
         {
             if (script.getRenderState())
             {
-                Debug.Log("FALSE");
+                //Debug.Log("FALSE");
                 return false;
             }
         }

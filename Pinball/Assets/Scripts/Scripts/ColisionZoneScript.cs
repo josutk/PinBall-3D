@@ -8,9 +8,11 @@ public class ColisionZoneScript : MonoBehaviour {
     public Transform spawnPosition;
     public GameObject sphere;
     //public Vector3 initPosition;
-    public int lives = 3;
+    public int lives = 20;
     public bool gameOver = false;
-    private int saveScore;    
+    private int saveScore;
+    private bool deleteSphere = false;
+    public GameObject[] balls = new GameObject[3];
 
     private GameScript game;
 
@@ -26,23 +28,30 @@ public class ColisionZoneScript : MonoBehaviour {
 
             sphere.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePositionY;
             Instantiate(sphere, spawnPosition.position, sphere.transform.rotation);
+            deleteSphere = true;
 
         }
         if (lives < 0) {
             gameOver = true;               
         }
+
+        if (deleteSphere && !gameOver)
+        {
+            Destroy(balls[lives]);
+        }
+
+        deleteSphere = false;
+
         if (gameOver) {
             if (GameObject.FindGameObjectWithTag("Sphere")) {
                 Destroy(GameObject.FindGameObjectWithTag("Sphere"));                                               
             }
-            if (Input.GetKeyDown(KeyCode.Space)) {
-                //SceneManager.LoadScene("FGArcadeScene");
-                saveScore = GameObject.Find("ScoreManager").GetComponent<ScoreManegerScript>().score;
-                Debug.Log("ScoreScene " + GameObject.Find("ScoreManager").GetComponent<ScoreManegerScript>().score);
-                PlayerPrefs.SetInt("Score", saveScore);
-                game.LoadRanking();
-            }
-            //Debug.Log("Score " + GameObject.Find("ScoreManager").GetComponent<ScoreManegerScript>().score);
+            
+            saveScore = Finder.GetScoreManager().score;
+            
+            PlayerPrefs.SetInt("Score", saveScore);
+            
+            game.LoadRanking();
         }
                 
     }

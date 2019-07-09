@@ -17,8 +17,7 @@ public class UART
     static SerialPort port;
     static byte[] ok_message = new byte[1]{ 0xFF };
     static byte[] request = new byte[1]{ 0xF0 };
-    static byte[] message = new byte[2];
-
+    static byte[] message = new byte[2] { 0, 0 };
     private static int[] receivedMessage = new int[2]{-1, -1};
     private static LastQueue<int[]> buffer = new LastQueue<int[]>();
 
@@ -64,8 +63,8 @@ public class UART
         port.StopBits = (StopBits.One);
         port.Handshake = (Handshake.RequestToSend);
 
-        port.ReadTimeout = 250;
-        port.WriteTimeout = 250;
+        port.ReadTimeout = 500;
+        port.WriteTimeout = 500;
 
         port.DtrEnable = true;
         port.RtsEnable = true;
@@ -91,7 +90,10 @@ public class UART
     }
 
     public static void SendMessage()
-    {
+    {   
+        message[0] = Convert.ToByte(message[0] & 0b01111111);
+        message[1] = Convert.ToByte(message[1] | 0b10000000);
+
         port.Write(request, 0, 1);
         port.Write(message, 0, 2);
     }
@@ -123,8 +125,8 @@ public class UART
 
             mutex.WaitOne();
 
-            receivedMessage[0] = 0;
-            receivedMessage[1] = 0;
+            receivedMessage[0] = 0b00000000;
+            receivedMessage[1] = 0b10010010;
 
             if (generateButtonLeft)
             {
@@ -172,7 +174,8 @@ public class UART
         {
             int[] last = buffer.Last;
 
-            if (last[0] != receivedMessage[0])
+            if (last[0] != receivedMessage[0]
+                || last[1] != receivedMessage[1])
             {
                 buffer.Enqueue(new int[2] { receivedMessage[0], receivedMessage[1] });
             }
@@ -185,7 +188,7 @@ public class UART
 
     private static void GenerateAngle()
     {
-        receivedMessage[1] = receivedMessage[1] | 0b10001010;
+        receivedMessage[1] = receivedMessage[1] | 0b11000100;
     }
 
     private static void GenerateButtonSelect()
@@ -216,7 +219,7 @@ public class UART
         Debug.Log("Quit!");
 
         mShouldStopThread = true;
-        if(thread.IsAlive)
+        if(thread != null && thread.IsAlive)
         {
             thread.Join();
         }
@@ -237,16 +240,22 @@ public class UART
         {
             try 
             {
+                mutex.WaitOne();
                 receivedMessage[0] = port.ReadByte();
 
                 receivedMessage[1] = port.ReadByte();
+
+                AddToBuffer();
+                mutex.ReleaseMutex();
 
                 if(receivedMessage[0] != -1 || receivedMessage[1] != -1)
                 {
                     UnityEngine.Debug.Log($"GetMessage receivedMessage: {receivedMessage[0]} {receivedMessage[1]}");
                 }
             }
-            catch(TimeoutException) {
+            catch(TimeoutException e) {
+                Debug.Log($"Erro: {e.Message}");
+                mutex.ReleaseMutex();
             }
             catch(IOException){
             }
@@ -257,19 +266,17 @@ public class UART
     {
         
         mutex.WaitOne();
-        // Never return the same array, or you will return it's reference.
-        // if(receivedMessage[0] == 8)
-        // {
-        //     Debug.Log("Oito!");
-        // }
 
-        int[] fromBuffer = buffer.Dequeue();
+        int[] fromBuffer;
 
-        if(fromBuffer[0] == 8)
+        if(buffer.Count > 0)
         {
-            Debug.Log("Os comprimidos não me compreendem");
+            fromBuffer = buffer.Dequeue();
         }
-
+        else
+        {
+            fromBuffer = new int[2]{0 , 0};
+        } 
 
         int[] messageToSend = new int[2] {fromBuffer[0], fromBuffer[1] };
         mutex.ReleaseMutex();

@@ -7,7 +7,6 @@ public class FlipperScript : MonoBehaviour{
     public float pressedPosition = 45f;
     public float hitStrenght = 10000f;
     public float flipperDamper = 150f;
-    public string inputName;
 
     public bool isLeft = false;
     
@@ -15,9 +14,14 @@ public class FlipperScript : MonoBehaviour{
 
     private SignalHandlerScript signalHandler;
 
+    private AudioSource audioSource;
 
-    // Start is called before the first frame update
-    void Start() {
+    public AudioClip flipperDown;
+    public AudioClip flipperUp;
+
+
+    private void Start() 
+    {
         hinge = GetComponent<HingeJoint>();
 
         hinge.useSpring = true;
@@ -25,49 +29,64 @@ public class FlipperScript : MonoBehaviour{
         signalHandler = GameObject
                         .FindGameObjectWithTag(Constants.SIGNAL_HANDLER_TAG)
                         .GetComponent<SignalHandlerScript>();
+
+        audioSource = GetComponent<AudioSource>();
     }
 
-    // Update is called once per frame
-    void Update() {
+    void Update() 
+    {
         JointSpring spring = new JointSpring();
         spring.spring = hitStrenght;
         spring.damper = flipperDamper;
 
-        if(signalHandler.usingMSP)
+        if(isLeft)
         {
-            if(isLeft)
+            if (signalHandler.buttons.leftButton && !signalHandler.freeze) 
             {
-                if (signalHandler.buttons.leftButton) 
+                spring.targetPosition = pressedPosition;
+
+                if(!signalHandler.previousButtons.leftButton)
                 {
-                    spring.targetPosition = pressedPosition;
-                }
-                else {
-                    spring.targetPosition = initialPosition;
-                }    
-            }
-            else
-            {
-                if (signalHandler.buttons.rightButton) 
-                {
-                    spring.targetPosition = pressedPosition;
-                }
-                else {
-                    spring.targetPosition = initialPosition;
+                    audioSource.clip = flipperUp;
+                    audioSource.Play();
                 }
             }
+            else 
+            {
+                spring.targetPosition = initialPosition;
+              
+                if(signalHandler.previousButtons.leftButton)
+                {
+                    audioSource.clip = flipperDown;
+                    audioSource.Play();
+                }
+            }    
         }
         else
         {
-            spring.targetPosition = MoveKeyboard(spring);
+            if (signalHandler.buttons.rightButton && !signalHandler.freeze) 
+            {
+                spring.targetPosition = pressedPosition;
+                
+                if(!signalHandler.previousButtons.rightButton)
+                {
+                    audioSource.clip = flipperUp;
+                    audioSource.Play();
+                }
+            }
+            else {
+                spring.targetPosition = initialPosition;
+
+                if(signalHandler.previousButtons.rightButton)
+                {
+                    audioSource.clip = flipperDown;
+                    audioSource.Play();
+                }
+            }
         }
+        
 
         hinge.spring = spring;
         hinge.useLimits = true;
-    }
-
-    float MoveKeyboard(JointSpring spring)
-    {
-        if (Input.GetAxis(inputName) == 1 && !signalHandler.freeze) return pressedPosition;
-        else return initialPosition;
     }
 }
