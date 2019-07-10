@@ -29,7 +29,7 @@ public class GameScript : MonoBehaviour
     {
         signalHandler = Finder.GetSignalHandler();
         
-        //LoadMenu();
+        LoadMenu();
     }
 
     void Update()

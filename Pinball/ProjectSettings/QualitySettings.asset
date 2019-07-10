@@ -59,7 +59,7 @@ QualitySettings:
     antiAliasing: 0
     softParticles: 0
     softVegetation: 1
-    realtimeReflectionProbes: 1
+    realtimeReflectionProbes: 0
     billboardsFaceCameraPosition: 1
     vSyncCount: 1
     lodBias: 1
@@ -151,7 +151,7 @@ QualitySettings:
     Lumin: 3
     Nintendo Switch: 3
     PS4: 3
-    Standalone: 1
+    Standalone: 0
     WebGL: 1
     Windows Store Apps: 3
     XboxOne: 3
