@@ -37,20 +37,31 @@ public class ColisionZoneScript : MonoBehaviour {
 
             GameObject[] inserts = Finder.GetAllExingableInserts();
 
-            inserts.Select(x => {
-                Material[] materials = x.GetComponent<Renderer>().materials;
+            if(inserts != null)
+            {
+                inserts.Select(x => {
+                    Material[] materials = x.GetComponent<Renderer>().materials;
 
-                materials
-                    .Select(y => 
-                        { 
-                            y.DisableKeyword("_EMISSION"); return y; 
-                        }
-                    ).Count();
+                    if(materials != null)
+                    {
+                        materials
+                        .Select(y => 
+                            { 
+                                y.DisableKeyword("_EMISSION"); return y; 
+                            }
+                        ).Count();
+                    }
+                    
+                    Light light = x.GetComponent<Light>();
 
-                x.GetComponent<Light>().enabled = false;
+                    if(light != null)
+                    {
+                        x.GetComponent<Light>().enabled = false;
+                    }
 
-                return x;
-            }).Count();
+                    return x;
+                }).Count();
+            }
 
             scoreManager.ResetMultiplier();
         }
