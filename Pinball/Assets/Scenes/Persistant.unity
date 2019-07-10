@@ -306,8 +306,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   musicSource: {fileID: 745739911}
-  musicClip: {fileID: 8300000, guid: c2fd9bd20da1aac4586604e2a12ae735, type: 3}
-  paused: 0
+  soundtrack:
+  - {fileID: 8300000, guid: 7ed9d4886017ff94199d45064602ea34, type: 3}
+  - {fileID: 8300000, guid: 5e5d5c9e37ef2a34ab4f84c8f1dcf138, type: 3}
+  - {fileID: 8300000, guid: 105be618bf1c0c045a765d6c4ff7aaa9, type: 3}
+  - {fileID: 8300000, guid: db6ba578da650a94c8362581aad5b6aa, type: 3}
+  currentMusic: 0
 --- !u!1 &1086066417
 GameObject:
   m_ObjectHideFlags: 0
