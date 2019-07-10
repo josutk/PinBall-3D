@@ -15744,7 +15744,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e0a36bdf26d6d14c9e85632b0760cf2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  trigger: {fileID: 0}
+  trigger: {fileID: 1983662617}
 --- !u!114 &1983662610
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15762,6 +15762,12 @@ MonoBehaviour:
   resetTrigger: 1
   objectWithTrigger: {fileID: 1983662606}
   resetTriggerTo: 1
+--- !u!65 &1983662617 stripped
+BoxCollider:
+  m_CorrespondingSourceObject: {fileID: 6058808103160410691, guid: d3ce200eadf686f4a83494c0d20e25f0,
+    type: 3}
+  m_PrefabInstance: {fileID: 1983662604}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2016886038
 GameObject:
   m_ObjectHideFlags: 0
