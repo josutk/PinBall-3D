@@ -30,6 +30,7 @@ public class LightBehaviourEditor : Editor
     private SerializedProperty onCustom;
     private SerializedProperty turnOnMethodName;
     private SerializedProperty turnOffMethodName;
+
     void OnEnable()
     {
         lightBehaviour = (LightBehaviour) target;
@@ -41,6 +42,7 @@ public class LightBehaviourEditor : Editor
         onCustom = serializedObject.FindProperty("onCustom");
         turnOnMethodName = serializedObject.FindProperty("turnOnMethodName");
         turnOffMethodName = serializedObject.FindProperty("turnOffMethodName");
+        
     }
 
     public override void OnInspectorGUI()
