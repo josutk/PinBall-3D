@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -64,6 +65,7 @@ public class SignalHandlerScript : MonoBehaviour
     private int[] previousMessage = new int[2]{-1, -1};
     private int[] message = new int[2]{-1, -1};
 
+    [HideInInspector]
     public bool freeze = false;
 
     public bool fake = false;
@@ -83,7 +85,22 @@ public class SignalHandlerScript : MonoBehaviour
         }
         
         int[] temporaryMessage = new int[2];
-        temporaryMessage = UART.GetMessage();
+        
+        try
+        {
+            temporaryMessage = UART.GetMessage();
+        }
+        catch(IOException)
+        {
+            Debug.Log("Connection Error!");
+            
+            #if UNITY_EDITOR
+                UnityEditor.EditorApplication.isPlaying = false;
+            #else
+                Application.Quit();
+            #endif
+        }
+
         CorrectOrder(temporaryMessage);
         SavePreviousButtons();
         

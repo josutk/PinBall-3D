@@ -33,6 +33,12 @@ public class UART
     public static bool generateButtonSelect;
     internal static bool generateAngle;
 
+    private static int connectionTries = 0;
+
+    private static int CONNECTION_TRIES_LIMIT = 5;
+
+    private static bool connectionFailure = false;
+
     private static void OpenPort()
     {
         if(port.IsOpen)
@@ -240,20 +246,34 @@ public class UART
             try 
             {
                 mutex.WaitOne();
-                receivedMessage[0] = port.ReadByte();
 
-                receivedMessage[1] = port.ReadByte();
-
-                AddToBuffer();
-                mutex.ReleaseMutex();
-
-                if(receivedMessage[0] != -1 || receivedMessage[1] != -1)
+                if(connectionTries == CONNECTION_TRIES_LIMIT)
                 {
-                    UnityEngine.Debug.Log($"GetMessage receivedMessage: {receivedMessage[0]} {receivedMessage[1]}");
+                    connectionFailure = true;
+                    mutex.ReleaseMutex();
                 }
+                else
+                {
+                    receivedMessage[0] = port.ReadByte();
+
+                    receivedMessage[1] = port.ReadByte();
+
+                    AddToBuffer();
+
+                    connectionTries = 0;
+
+                    mutex.ReleaseMutex();
+
+                    if(receivedMessage[0] != -1 || receivedMessage[1] != -1)
+                    {
+                        UnityEngine.Debug.Log($"GetMessage receivedMessage: {receivedMessage[0]}    {receivedMessage[1]}");
+                    }
+                }
+
             }
             catch(TimeoutException e) {
                 Debug.Log($"Erro: {e.Message}");
+                RetryConnection();
                 mutex.ReleaseMutex();
             }
             catch(IOException){
@@ -261,28 +281,43 @@ public class UART
         }
     }
 
+    private static void RetryConnection()
+    {
+        Thread.Sleep(250);
+
+        OpenPort();
+
+        connectionTries++;
+    }
+
     public static int[] GetMessage()
     {
         
         mutex.WaitOne();
 
-        int[] fromBuffer;
-
-        if(buffer.Count > 0)
+        if(connectionFailure)
         {
-            fromBuffer = buffer.Dequeue();
+            mutex.ReleaseMutex();
+            throw new IOException();
         }
         else
         {
-            fromBuffer = new int[2]{0 , 0};
-        } 
+            int[] fromBuffer;
 
-        int[] messageToSend = new int[2] {fromBuffer[0], fromBuffer[1] };
-        mutex.ReleaseMutex();
+            if(buffer.Count > 0)
+            {
+                fromBuffer = buffer.Dequeue();
+            }
+            else
+            {
+                fromBuffer = new int[2]{0 , 0};
+            } 
 
-        //Debug.Log($"Message to send: {messageToSend[0]} {messageToSend[1]}");
-
-        
-        return messageToSend;
+            int[] messageToSend = new int[2] {fromBuffer[0], fromBuffer[1] };
+            
+            mutex.ReleaseMutex();
+            
+            return messageToSend;
+        }
     }
 }

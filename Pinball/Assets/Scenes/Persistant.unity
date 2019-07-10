@@ -164,7 +164,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   freeze: 0
-  fake: 0
+  fake: 1
 --- !u!1 &1086066417
 GameObject:
   m_ObjectHideFlags: 0
