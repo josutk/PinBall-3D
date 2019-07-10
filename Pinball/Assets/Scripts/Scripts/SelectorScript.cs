@@ -15,6 +15,10 @@ public class SelectorScript : MonoBehaviour
     public SpriteRenderer pinballBetPreview;
     public static bool isFromMenu = false;
 
+    public AudioSource audioSource;
+    public AudioClip selectorMoveSound;
+    public AudioClip selectorSelectSound;
+
     void Start()
     {
         signalHandler = Finder.GetSignalHandler();
@@ -22,6 +26,7 @@ public class SelectorScript : MonoBehaviour
         game = Finder.GetGameController();
         game.LoadRanking(false);
         currentPosition = LLPosition.First;
+        if (audioSource == null) audioSource = GetComponent<AudioSource>();
     }
 
     void Update()
@@ -29,17 +34,21 @@ public class SelectorScript : MonoBehaviour
         if (signalHandler.buttons.rightButton && !signalHandler.previousButtons.rightButton)
         {
             MoveUp();
+            PlaySoundEffect(selectorMoveSound);
         }
 
         if (signalHandler.buttons.leftButton && !signalHandler.previousButtons.leftButton)
         {
             MoveDown();
+            PlaySoundEffect(selectorMoveSound);
         }
 
         ShowInHover();
 
         if (signalHandler.buttons.select && !signalHandler.previousButtons.select)
         {
+            PlaySoundEffect(selectorSelectSound);
+
             if (IsHoveringFGArcade)
             {
                 game.LoadFGArcade();
@@ -143,5 +152,12 @@ public class SelectorScript : MonoBehaviour
             default:
                 break;       
         }
+    }
+
+    void PlaySoundEffect(AudioClip audioToPlay)
+    {
+        audioSource.Stop();
+        audioSource.clip = audioToPlay;
+        audioSource.Play();
     }
 }
