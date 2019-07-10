@@ -2002,7 +2002,9 @@ GameObject:
   - component: {fileID: 336147766}
   - component: {fileID: 336147765}
   - component: {fileID: 336147764}
-  m_Layer: 0
+  - component: {fileID: 336147767}
+  - component: {fileID: 336147768}
+  m_Layer: 8
   m_Name: INSERT_Circular14
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2129,6 +2131,41 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 336147762}
   m_Mesh: {fileID: 9222398871206472355, guid: c25c0052b82194344ada1311ede8ec2a, type: 3}
+--- !u!65 &336147767
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 336147762}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.0070876535, y: 0.00036552848, z: 0.006740762}
+  m_Center: {x: -0.0000000073341653, y: -9.313226e-10, z: 0.0000000022118911}
+--- !u!114 &336147768
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 336147762}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3e9bf2a45ab52347864e9e9c194f775, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  turnOnMethodName: 
+  turnOffMethodName: 
+  onCollision: 0
+  onTrigger: 1
+  onCustom: 0
+  turnOffOnExit: 0
+  lightSelf: 1
+  objectsToLight:
+  - {fileID: 336147762}
+  game: {fileID: 0}
 --- !u!1001 &336231636
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6122,7 +6159,9 @@ GameObject:
   - component: {fileID: 799681262}
   - component: {fileID: 799681261}
   - component: {fileID: 799681260}
-  m_Layer: 0
+  - component: {fileID: 799681263}
+  - component: {fileID: 799681264}
+  m_Layer: 8
   m_Name: INSERT_Circular13
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6249,6 +6288,41 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 799681258}
   m_Mesh: {fileID: -3325137797197359206, guid: c25c0052b82194344ada1311ede8ec2a, type: 3}
+--- !u!65 &799681263
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 799681258}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.0070876535, y: 0.00036552848, z: 0.006740762}
+  m_Center: {x: -0.0000000073341653, y: -9.313226e-10, z: 0.0000000022118911}
+--- !u!114 &799681264
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 799681258}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3e9bf2a45ab52347864e9e9c194f775, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  turnOnMethodName: 
+  turnOffMethodName: 
+  onCollision: 0
+  onTrigger: 1
+  onCustom: 0
+  turnOffOnExit: 0
+  lightSelf: 1
+  objectsToLight:
+  - {fileID: 799681258}
+  game: {fileID: 0}
 --- !u!1 &805659755
 GameObject:
   m_ObjectHideFlags: 0
@@ -6420,7 +6494,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 805659755}
   m_Material: {fileID: 13400000, guid: f831b95a62ad35a46866fd800e3b09f4, type: 2}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 0.0070876535, y: 0.00036552845, z: 0.006740762}
@@ -7111,6 +7185,28 @@ MonoBehaviour:
   resetTrigger: 1
   objectWithTrigger: {fileID: 854966699}
   resetTriggerTo: 1
+--- !u!114 &854966711
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 854966699}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3e9bf2a45ab52347864e9e9c194f775, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  turnOnMethodName: 
+  turnOffMethodName: 
+  onCollision: 0
+  onTrigger: 1
+  onCustom: 0
+  turnOffOnExit: 0
+  lightSelf: 0
+  objectsToLight:
+  - {fileID: 1242643730}
+  game: {fileID: 0}
 --- !u!1 &875725141
 GameObject:
   m_ObjectHideFlags: 0
@@ -7710,7 +7806,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 985677417}
   m_Material: {fileID: 13400000, guid: f831b95a62ad35a46866fd800e3b09f4, type: 2}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 0.0070876535, y: 0.00036552845, z: 0.006740762}
@@ -8695,7 +8791,9 @@ GameObject:
   - component: {fileID: 1056173477}
   - component: {fileID: 1056173476}
   - component: {fileID: 1056173475}
-  m_Layer: 0
+  - component: {fileID: 1056173478}
+  - component: {fileID: 1056173479}
+  m_Layer: 8
   m_Name: INSERT_Circular12
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8822,6 +8920,41 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1056173473}
   m_Mesh: {fileID: -5386555912316780190, guid: c25c0052b82194344ada1311ede8ec2a, type: 3}
+--- !u!65 &1056173478
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1056173473}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.0070876535, y: 0.00036552848, z: 0.006740762}
+  m_Center: {x: 1.1641534e-10, y: -9.313226e-10, z: 0.0000000022118911}
+--- !u!114 &1056173479
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1056173473}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3e9bf2a45ab52347864e9e9c194f775, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  turnOnMethodName: 
+  turnOffMethodName: 
+  onCollision: 0
+  onTrigger: 1
+  onCustom: 0
+  turnOffOnExit: 0
+  lightSelf: 1
+  objectsToLight:
+  - {fileID: 1056173473}
+  game: {fileID: 0}
 --- !u!1 &1076511778
 GameObject:
   m_ObjectHideFlags: 0
@@ -9677,7 +9810,7 @@ GameObject:
   - component: {fileID: 1242643734}
   - component: {fileID: 1242643733}
   - component: {fileID: 1242643732}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: INSERT_Circular16
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10986,7 +11119,9 @@ GameObject:
   - component: {fileID: 1418709943}
   - component: {fileID: 1418709942}
   - component: {fileID: 1418709941}
-  m_Layer: 0
+  - component: {fileID: 1418709944}
+  - component: {fileID: 1418709945}
+  m_Layer: 8
   m_Name: INSERT_Circular11
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -11113,6 +11248,41 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1418709939}
   m_Mesh: {fileID: -5786916465062110581, guid: c25c0052b82194344ada1311ede8ec2a, type: 3}
+--- !u!65 &1418709944
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1418709939}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.0070876535, y: 0.00036552848, z: 0.006740762}
+  m_Center: {x: 0.0000000038417056, y: -9.313226e-10, z: 0.0000000022118911}
+--- !u!114 &1418709945
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1418709939}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3e9bf2a45ab52347864e9e9c194f775, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  turnOnMethodName: 
+  turnOffMethodName: 
+  onCollision: 0
+  onTrigger: 1
+  onCustom: 0
+  turnOffOnExit: 0
+  lightSelf: 1
+  objectsToLight:
+  - {fileID: 1418709939}
+  game: {fileID: 0}
 --- !u!1 &1419425237
 GameObject:
   m_ObjectHideFlags: 0
@@ -12992,7 +13162,7 @@ GameObject:
   - component: {fileID: 1711429288}
   - component: {fileID: 1711429287}
   - component: {fileID: 1711429286}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: INSERT_Circular15
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -15515,6 +15685,11 @@ PrefabInstance:
       propertyPath: gameScore
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 6058808103160410750, guid: d3ce200eadf686f4a83494c0d20e25f0,
+        type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d3ce200eadf686f4a83494c0d20e25f0, type: 3}
 --- !u!4 &1983662605 stripped
@@ -15535,12 +15710,28 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 1983662604}
   m_PrefabAsset: {fileID: 0}
---- !u!65 &1983662608 stripped
-BoxCollider:
-  m_CorrespondingSourceObject: {fileID: 6058808103160410691, guid: d3ce200eadf686f4a83494c0d20e25f0,
-    type: 3}
-  m_PrefabInstance: {fileID: 1983662604}
+--- !u!114 &1983662608
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1983662606}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3e9bf2a45ab52347864e9e9c194f775, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  turnOnMethodName: MultipleIsOne
+  turnOffMethodName: Example2
+  onCollision: 0
+  onTrigger: 1
+  onCustom: 0
+  turnOffOnExit: 0
+  lightSelf: 0
+  objectsToLight:
+  - {fileID: 1711429284}
+  game: {fileID: 0}
 --- !u!114 &1983662609
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15553,7 +15744,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e0a36bdf26d6d14c9e85632b0760cf2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  trigger: {fileID: 1983662608}
+  trigger: {fileID: 0}
 --- !u!114 &1983662610
 MonoBehaviour:
   m_ObjectHideFlags: 0

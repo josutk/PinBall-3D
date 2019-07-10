@@ -41,8 +41,6 @@ public class LightBehaviourEditor : Editor
         onCustom = serializedObject.FindProperty("onCustom");
         turnOnMethodName = serializedObject.FindProperty("turnOnMethodName");
         turnOffMethodName = serializedObject.FindProperty("turnOffMethodName");
-
-        
     }
 
     public override void OnInspectorGUI()
@@ -79,7 +77,14 @@ public class LightBehaviourEditor : Editor
                 EditorGUILayout
                 .Popup(Array.IndexOf(turnOnMethods, turnOnMethodName.stringValue), turnOnMethods);
 
-            turnOnMethodName.stringValue = turnOnMethods[turnOnMethodsIndex];
+            if(turnOnMethodsIndex == -1 && turnOnMethods.Length > 0 )
+            {
+                turnOnMethodName.stringValue = turnOnMethods[0];
+            }
+            else
+            {
+                turnOnMethodName.stringValue = turnOnMethods[turnOnMethodsIndex];
+            }
 
             turnOffMethods = typeof(Conditions.LightOffConditions)
                 .GetMethods(BindingFlags.Public | BindingFlags.Instance | BindingFlags.Static)
@@ -91,7 +96,14 @@ public class LightBehaviourEditor : Editor
                 EditorGUILayout
                 .Popup(Array.IndexOf(turnOffMethods, turnOffMethodName.stringValue), turnOffMethods);
 
-            turnOffMethodName.stringValue = turnOffMethods[turnOffMethodsIndex];
+            if(turnOffMethodsIndex == -1 && turnOffMethods.Length > 0 )
+            {
+                turnOffMethodName.stringValue = turnOffMethods[0];
+            }
+            else
+            {
+                turnOffMethodName.stringValue = turnOffMethods[turnOffMethodsIndex];
+            }
 
             serializedObject.ApplyModifiedProperties();
         }
