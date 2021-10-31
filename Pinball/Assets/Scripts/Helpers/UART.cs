@@ -118,7 +118,6 @@ public class UART
 
     private static void FakeRead()
     {
-        //Debug.Log("Starting Fake Thread!");
 
         while(!mShouldStopThread)
         {
@@ -130,7 +129,6 @@ public class UART
 
             if (generateButtonLeft)
             {
-                //Debug.Log("Button Left!");
                 GenerateButtonLeft();
             }
 
@@ -159,10 +157,6 @@ public class UART
 
             mutex.ReleaseMutex();
 
-            // if (receivedMessage[0] != 0 || receivedMessage[1] != 0)
-            // {
-            //     Debug.Log($"GetMessage receivedMessage: {receivedMessage[0]} {receivedMessage[1]}");
-            // }
         }
 
         Debug.Log("Finished fake read!");
@@ -205,13 +199,11 @@ public class UART
     {
         receivedMessage[0] = receivedMessage[0] | 0b00010000;
 
-        // Debug.Log($"Message After Launcher {receivedMessage[0]}");
     }
 
     private static void GenerateButtonLeft()
     {
-        receivedMessage[0] = receivedMessage[0] | 0b00000010;
-        //Debug.Log($"Received Message: {receivedMessage[0]}");
+        receivedMessage[0] = receivedMessage[0] | 0b00000010;        
     }
 
     public static void Stop()
@@ -280,9 +272,6 @@ public class UART
 
         int[] messageToSend = new int[2] {fromBuffer[0], fromBuffer[1] };
         mutex.ReleaseMutex();
-
-        //Debug.Log($"Message to send: {messageToSend[0]} {messageToSend[1]}");
-
         
         return messageToSend;
     }
